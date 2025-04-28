@@ -96,3 +96,8 @@ B3 : git push -u origin main   // -> đẩy code lên main
         B1 : git add .
         B2 : git commit -m "Nội dung commit"
         B3 : git push
+
+
+
+-- Để lấy code từ GITHUB về máy 
+B1 : git pull origin ten_nhanh
