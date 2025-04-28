@@ -59,3 +59,35 @@ git config user.name "Ten Cua Ban"
     - Ví dụ có 1 thân cây là master và chúng ta chỉ nên add từ các nhánh tức là lá vào master 
     - Nhánh master là nhánh chính để sau này deploy lên server 
     
+
+
+//
+    - git branch // xem danh sách các nhánh
+    - git checkout -b ten_nhanh // tạo một nhánh mới và chuyển sang nhánh đó 
+    - git checkout ten_nhanh // chuyển sang nhánh khác
+    - git merge ten_nhanh // để merge nhánh khác vào trong nhánh hiện tại 
+    - git branch -D ten_nhanh // xóa nhánh
+    
+
+
+
+
+
+
+------------ HOC GITHUB-----------
+ - là một hệ thống để quản lý dự án trực tuyến trên online để giúp đồng bộ code của cả nhóm lên một kho lưu trữ chung
+
+ B1 : tạo new repository 
+ B2 : đặt tên repository 
+ B3 : để public 
+
+
+
+
+
+
+-- khi đã có git thì cách đẩy code LẦN ĐẦU TIÊN 
+B1 : git remote add origin https://github.com/nthiep14082005/product-management.git        // -> kết nối kho lưu trữ project từ dưới local với online trên github
+B2 : git branch -M main    // -> đổi tên từ master thành main -> do github ko đặt nhánh chính là master mà đặt tên là main
+B3 : git push -u origin main   // -> đẩy code lên main
+
