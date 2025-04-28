@@ -1,4 +1,4 @@
-- Git là một hệ thống quản lý phiên bản phân tán.
+- Git là một hệ thống quản lý phiên bản phân tán trên local tức là trên máy tính của bản thânthân
 -> nó cung cấp kho lữu trữ (repository) để chứa toàn bộ lịch sử phiên bản 
 -> tốc độ nhanh, đơn giản, phân tán , phù hợp với dự án lớn nhỏ
 ------ ví dụ
@@ -59,14 +59,3 @@ git config user.name "Ten Cua Ban"
     - Ví dụ có 1 thân cây là master và chúng ta chỉ nên add từ các nhánh tức là lá vào master 
     - Nhánh master là nhánh chính để sau này deploy lên server 
     
-
-
-    -- merge
-    - git branch // xem danh sách các nhánh
-    - git checkout -b ten_nhanh // tạo một nhánh mới và chuyển sang nhánh đó 
-    - git checkout ten_nhanh // chuyển sang nhánh khác
-    - git merge ten_nhanh // để merge nhánh khác vào trong nhánh hiện tại 
-    - git branch -D ten_nhanh // xóa nhánh
-
-
-
