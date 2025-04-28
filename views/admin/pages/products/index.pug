@@ -34,20 +34,20 @@ block bien
     .card.mb-3  
         .card-header Bộ lọc và Tìm kiếm
         .card-body 
-        form(
-            action=`${prefixAdmin}/products/change-multi?_method=PATCH`
-            method="POST"
-            data-form-change-multi
-        )
-            .d-flex.align-items-start
-                .mb-3.me-3
-                    select(name="type-status" class="form-control")
-                        option(value="active") Hoạt động
-                        option(value="inactive") Dừng hoạt động
-                .mb-3.me-3
-                    input(type="text", name="id-products[]", value="", placeholder="Nhập ID products" class="form-control")
-                .mb-3
-                    button.btn.btn-primary(type="submit") Áp dụng
+            form(
+                action=`${prefixAdmin}/products/change-multi?_method=PATCH`
+                method="POST"
+                data-form-change-multi
+            )
+                .d-flex.align-items-start
+                    .mb-3.me-3
+                        select(name="type-status" class="form-control")
+                            option(value="active") Hoạt động
+                            option(value="inactive") Dừng hoạt động
+                    .mb-3.me-3
+                        input(type="text", name="id-products", value="", placeholder="Nhập ID products" class="form-control")
+                    .mb-3
+                        button.btn.btn-primary(type="submit") Áp dụng
             //- Quá trình này xảy ra tự động theo cách hoạt động tiêu chuẩn của HTML Form. Khi form được submit, dữ liệu của các phần tử trong form (các input, select có attribute name) sẽ được đóng gói thành dữ liệu gửi đi,
             //- Đúng vậy, nếu các thẻ <button>, <input>, <select> không nằm trong cùng một thẻ <form> thì khi submit, trình duyệt sẽ không đóng gói dữ liệu của chúng lại với nhau để gửi đi.
 

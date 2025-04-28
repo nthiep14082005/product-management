@@ -128,7 +128,7 @@ module.exports.changeStatus = async (req,res) => {
     // req.params chứa các tham số được định nghĩa trong URL động của route. -> dòng 26 của public/admin/js/products.js -> đang tạo ra URL động nên dùng params.id để lấy ra id động trên URL động 
 
 
-
+    // console.log(req.body);
 
 
 
@@ -157,7 +157,18 @@ module.exports.changeStatus = async (req,res) => {
 
 // [PATCH] /admin/products/change-multi
 module.exports.changeMulti = async (req,res) => {
-    console.log(req.body);
+    console.log(req.body); // -> ở form data đã được gửi được tệp đóng gói lên network có status-type là inactive hoặc active và products-id là nhập vào 
+    // -> nhưng khi console.log(req.body) thì lại trả về undefined 
+    // req.body là một thuộc tính của đối tượng request trong Express dùng để chứa dữ liệu mà client gửi lên thông qua phần thân của HTTP request. Để dễ hiểu hơn, hãy nghĩ đến một form trên website
+    //     Khi bạn điền thông tin vào form (như tên, email, số điện thoại,…) và nhấn nút submit, các thông tin bạn nhập vào đó sẽ được gói lại trong "phần thân" của HTTP request gửi đến server.
+    //     Sau đó, Express sẽ nhận request này. Tuy nhiên, dữ liệu trong phần thân đó mặc định chỉ là một chuỗi (string) mà Express không hiểu trực tiếp.
+    //     Để có thể dễ dàng sử dụng, chúng ta cần "bóc tách" dữ liệu đó thành một đối tượng JavaScript. Việc này được thực hiện bởi các middleware như express.urlencoded() (cho dữ liệu dạng form) hoặc express.json() (cho dữ liệu dạng JSON).
+    //     Khi middleware xử lý xong, dữ liệu được chuyển thành một đối tượng và gán cho req.body. Khi đó, bạn có thể truy cập các trường dữ liệu mà người dùng đã nhập một cách dễ dàng thông qua req.body.<tên_trường>.
+        // có thể hiểu đơn giản hơn là những cái form data khi được submit lên nó sẽ được lưu vào req.body vậy nên khi console.log(req.body) mà undefined thì cần cài thêm một thư viện body-parser
+            // ---------------> khi này cần cài thêm một thư viện nữa là body-parser
+    
+    
+    
     res.send("ok");
 }
 

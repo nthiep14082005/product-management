@@ -3,10 +3,14 @@ const express = require('express');
 // nhúng file method-override
 const methodOverride = require('method-override');
 
+//
+const bodyParser = require('body-parser');
+
 // cách nhúng file router 
 const route = require("./routers/client/index.router");
 // router ben admin
 const routeAdmin = require("./routers/admin/index.router");
+
 
 
 
@@ -20,6 +24,9 @@ app.use(methodOverride('_method')); // -> 56:00 28tech bai 22
 // -> vào phần views/admin/products/index.pug để xem 
 
 
+// bodyParser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded());
 
 
 

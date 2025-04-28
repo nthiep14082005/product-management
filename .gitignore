@@ -1,1 +1,3 @@
 # dùng cái file này để ko muốn đẩy file nào lên git thì ghi vào đây
+
+node_modules/
