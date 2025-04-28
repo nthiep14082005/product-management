@@ -68,3 +68,14 @@ git config user.name "Ten Cua Ban"
     - git merge ten_nhanh // để merge nhánh khác vào trong nhánh hiện tại 
     - git branch -D ten_nhanh // xóa nhánh
     
+
+
+    -- merge
+    - git branch // xem danh sách các nhánh
+    - git checkout -b ten_nhanh // tạo một nhánh mới và chuyển sang nhánh đó 
+    - git checkout ten_nhanh // chuyển sang nhánh khác
+    - git merge ten_nhanh // để merge nhánh khác vào trong nhánh hiện tại 
+    - git branch -D ten_nhanh // xóa nhánh
+
+
+
