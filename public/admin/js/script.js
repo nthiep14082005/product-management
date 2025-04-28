@@ -87,3 +87,63 @@ if(buttonsPagination) {
 
 
 // End pagination
+
+
+
+
+
+
+
+
+
+
+
+
+// checkbox multi
+
+const checkboxMulti = document.querySelector("[checkbox-multi]");
+if(checkboxMulti) {
+    // console.log(checkboxMulti);
+    const inputCheckAll = checkboxMulti.querySelector("input[name='checkall']");
+    // console.log(inputCheckAll);
+    const inputIdProducts = checkboxMulti.querySelectorAll("input[name='id']");
+    // console.log(inputIdProducts);
+
+
+
+    // xử lý cho checkAll
+    inputCheckAll.addEventListener("click" , () => {
+        // console.log(inputCheckAll.checked); // trả về dạng boolen 
+        if(inputCheckAll.checked) {
+            inputIdProducts.forEach(input => {
+                input.checked = true;
+            });
+        }else {
+            inputIdProducts.forEach(input => {
+                input.checked = false;
+            });
+        }
+    });
+
+
+    // xử lý cho check từng phần 
+    inputIdProducts.forEach(input => {
+        input.addEventListener("click" , ()=> {
+            const countChecked = checkboxMulti.querySelectorAll("input[name='id']:checked"); // -> thêm :checked tức là tìm ra những ô input đã được check = true
+            const countCheckedLength = countChecked.length;
+            const inputIdProductsLength = inputIdProducts.length;
+            // console.log(countCheckedLength);
+            // console.log(inputIdProductsLength);
+
+            if(countCheckedLength == inputIdProductsLength) {
+                inputCheckAll.checked = true;
+            }else {
+                inputCheckAll.checked = false;
+            }
+        });
+    });
+
+
+};
+
+// end checkbox multi 
