@@ -168,8 +168,24 @@ module.exports.changeMulti = async (req,res) => {
             // ---------------> khi này cần cài thêm một thư viện nữa là body-parser
     
     
+    const type = req.body.type_statuss;
+    const ids = req.body.id_pproducts.split(", "); // khi bên backend này thì cần convert về dạng array thì dùng .split(", ");
     
-    res.send("ok");
+    switch (type) {
+        case "active":
+            await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+            break;
+        case "inactive":
+            await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+            break;
+        default:
+            break;
+    }
+    
+    
+    // console.log(type, ids);
+    
+    res.redirect("back");
 }
 
 

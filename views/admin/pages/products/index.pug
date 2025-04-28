@@ -41,11 +41,11 @@ block bien
             )
                 .d-flex.align-items-start
                     .mb-3.me-3
-                        select(name="type-status" class="form-control")
+                        select(name="type_statuss" class="form-control")
                             option(value="active") Hoạt động
                             option(value="inactive") Dừng hoạt động
                     .mb-3.me-3
-                        input(type="text", name="id-products", value="", placeholder="Nhập ID products" class="form-control")
+                        input( class="d-none" type="text", name="id_pproducts", value="", placeholder="Nhập ID products" class="form-control")
                     .mb-3
                         button.btn.btn-primary(type="submit") Áp dụng
             //- Quá trình này xảy ra tự động theo cách hoạt động tiêu chuẩn của HTML Form. Khi form được submit, dữ liệu của các phần tử trong form (các input, select có attribute name) sẽ được đóng gói thành dữ liệu gửi đi,

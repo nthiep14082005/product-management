@@ -171,7 +171,7 @@ if(formChangeMulti) {
             let id_array = [];
 
             // lấy ra ô input và insert id vào 
-            const inputId_products = formChangeMulti.querySelector("input[name='id-products']");
+            const inputId_products = formChangeMulti.querySelector("input[name='id_pproducts']");
 
 
             inputsChecked.forEach(input => {
@@ -182,6 +182,8 @@ if(formChangeMulti) {
         
             inputId_products.value = id_array.join(", ");
             // console.log(inputId_products.value);
+
+            formChangeMulti.submit();
         }else {
             alert("Vui lòng chọn ít nhất một bản ghi!!!");
         }
