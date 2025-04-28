@@ -147,3 +147,28 @@ if(checkboxMulti) {
 };
 
 // end checkbox multi 
+
+
+
+
+
+// form data change-multi 
+
+const formChangeMulti = document.querySelector("[data-form-change-multi]");
+if(formChangeMulti) {
+    // console.log(formChangeMulti);
+    formChangeMulti.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // console.log(events);
+
+        const checkboxMulti = document.querySelector("[checkbox-multi]");
+        const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
+        console.log(inputsChecked);
+    
+
+
+        
+    });
+}
+
+// end form data change-multi
