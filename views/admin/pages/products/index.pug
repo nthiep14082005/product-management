@@ -35,7 +35,7 @@ block bien
         .card-header Bộ lọc và Tìm kiếm
         .card-body 
         form(
-            action=`/${prefixAdmin}/products/change-multi?_method=PATCH`
+            action=`${prefixAdmin}/products/change-multi?_method=PATCH`
             method="POST"
             data-form-change-multi
         )
@@ -98,9 +98,9 @@ block bien
                                      class="badge badge-danger") Dừng hoạt động
                             td 
                                 if item.deleted === false
-                                    a(href="#" class="badge badge-success") Còn
+                                    a(href="javascript:;" class="badge badge-success" button-changeMulti) Còn
                                 else
-                                    a(href="#" class="badge badge-danger") Hết
+                                    a(href="javascript:;" class="badge badge-danger" button-changeMulti) Hết
 
                             td
                                 button(class="btn btn-warning btn-sm") Sửa
@@ -159,6 +159,14 @@ block bien
     //- -> khi sử dụng PATCH như này và thay đổi đường URL bên trong js là ?_method=PATCH và bên pug này thì sẽ vấn ko chạy được tại vì bên routers/admin/products.router.js xem tiếp bên đóđó
 
 
+
+    //- test thay vì sử dụng form + input thì dùng form + js
+    //- form(
+    //-     action=""
+    //-     method="post"
+    //-     class="form-change-multi"
+    //-     data-path= `${prefixAdmin}/products/changeMulti`
+    //- ) 
 
     script(src="/admin/js/products.js") 
     //- tại sao lại truy cập được vào trong file public 20ph bai 22 nodejs , do tham chiếu từ static public nên nó bắt đầu từ file public luôn

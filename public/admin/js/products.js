@@ -50,3 +50,23 @@ if(buttonsCHangeStatus.length > 0) {
 
 
 // start form-change-multi -> thay status nhiều sản phẩm   -> 28tech nodejs 1:07:00 bài 22
+
+
+
+
+// test thay vì sử dụng form + input thì dùng form + js
+// const su = document.querySelectorAll("[button-changeMulti]");
+// console.log(su);
+// if(su.length > 0) {
+//     const formChangeMulti = document.querySelector(".form-change-multi");
+//     const path = formChangeMulti.getAttribute("data-path");
+//     console.log(path)
+
+//     su.forEach(button => {
+//         button.addEventListener("click", () => {
+//             const actionlink = path + `/products?_method=PATCH`;
+//             formChangeMulti.action = actionlink;
+//             formChangeMulti.submit();
+//         })
+//     })
+// }

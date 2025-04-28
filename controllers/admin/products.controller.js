@@ -117,7 +117,7 @@ module.exports.products = async (req,res) => {
 // -> req.query -> là những phần tử sau dấu hỏi chấm trên thanh url
 
 // controller dùng để hiển thị 
-// [PATCH] /change-status/:status/:id -> khi sử dụng phương thức PATCH thì dùng cho khi ta thay đổi hoặc cập nhập sản phẩm trong database và khi đó thì html chỉ hỗ trợ phương thức post và get nên muốn dùng PATCH ta phải cài thêm một thư viện  ------> npm i method-override
+// [PATCH] /admin/products/change-status/:status/:id -> khi sử dụng phương thức PATCH thì dùng cho khi ta thay đổi hoặc cập nhập sản phẩm trong database và khi đó thì html chỉ hỗ trợ phương thức post và get nên muốn dùng PATCH ta phải cài thêm một thư viện  ------> npm i method-override
 module.exports.changeStatus = async (req,res) => {
     // khi ta muốn biết lấy được các giá trị của biến status hay id thì ta dùng req.params -> params là cái object chứa cái router động được nhập vào -> tức là những cái biến mà ta nhập có thể thay đổi được ở trên thanh url -> đó là params
     // console.log(req.params); // -> phút thứ 9 bài 22 28tech nodejs
@@ -155,6 +155,20 @@ module.exports.changeStatus = async (req,res) => {
 }
 
 
+// [PATCH] /admin/products/change-multi
+module.exports.changeMulti = async (req,res) => {
+    console.log(req.body);
+    res.send("ok");
+}
+
+
+
+
+// test thay vì sử dụng form + input thì dùng form + js
+// module.exports.change_multi = async (req,res) => {
+//     console.log(req.body);
+//     res.send("haha");
+// }
 
 
 
