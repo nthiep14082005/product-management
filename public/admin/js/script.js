@@ -163,17 +163,25 @@ if(formChangeMulti) {
 
         const checkboxMulti = document.querySelector("[checkbox-multi]");
         const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
-        console.log(inputsChecked);
+        // console.log(inputsChecked);
     
 
 
         if(inputsChecked.length > 0) {
             let id_array = [];
+
+            // lấy ra ô input và insert id vào 
+            const inputId_products = formChangeMulti.querySelector("input[name='id-products']");
+
+
             inputsChecked.forEach(input => {
                 const ids = input.getAttribute("value"); // hoac const id = input.value;
                 id_array.push(ids);
             });
-            console.log(id_array.join(", ")); // nếu chỉ để id_array thì nó sẽ chỉ hiển thị ra dạng mảng và bên trong ô input nó ko lưu được dạng mảng mà chỉ lưu được ở dạng string nên ta cần convert từ mảng sang string dùng .join(" ");
+            // console.log(id_array.join(", ")); // nếu chỉ để id_array thì nó sẽ chỉ hiển thị ra dạng mảng và bên trong ô input nó ko lưu được dạng mảng mà chỉ lưu được ở dạng string nên ta cần convert từ mảng sang string dùng .join(" ");
+        
+            inputId_products.value = id_array.join(", ");
+            // console.log(inputId_products.value);
         }else {
             alert("Vui lòng chọn ít nhất một bản ghi!!!");
         }
