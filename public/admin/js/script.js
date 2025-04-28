@@ -1,0 +1,89 @@
+// Butoon Status -> xử lý khi click vào thì nó sẽ chuyển sang các status khác 
+
+// xử lý chuyển đổi khi mà bấm vào button thì trang sẽ tự động chuyển sang -> tức là khi ấn vào thì nó sẽ thay đổi sản phẩm tương ứng , ví dụ khi ấn hoạt động thì nó chỉ hiển thị những sản phẩm hoạt động chứ ko xử lý phần đổi màu
+// phần này dùng để thay đổi thanh url khi mà ta thay đổi url thì nó sẽ submit() ở trên URL luôn
+const buttonStatus = document.querySelectorAll("[button-status]"); // button-status là thuộc tính tự định nghĩa nên phải để trong ngoặc vuông
+// console.log(buttonStatus);
+if(buttonStatus.length > 0){
+
+    // kiến thức mới bài 20 28tech nodejs 1t29ph
+    let urlWindow = new URL(window.location.href); // trong thằng new URL có sẵn những hàm để ta có thể thay đổi được url
+
+
+
+
+
+
+    buttonStatus.forEach(button => {
+        // console.log(button);
+        button.addEventListener("click", () => {
+            const statusButton = button.getAttribute("button-status");
+            // console.log(statusButton);
+
+            if(statusButton) { // nếu mà có status
+                urlWindow.searchParams.set("status", statusButton); // hàm new URL có hàm searchParams tức là những phần sau dấu ? trên thanh url gọi là searchParams
+            }else {
+                urlWindow.searchParams.delete("status");
+            }
+            // console.log(urlWindow.href);
+            window.location.href = urlWindow.href
+            // window.location.href = ... chính là câu lệnh để chuyển hướng trang web sang 1 url khác
+        });
+    });
+}
+// End Button Status
+
+
+
+// form-search bài 20 28tech nodejs 1t56phh -> phần search tên sản phẩm
+const formSearch = document.querySelector("#form-search");
+if(formSearch) {
+    formSearch.addEventListener("submit", (event) => {
+        let urlFormSearch = new URL(window.location.href);
+
+        event.preventDefault(); // xóa mặc định trình duyệt để khi submit thì ko bị reload trang
+        // console.log(event.target.elements.keyword.value);
+        const keyword = event.target.elements.keyword.value; // -> lấy ra cái giá trị mà đã nhập vào ô input , còn submit ở đây là ấn nút tìm kiếm
+        if(keyword) { // tức là kiểm tra nếu mà keyword ở trên mà có giá trị được nhập vào...
+            urlFormSearch.searchParams.set("keyword", keyword); 
+        }else {
+            urlFormSearch.searchParams.delete("keyword");
+        }
+        console.log(urlFormSearch.href);
+        window.location.href = urlFormSearch.href
+    });
+}
+
+// End form-search
+
+
+
+
+
+
+
+
+
+
+// pagination 28tech bai 21 nodejs 1t31ph
+
+const buttonsPagination = document.querySelectorAll("[button-pagination]");
+// console.log(buttonsPagination);
+if(buttonsPagination) {
+    let url = new URL(window.location.href);
+    buttonsPagination.forEach(button=> {
+        button.addEventListener("click" , ()=> {
+            const page = button.getAttribute("button-pagination");
+            // console.log(page);'
+            
+            url.searchParams.set("page", page);
+
+            window.location.href = url.href;
+            
+        });
+    });
+};
+
+
+
+// End pagination

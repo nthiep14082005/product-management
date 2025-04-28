@@ -1,0 +1,48 @@
+doctype html 
+html 
+    head
+        title #{pageTitle} 
+        //- tại sao mà lấy được biến pageTitle bởi vì tính kế thừa , nếu bên pages -> home có extends file default vào , mà bên controller đang render ra giao diện bên pages/home thì sẽ được kế thừa lại biến pageTitle từ controller sang pages/home và sang cả default.pug ở layouts -> chi tiết xem ở bài 19 37:58
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/css/style.css")
+        //- bởi vì ta đã nhúng file tĩnh public ở index.js ngoài rồi nên khi link file trong public thì ko cần ghi public nữa
+        
+
+    body 
+        include ../partials/header.pug
+        block main 
+        //- block main ở trên khi mà đang ở trang chính ta dùng block như kiểu giá trị và main là 1 biến -> giống như là tạo khung sẵn có -> tiếp sang phần pages/home
+        include ../partials/footer.pug
+
+    script(src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js")
+
+
+
+    script(src="/js/script.js") 
+
+
+
+
+
+//-     Trong Pug, include và extends đều được dùng để tái sử dụng mã, nhưng chúng có mục đích khác nhau:
+//- - include: Được dùng để chèn nội dung của một tệp Pug khác vào vị trí hiện tại. Nó giống như sao chép mã của tệp kia vào tệp hiện tại. Dùng include khi bạn muốn tái sử dụng một phần của giao diện, như header, footer, hoặc một đoạn mã cụ thể.//- layout.pug
+//- include header.pug
+//- include footer.pug
+
+//- - extends: Được dùng để kế thừa một tệp Pug chính (template) và ghi đè nội dung của các khối (block) được định nghĩa trong đó. Nó giúp tạo một hệ thống mẫu (template system) mà các tệp con có thể tùy chỉnh lại nội dung bên trong các khối. Dùng extends khi bạn muốn xây dựng một bố cục chung cho nhiều trang và chỉ thay đổi một số phần.//- base.pug
+//- doctype html
+//- html
+//-   head
+//-     title My Website
+//-   body
+//-     block content
+
+//- //- page.pug
+//- extends base.pug
+
+//- block content
+//-   h1 Welcome to My Page
+
+
+//- Nếu bạn chỉ cần nhúng nội dung của một tệp Pug khác mà không cần kế thừa bất kỳ bố cục nào, hãy dùng include. Nếu bạn cần kế thừa một bố cục có sẵn và điều chỉnh nội dung bên trong các khối, hãy dùng extends. Hy vọng điều này giúp ích cho bạn! 

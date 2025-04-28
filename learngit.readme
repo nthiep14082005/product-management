@@ -1,0 +1,34 @@
+- Git là một hệ thống quản lý phiên bản phân tán.
+-> nó cung cấp kho lữu trữ (repository) để chứa toàn bộ lịch sử phiên bản 
+-> tốc độ nhanh, đơn giản, phân tán , phù hợp với dự án lớn nhỏ
+------ ví dụ
+    nếu ta có 1 app và có 2 kho lưu trữ ví dụ version 1.1.12 mà ta update lên 1.1.13 mà bị lỗi thì khi này ta sẽ chuyển sang bản 1.1.12 để dùng tạm trong khi fix bản 1.1.13
+
+
+
+
+
+
+
++ Có 3 thuật ngữ trong git
+
+    - working directory(vùng đang làm việc với dự án)  --- git add --> staging area(vùng chứa thông tin thay đổi của file) --- git commit --> repository(khi sửa thành phiên bản tốt nhất thì ta sẽ lưu phiên bản đó vào kho lưu trữ, lưu trữ lịch sử dữ liệu và các phiên bản)
+
+    ----> vùng working directory tương tự như đang sửa đổi lên version 1.1.13 còn staging là version 1.1.12 
+    
+
+
+
+
+
+-- Các câu lệnh 
+
+        - git init // khởi tạo 1 repository trống cho dự án, và chạy câu lệnh trong thư mục gốc của dự án 
+        - git status // để xem trạng thái của những file đã được thay đổi trong dự án , Màu đỏ là đã sửa chưa add, Màu xanh là đã add lên 
+        - git add ten-file (add 1 file) , git add . (add tất cả các file)
+
+
+
+        + để lưu vào kho repository 
+            - git commit -m "Nội dung...." // chuyển từ staging sang repository và comment nội dung đến trạng thái ta vừa sửa 
+            - git log // xem lại lịch sử commit

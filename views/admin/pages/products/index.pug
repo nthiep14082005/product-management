@@ -1,0 +1,164 @@
+extends ../../layouts/default.pug
+
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+
+
+block bien 
+    h1 Danh sach san pham 
+
+
+
+    .card.mb-3  
+        .card-header Bộ lọc và Tìm kiếm
+        .card-body 
+            .row 
+                .col-6
+                    //- each item in filterStatus
+                    //-     //- ở phía dưới là ta tự định nghĩa ra 1 thuộc tính tên là button-status
+                    //-     button(class=`btn btn-sm ml-1 btn-outline-success ${item.class}` button-status=item.status) #{item.name} 
+                    +filter-status(filterStatus_1) 
+                    //- ===> sử dụng mixin
+                    //- Lý do mixin +filter-status(filterStatus_1) trong file index.pug chạy được là vì filterStatus_1 được truyền vào từ controller thông qua phương thức res.render() và sử dụng trực tiếp trong template Pug mà không cần phải require, include hoặc extends để làm việc với biến này. Đây là cách mà Express.js xử lý việc truyền dữ liệu từ server tới giao diện.
+                    //- res.render() lấy dữ liệu từ controller và "inject" (tiêm) nó vào template Pug tương ứng (index.pug trong trường hợp này).
+                    //- Các biến như filterStatus_1 sẽ được gán làm biến cục bộ (local variable) trong template và có thể sử dụng trực tiếp.
+                    //- Trong file index.pug, bạn không cần phải require hay include để sử dụng filterStatus_1 vì Pug tự động nhận diện các biến cục bộ được truyền vào qua res.render().
+                    //-     Tóm Lại:
+                    //-         Controller đã truyền dữ liệu filterStatus_1 vào template thông qua res.render().
+                    //-         Biến filterStatus_1 trở thành một biến cục bộ trong file Pug (index.pug) và có thể sử dụng trực tiếp trong mixins hoặc bất kỳ phần tử Pug nào khác.
+                    //-         Điều này không yêu cầu require, include, hoặc extends để hoạt động, vì việc truyền dữ liệu qua res.render() là đủ.
+
+                .col-6
+                    +search(keywordInSubmit_1)
+    .card.mb-3  
+        .card-header Bộ lọc và Tìm kiếm
+        .card-body 
+        form(
+            action=`/${prefixAdmin}/products/change-multi?_method=PATCH`
+            method="POST"
+            data-form-change-multi
+        )
+            .d-flex.align-items-start
+                .mb-3.me-3
+                    select.form-select(name="type")
+                        option(value="active") HOẠT ĐỘNG
+                        option(value="inactive") DỪNG HOẠT ĐỘNG
+                .mb-3.me-3
+                    input.form-control(type="text", name="ids", value="", placeholder="Nhập IDs")
+                .mb-3
+                    button.btn.btn-primary(type="submit") Áp dụng
+
+
+
+            table.table.table-hover.table-sm
+                thead
+                    tr
+                        th 
+                            input(type="checkbox" name="checkall")
+                        th STT
+                        th Hình ảnh
+                        th Tiêu đề
+                        th Giá 
+                        th Trạng thái
+                        th Trong kho
+                        th Hành động
+                tbody
+                    each item, index in productttInADMIN_1 
+                        tr
+                            td 
+                                input(
+                                    type="checkbox"
+                                    name="id"
+                                    value=item.id
+                                    )
+                            td #{index + 1}
+                            td 
+                                img(
+                                    src=item.thumbnail
+                                    alt=item.title
+                                    width="100px"
+                                    height="auto"
+                                )
+                            td #{item.title}
+                            td  #{item.price}$
+                            td 
+                                if item.status === "active"
+                                    //-  dùng để ngăn chặn hành vi chuyển trang , và dùng để gắn các trình xử lý sự kiện javascript
+                                    a(href="javascript:;" 
+                                     data-status = item.status
+                                     data-id = item.id
+                                     button-change-status 
+                                     class="badge badge-success") Hoạt động
+                                else
+                                    a(href="javascript:;"
+                                     data-status = item.status
+                                     data-id = item.id
+                                     button-change-status 
+                                     class="badge badge-danger") Dừng hoạt động
+                            td 
+                                if item.deleted === false
+                                    a(href="#" class="badge badge-success") Còn
+                                else
+                                    a(href="#" class="badge badge-danger") Hết
+
+                            td
+                                button(class="btn btn-warning btn-sm") Sửa
+                                button(class="btn btn-danger btn-sm ml-1") Xóa
+            
+
+
+
+    +pagination(pagination_1)
+    //- nav 
+    //-     ul(class="pagination") 
+    //-         if(pagination.currentPage > 1)
+    //-             li(class="page-item")
+    //-                 button(class="page-link" button-pagination=pagination.currentPage - 1) Trang truoc
+    //-         else 
+    //-             li(class="page-item")
+    //-                 button(class="page-link" button-pagination= pagination.totalPage) Trang cuoi          
+                    
+                    
+    //-                 //- div #{pagination.totalPage} -> gọi thử từ bên controller
+    //-         - for (var i =1; i<= pagination.totalPage; i++)
+    //-             li(class=`page-item ${pagination.currentPage == i ? "active" : ""}`)
+    //-                 //- if (pagination.currentPage != 1 && pagination.currentPage != pagination.totalPage)
+    //-                 button(
+    //-                     class="page-link"
+    //-                     button-pagination=i
+    //-                 ) #{i}
+    
+    //-                 //- pagination 28tech bai 21 nodejs 1t20ph
+    //-         if(pagination.currentPage < pagination.totalPage)
+    //-             li(class="page-item")
+    //-                 button(class="page-link" button-pagination=pagination.currentPage + 1) Ke tiep 
+    //-         else 
+    //-             li(class="page-item")
+    //-                 button(class="page-link" button-pagination= 1) Trang dau        
+            
+
+
+
+
+    //- cần tạo lên 1 cái form ẩn khi đang làm cái change status bên product.js để dùng được method PUT và PATH chứ nếu thay đổi trên thanh URL thì nó mặc định sẽ là method GET
+    //- sẽ có 2 cách gửi . Nếu gửi qua form thì là dùng cho server side rendering, còn gửi qua API thì là dùng Client side rendering 
+    //- form(action="", method="GET", id="form-change-status", data-path=`${prefixAdmin}/products/change-status`) 
+    //-có thể viết như trên hoặc 
+    form(
+        action=""
+        method="POST"
+        id="form-change-status"
+        data-path=`${prefixAdmin}/products/change-status`
+    ) 
+
+    //- <form method="POST" action="/resource?_method=DELETE">
+    //-     <button type="submit">Delete resource</button>
+    //- </form>
+    //- -> khi này muốn sử dụng method-override thì ta phải để method là POST và bên action phải để như kia , nhưng ta nên thêm action từ trong js vào chứ ko nên fix cứng, nếu muốn sử dụng các method khác POST và GET thì ta sang \public\admin\js\products.js để xem  
+    //- -> khi sử dụng PATCH như này và thay đổi đường URL bên trong js là ?_method=PATCH và bên pug này thì sẽ vấn ko chạy được tại vì bên routers/admin/products.router.js xem tiếp bên đóđó
+
+
+
+    script(src="/admin/js/products.js") 
+    //- tại sao lại truy cập được vào trong file public 20ph bai 22 nodejs , do tham chiếu từ static public nên nó bắt đầu từ file public luôn

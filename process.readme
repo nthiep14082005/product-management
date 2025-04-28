@@ -1,0 +1,26 @@
+// phần này là đang code theo hướng sever side rendering
+// từ bài 33 28tech nodejs là code theo hướng client side rendering
+
+
+
+MVC là viết tắt của Model - View - Controller, mỗi thành phần trong MVC đều có nhiệm vụ riêng. Model: đây là nơi tương tác trực tiếp với dữ liệu hoặc hệ quản trị cơ sở dữ liệu. Nó bao gồm các class chứa các phương thức kết nối với database, truy vấn, thêm/xóa/sửa dữ liệu.
+
+
+dang hoc den bai 19 - 1:50:00 day file len git /////////////////
+
+
+
+
+bat dau bai 20
+
+
+
+
+bai 20 -> 7ph giải thích về tại sao sử dụng method use hoặc get
+
+
+
+// phút thứ 59 bài 21 28tech nodejs là insert data vào thêm
+
+// dang học đến bài 22 - 1:09:00
+// học git và github ở bài 4 - 28tech - nodejs -> 38ph

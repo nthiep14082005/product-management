@@ -1,0 +1,82 @@
+const express = require('express');
+
+// nhúng file method-override
+const methodOverride = require('method-override');
+
+// cách nhúng file router 
+const route = require("./routers/client/index.router");
+// router ben admin
+const routeAdmin = require("./routers/admin/index.router");
+
+
+
+
+// dotenv là lưu trữ cấu hình
+require("dotenv").config()
+const app = express()
+const port = process.env.PORTenv;
+// do trên docx của method-override là ghi sau const app = express() 
+app.use(methodOverride('_method')); // -> 56:00 28tech bai 22
+// -> vào phần views/admin/products/index.pug để xem 
+
+
+
+
+
+const systemConfig = require("./config/system");
+// biến toàn cục
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+
+
+
+
+
+// // nhúng mongoose
+// const mongoose = require('mongoose');
+// // dùng câu lệnh connect để connect data trong mongoosemongoose
+// mongoose.connect(process.env.MONGO_URL)
+// cách nhúng database
+const database = require("./config/database");
+database.connect(); // hàm connect có sẵn 
+
+
+
+// var morgan = require('morgan')
+// app.use(morgan('combined'))
+// app.use(express.static('public'))
+
+
+
+app.set('views','./views')
+app.set('view engine', 'pug')
+
+
+
+
+
+app.use(express.static("public"));
+
+
+
+// router
+route(app);
+// router admin
+routeAdmin(app);
+
+
+
+// const mongoose = require('mongoose');
+// mongoose.connect('mongodb://127.0.0.1:27017/products-test1');
+// const Product = mongoose.model('Product', 
+//   { title: String,
+//     price: Number,
+//     thumbnail: String
+//    });
+
+
+
+
+app.listen(port,() => console.log(`http://localhost:${port}`));
+
+
+// test git 

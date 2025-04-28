@@ -1,0 +1,27 @@
+mixin pagination(m)
+    nav 
+        ul(class="pagination") 
+            if(m.currentPage > 1)
+                li(class="page-item")
+                    button(class="page-link" button-pagination=m.currentPage - 1) Trang truoc
+            else 
+                li(class="page-item")
+                    button(class="page-link" button-pagination= m.totalPage) Trang cuoi          
+                    
+                    
+                    //- div #{pagination.totalPage} -> gọi thử từ bên controller
+            - for (var i =1; i<= m.totalPage; i++)
+                li(class=`page-item ${m.currentPage == i ? "active" : ""}`)
+                    //- if (pagination.currentPage != 1 && pagination.currentPage != pagination.totalPage)
+                    button(
+                        class="page-link"
+                        button-pagination=i
+                    ) #{i}
+    
+                    //- pagination 28tech bai 21 nodejs 1t20ph
+            if(m.currentPage < m.totalPage)
+                li(class="page-item")
+                    button(class="page-link" button-pagination=m.currentPage + 1) Ke tiep 
+            else 
+                li(class="page-item")
+                    button(class="page-link" button-pagination= 1) Trang dau 
