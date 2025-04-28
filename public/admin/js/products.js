@@ -31,7 +31,7 @@ if(buttonsCHangeStatus.length > 0) {
             formChangeStatus.action = actionLink;
 
 
-            formChangeStatus.submit(); // js hỗ trợ hàm submit()
+            formChangeStatus.submit(); // js hỗ trợ hàm submit() // -> tương tự như sử dụng thẻ input bên trong thẻ form 
             // Đúng vậy, khi bạn gán giá trị cho formChangeStatus.action bằng actionLink chỉ là việc cập nhật URL đích mà form sẽ gửi dữ liệu tới khi thực hiện hành động submit. Lúc này, chưa có HTTP request nào được gửi lên server cho đến khi gọi formChangeStatus.submit() hoặc người dùng nhấn nút submit. Điều này cho phép bạn tùy chỉnh URL động trước khi kích hoạt gửi form.
 
         });

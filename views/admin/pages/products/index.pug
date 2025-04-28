@@ -41,11 +41,11 @@ block bien
         )
             .d-flex.align-items-start
                 .mb-3.me-3
-                    select.form-select(name="type")
-                        option(value="active") HOẠT ĐỘNG
-                        option(value="inactive") DỪNG HOẠT ĐỘNG
+                    select(name="type" class="form-control")
+                        option(value="active") Hoạt động
+                        option(value="inactive") Dừng hoạt động
                 .mb-3.me-3
-                    input.form-control(type="text", name="ids", value="", placeholder="Nhập IDs")
+                    input(type="text", name="ids", value="", placeholder="Nhập ID" class="form-control")
                 .mb-3
                     button.btn.btn-primary(type="submit") Áp dụng
 
@@ -71,7 +71,7 @@ block bien
                                     type="checkbox"
                                     name="id"
                                     value=item.id
-                                    )
+                                )
                             td #{index + 1}
                             td 
                                 img(
