@@ -47,3 +47,14 @@ git config user.name "Ten Cua Ban"
             - git reset --soft commit_id // để chuyển từ trạng thái từ repository về staging, từ trạng thái đã commit về trạng thái trước chạy lệnh git commit
             - git reset --mixed commit_id // để chuyển từ trạng thái từ repository về working, từ trạng thái đã add về trạng thái trước khi chạy lệnh git add 
             
+
+
+
+
+
+
+
+------------- NHÁNH TRONG GIT ---------------
+- Các nhánh là đại diện cho các phiên bản của 1 kho lưu trữ được tách ra từ dự án chính 
+    - Ví dụ có 1 thân cây là master và chúng ta chỉ nên add từ các nhánh tức là lá vào master 
+    - Nhánh master là nhánh chính để sau này deploy lên server 
