@@ -86,18 +86,21 @@ git config user.name "Ten Cua Ban"
 
 
 
--- khi đã có git thì cách đẩy code LẦN ĐẦU TIÊN 
+-- khi đã có git thì cách đẩy code ở nhánh chính lên GITHUB LẦN ĐẦU TIÊN 
 B1 : git remote add origin https://github.com/nthiep14082005/product-management.git        // -> kết nối kho lưu trữ project từ dưới local với online trên github
 B2 : git branch -M main    // -> đổi tên từ master thành main -> do github ko đặt nhánh chính là master mà đặt tên là main
 B3 : git push -u origin main   // -> đẩy code lên main
 
 
--- Đẩy code lên GITHUB cho các lần tiếp theo 
+-- Đẩy code ở nhánh chính lên GITHUB cho các lần tiếp theo 
         B1 : git add .
         B2 : git commit -m "Nội dung commit"
         B3 : git push
 
+-- Khi đã add nhánh chính nếu muốn add nhánh phụ lên riêng thì ta dùng các câu lệnh sau ở nhánh phụ cần push 
+        B1 : git add .
+        B2 : git commit -m "Nội dung commit"
+        B3 : git push ten_nhanh
 
-
--- Để lấy code từ GITHUB về máy 
+-- Để lấy code kể cả nhánh chính hoặc phụ từ GITHUB về máy 
 B1 : git pull origin ten_nhanh
