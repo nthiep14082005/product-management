@@ -1,4 +1,4 @@
-- Git là một hệ thống quản lý phiên bản phân tán.
+- Git là một hệ thống quản lý phiên bản phân tán trên local tức là trên máy tính của bản thânthân
 -> nó cung cấp kho lữu trữ (repository) để chứa toàn bộ lịch sử phiên bản 
 -> tốc độ nhanh, đơn giản, phân tán , phù hợp với dự án lớn nhỏ
 ------ ví dụ
@@ -68,3 +68,11 @@ git config user.name "Ten Cua Ban"
     - git merge ten_nhanh // để merge nhánh khác vào trong nhánh hiện tại 
     - git branch -D ten_nhanh // xóa nhánh
     
+
+
+
+
+
+
+------------ HOC GITHUB-----------
+ - là một hệ thống để quản lý dự án trực tuyến trên online để giúp đồng bộ code của cả nhóm lên một kho lưu trữ chung
