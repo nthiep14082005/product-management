@@ -76,3 +76,18 @@ git config user.name "Ten Cua Ban"
 
 ------------ HOC GITHUB-----------
  - là một hệ thống để quản lý dự án trực tuyến trên online để giúp đồng bộ code của cả nhóm lên một kho lưu trữ chung
+
+ B1 : tạo new repository 
+ B2 : đặt tên repository 
+ B3 : để public 
+
+
+
+
+
+
+-- khi đã có git thì cách đẩy code LẦN ĐẦU TIÊN 
+B1 : git remote add origin https://github.com/nthiep14082005/product-management.git        // -> kết nối kho lưu trữ project từ dưới local với online trên github
+B2 : git branch -M main    // -> đổi tên từ master thành main -> do github ko đặt nhánh chính là master mà đặt tên là main
+B3 : git push -u origin main   // -> đẩy code lên main
+
