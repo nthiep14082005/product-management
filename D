@@ -1,0 +1,35 @@
+[33mcommit 1798690128d14bcc766f8df5ce534f5de6cb90cd[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Nguyen The Hiep <169110383+nthiep14082005@users.noreply.github.com>
+Date:   Mon Apr 28 13:46:38 2025 +0700
+
+    git checkout --ten_file
+
+[33mcommit c5d06ab6e17d9c3cca981e627e4ed5c2c6bb28db[m
+Author: Nguyen The Hiep <169110383+nthiep14082005@users.noreply.github.com>
+Date:   Mon Apr 28 13:44:14 2025 +0700
+
+    gitk - show dashboard
+
+[33mcommit 01e6c18f68e612549c744730217d212de6485bed[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Nguyen The Hiep <nthiep14082005@gmail.com>
+Date:   Mon Apr 28 13:15:01 2025 +0700
+
+    git show commit_id and git diff
+
+[33mcommit 7b8e1d284041d8329e8879017934fcdc1ac43f03[m
+Author: Nguyen The Hiep <nthiep14082005@gmail.com>
+Date:   Mon Apr 28 13:10:56 2025 +0700
+
+    Sua lan 3 phan learn git readme
+
+[33mcommit fda4f8fe103a825ebb6a7024c89e8d7744d6b280[m
+Author: Nguyen The Hiep <nthiep14082005@gmail.com>
+Date:   Mon Apr 28 13:09:50 2025 +0700
+
+    Sua doi lan 2 cho phan readme learn git
+
+[33mcommit 11610867aee9cc70d836155c71ff1be24ac804e3[m
+Author: Ten Cua Ban <emailcuaban@example.com>
+Date:   Mon Apr 28 13:08:07 2025 +0700
+
+    Create project

@@ -41,3 +41,9 @@ git config user.name "Ten Cua Ban"
                        // khu vực working là để cửa sổ để sửa code
 
             - gitk // mở dashboard để xem trực quan hơn tương tự git diff
+
+            - git checkout -- ten_file // bỏ đi những thay đổi của file, để file đó trở về như lúc lần git add . gần nhất khi chưa thay đổi ( chỉ hoạt động khi để ở phần working )
+            - git reset HEAD ten_file hoac git reset ten_file // chuyển file từ staging về lại working
+            - git reset --soft commit_id // để chuyển từ trạng thái từ repository về staging, từ trạng thái đã commit về trạng thái trước chạy lệnh git commit
+            - git reset --mixed commit_id // để chuyển từ trạng thái từ repository về working, từ trạng thái đã add về trạng thái trước khi chạy lệnh git add 
+            
