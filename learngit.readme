@@ -28,7 +28,11 @@
         - git add ten-file (add 1 file) , git add . (add tất cả các file)
 
 
-
+git config --global user.email "emailcuaban@example.com"
+git config --global user.name "Ten Cua Ban"
+hoặc 
+git config user.email "emailcuaban@example.com"
+git config user.name "Ten Cua Ban"
         + để lưu vào kho repository 
             - git commit -m "Nội dung...." // chuyển từ staging sang repository và comment nội dung đến trạng thái ta vừa sửa 
             - git log // xem lại lịch sử commit
