@@ -91,3 +91,8 @@ B1 : git remote add origin https://github.com/nthiep14082005/product-management.
 B2 : git branch -M main    // -> đổi tên từ master thành main -> do github ko đặt nhánh chính là master mà đặt tên là main
 B3 : git push -u origin main   // -> đẩy code lên main
 
+
+-- Đẩy code lên GITHUB cho các lần tiếp theo 
+        B1 : git add .
+        B2 : git commit -m "Nội dung commit"
+        B3 : git push
