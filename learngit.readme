@@ -35,7 +35,7 @@ git config user.email "emailcuaban@example.com"
 git config user.name "Ten Cua Ban"
         + để lưu vào kho repository 
             - git commit -m "Nội dung...." // chuyển từ staging sang repository và comment nội dung đến trạng thái ta vừa sửa 
-            - git log // xem lại lịch sử commit
+            - git log // xem lại lịch sử commit  ------------> để thoát git log , nhấn nút q trên bàn phím 
             - git show commit_id // dùng để xem chi tiết 1 commit .
             - git diff // xem sự kiện thay đổi của một file sau khi chỉnh sửa và điều kiện là file đó vẫn đang ở khu vực working
                        // khu vực working là để cửa sổ để sửa code
