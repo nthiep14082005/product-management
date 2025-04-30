@@ -193,14 +193,25 @@ module.exports.changeMulti = async (req,res) => {
 }
 
 
-// [DELETE] /admin/products/delete-product/:id
-module.exports.deleteProduct = async (req,res) => {
+// [DELETE] /admin/products/delete-product/:id  -> sử dụng DELETE
+// module.exports.deleteProduct = async (req,res) => {
+//     const id = req.params.id;
+
+//     await Product.deleteOne({_id: id});
+
+//     res.redirect("back");
+// }
+
+// [PATCH] /admin/products/delete-product/:id -> sử dụng PATCH 
+
+module.exports.deleteProduct_PATCH = async (req,res) => {
     const id = req.params.id;
 
-    await Product.deleteOne({_id: id});
+    await Product.updateOne({_id: id},{deleted: true});
 
     res.redirect("back");
 }
+
 
 
 
