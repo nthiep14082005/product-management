@@ -62,6 +62,8 @@ git config user.name "Ten Cua Ban"
 
 
 //
+    ---- sử dụng git branch master để tạo nhánh master sau đó mới tạo các nhánh khác bằng git checkout -b ten_nhanh hoặc git branch ten_nhanh
+    --> để tạo được master thì phải commit lần đầu 
     - git branch // xem danh sách các nhánh
     - git checkout -b ten_nhanh // tạo một nhánh mới và chuyển sang nhánh đó 
     - git checkout ten_nhanh // chuyển sang nhánh khác
