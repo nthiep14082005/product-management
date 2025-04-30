@@ -179,5 +179,21 @@ block bien
     //-     data-path= `${prefixAdmin}/products/changeMulti`
     //- ) 
 
+
+
+
+
+
+    //- --------------- form xử lý delete
+    form(
+        action=""
+        method="POST"
+        id="form-delete-item"
+        data-path=`${prefixAdmin}/products/delete-product`
+    ) 
+
+
+
+
     script(src="/admin/js/products.js") 
     //- tại sao lại truy cập được vào trong file public 20ph bai 22 nodejs , do tham chiếu từ static public nên nó bắt đầu từ file public luôn
