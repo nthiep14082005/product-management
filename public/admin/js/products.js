@@ -87,6 +87,8 @@ if(buttonsCHangeStatus.length > 0) {
 // delete item
 const buttonsDelete = document.querySelectorAll("[button-delete]");
 if (buttonsDelete.length > 0) {
+    const formDeleteItem = document.querySelector("#form-delete-item");
+    const path = formDeleteItem.getAttribute("data-path");
     buttonsDelete.forEach(button =>{
         button.addEventListener("click", () => {
             // console.log(button);
@@ -95,7 +97,11 @@ if (buttonsDelete.length > 0) {
                 const id = button.getAttribute("data-id");
 
                 // console.log(id);
+                const action_s =`${path}/${id}?_method=DELETE`;
+                console.log(action_s);
                 
+                formDeleteItem.action = action_s;
+                formDeleteItem.submit();
             }
         });
     });

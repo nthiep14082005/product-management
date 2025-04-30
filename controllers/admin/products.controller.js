@@ -193,6 +193,15 @@ module.exports.changeMulti = async (req,res) => {
 }
 
 
+// [DELETE] /admin/products/delete-product/:id
+module.exports.deleteProduct = async (req,res) => {
+    const id = req.params.id;
+
+    await Product.deleteOne({_id: id});
+
+    res.redirect("back");
+}
+
 
 
 // test thay vì sử dụng form + input thì dùng form + js

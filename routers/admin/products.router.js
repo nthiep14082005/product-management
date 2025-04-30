@@ -10,6 +10,13 @@ router.patch("/change-status/:status/:id", controller.changeStatus); // -> ta d�
 router.patch("/change-multi", controller.changeMulti);
 // router.patch("/changeMulti/products", controller.change_multi); // test thay vì sử dụng form + input thì dùng form + js
 
+
+
+// router.delele delete
+router.delete("/delete-product/:id", controller.deleteProduct);
+
+
+
 module.exports = router;
 
 
