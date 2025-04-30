@@ -113,3 +113,21 @@ B3 : git push -u origin main   // -> đẩy code lên main
 
 -- Để lấy code kể cả nhánh chính hoặc phụ từ GITHUB về máy 
 B1 : git pull origin ten_nhanh
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NẾU CÓ FILE KHÔNG MUỐN ĐẨY LÊN GIT VÌ SỢ NẶNG KO CẦN THIẾT THÌ TA SỬ DỤNG
+            -- sử dụng tạo 1 file tên là .gitignore 
+            B2 : sau khi tạo nếu muốn ko đẩy những file nào thì như sau : ten_file/
+            B3 : git rm -r --cached node_modules/
+            B4 : git commit -m "Loại bỏ node_modules/ khỏi tracking và cập nhật .gitignore"
