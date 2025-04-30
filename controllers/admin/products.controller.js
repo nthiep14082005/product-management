@@ -186,6 +186,10 @@ module.exports.changeMulti = async (req,res) => {
     // console.log(type, ids);
     
     res.redirect("back");
+
+
+
+    // res.send(`${ids} - ${type}`) // -> hiển thị status và id ra giao diện 
 }
 
 
