@@ -202,12 +202,13 @@ module.exports.changeMulti = async (req,res) => {
 //     res.redirect("back");
 // }
 
-// [PATCH] /admin/products/delete-product/:id -> sử dụng PATCH 
 
+
+// [PATCH] /admin/products/delete-product/:id -> sử dụng PATCH 
 module.exports.deleteProduct_PATCH = async (req,res) => {
     const id = req.params.id;
 
-    await Product.updateOne({_id: id},{deleted: true});
+    await Product.updateOne({_id: id}, {deleted: true, deletedAt: new Date()}); // thêm trường deletedAt cùng với object của deleted luôn 
 
     res.redirect("back");
 }

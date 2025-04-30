@@ -92,8 +92,8 @@ if (buttonsDelete.length > 0) {
     buttonsDelete.forEach(button =>{
         button.addEventListener("click", () => {
             // console.log(button);
-            const isConfirm = confirm("Bạn có chắc muốn xóa sản phẩm này?");  // hàm xác nhận với thông báo trả về dạng boolen nếu ấn ok là true và hủy là false 
-            if(isConfirm) {
+            // const isConfirm = confirm("Bạn có chắc muốn xóa sản phẩm này?");  // hàm xác nhận với thông báo trả về dạng boolen nếu ấn ok là true và hủy là false 
+            // if(isConfirm) {
                 const id = button.getAttribute("data-id");
 
                 // console.log(id);
@@ -102,7 +102,7 @@ if (buttonsDelete.length > 0) {
                 
                 formDeleteItem.action = action_s;
                 formDeleteItem.submit();
-            }
+            // }
         });
     });
 };
