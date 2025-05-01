@@ -13,9 +13,11 @@
   "dependencies": {
     "@vercel/speed-insights": "^1.2.0",
     "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-flash": "^0.0.2",
+    "express-session": "^1.18.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.10.0",
     "product-management": "file:",

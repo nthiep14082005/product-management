@@ -3,6 +3,7 @@ const flash = require('express-flash');
 
 const express = require('express');
 
+
 // nhúng file method-override
 const methodOverride = require('method-override');
 
@@ -29,8 +30,8 @@ app.use(methodOverride('_method')); // -> 56:00 28tech bai 22
 
 
 // sử dụng flash 
-app.use(express.cookieParser('iiisdnakkksh'));
-app.use(express.session({ cookie: { maxAge: 60000 }}));
+app.use(express.cookieParser('iiisdnakkksh')); // -> muón sử dụng phải cài thêm thư viện cookie-parser
+app.use(express.session({ cookie: { maxAge: 60000 }})); // -> muón sử dụng phải cài thêm thư viện cookie-session
 app.use(flash());
 
 
