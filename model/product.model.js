@@ -8,8 +8,11 @@ const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 
     stock: Number,
     thumbnail: String,
     status: String,
-    position: Number,
-    deleted: Boolean,
+    position: Number, // ví dụ ở đây nó tự hiểu là truyền vào kiểu type: Number
+    deleted: { // Ta nên truyền vào dạng object co 2 dạng là type: Boolean tức là kiểu là Boolean nếu người dùng truyền vào, còn nếu ko truyền vào thì có kiểu mặc định được set sẵn là false
+        type: Boolean,
+        default: false
+    },
     deletedAt: Date // thêm trường deletedAt để kiểm tra thời gian xóa -> 23 nodejs 28tech -> 33:57
 });
 

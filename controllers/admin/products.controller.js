@@ -297,9 +297,9 @@ module.exports.createPost = async (req,res) => {
 
     // Đưa vào database 
     const product = new Product(req.body); // -> Tạo mới 1 sản phẩm rồi lưu req.body vào nhưng chưa đưa vào database mà chỉ lưu trữ trong code model
-    await product.save(); // -> dùng .save(); để lưu vào database
+    await product.save({delete: false}); // -> dùng .save(); để lưu vào database
     
-    res.redirect(`${prefixAdmin}/products`);
+    res.redirect(`/admin/products`);
     // res.redirect("back");
 } 
 
