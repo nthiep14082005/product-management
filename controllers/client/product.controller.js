@@ -11,7 +11,7 @@ module.exports.product = async (req, res) => {
     const productts = await Product.find({
         status: "active",
         deleted: "false"
-    });
+    }).sort({position: "desc"});
     console.log(productts);
 
     // tính toán số price new

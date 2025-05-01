@@ -196,6 +196,8 @@ if(formChangeMulti) {
                     // console.log(position.value); // -> 28tech bai 23 phut thu 1:04:00 
 
                     const positionValue = position.value;
+                    // hoặc
+                    // const positionValue = position.getAttribute("value");
 
                     // console.log(`${ids} - ${positionValue}`);
                     id_array.push(`${ids}-${positionValue}`);

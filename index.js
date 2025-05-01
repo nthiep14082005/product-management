@@ -1,3 +1,6 @@
+// cài đặt express flash để hiển thị thông báo sau khi xóa, cạpa nhập, thay dổi sản phẩm
+const flash = require('express-flash');
+
 const express = require('express');
 
 // nhúng file method-override
@@ -22,6 +25,13 @@ const port = process.env.PORTenv;
 // do trên docx của method-override là ghi sau const app = express() 
 app.use(methodOverride('_method')); // -> 56:00 28tech bai 22
 // -> vào phần views/admin/products/index.pug để xem 
+
+
+
+// sử dụng flash 
+app.use(express.cookieParser('iiisdnakkksh'));
+app.use(express.session({ cookie: { maxAge: 60000 }}));
+app.use(flash());
 
 
 // bodyParser
