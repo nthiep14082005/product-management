@@ -166,6 +166,7 @@ if(formChangeMulti) {
     
 
 
+        // bài 23 28tech nodejs -> 50:00
         const typeChangeDelte = e.target.elements.type_statuss.value;
         // hoặc 
         // const typeChangeDelte = e.target.querySelector("[name='type_statuss']").value;

@@ -88,7 +88,7 @@ block bien
                             td #{item.title}
                             td  #{item.price}$
                             td 
-                                if item.status === "active"
+                                if (item.status === "active")
                                     //-  dùng để ngăn chặn hành vi chuyển trang , và dùng để gắn các trình xử lý sự kiện javascript
                                     a(href="javascript:;" 
                                      data-status = item.status
@@ -101,11 +101,15 @@ block bien
                                      data-id = item.id
                                      button-change-status 
                                      class="badge badge-danger") Dừng hoạt động
-                            td 
-                                if item.deleted === false
-                                    a(href="javascript:;" class="badge badge-success" button-changeMulti) Còn
-                                else
-                                    a(href="javascript:;" class="badge badge-danger" button-changeMulti) Hết
+                            td
+                                input(
+                                    type="number"
+                                    value= item.position
+                                    style="width: 60px"
+                                    min="1"
+                                    name="position"
+                                )
+                                //-Thuộc tính min="1" trong thẻ <input type="number"> được sử dụng để giới hạn giá trị số tối thiểu mà người dùng có thể nhập vào
 
                             td
                                 button(class="btn btn-warning btn-sm") Sửa
