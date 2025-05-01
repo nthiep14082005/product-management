@@ -19,6 +19,9 @@ router.delete("/delete-product/:id", controller.deleteProduct_PATCH);
 // router.delete multi
 router.delete("/delete-multi", controller.changeDeleteMulti);
 
+// router.get create
+router.get("/create", controller.create); // render ra trang tạo sản phẩm 
+router.post("/create", controller.createPost); // up sản phẩm lên giao diện 
 
 
 module.exports = router;

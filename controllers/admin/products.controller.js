@@ -187,6 +187,9 @@ module.exports.changeMulti = async (req,res) => {
             break;
         case "delete-all":
             await Product.updateMany({_id: { $in: ids}}, {deleted: true, deletedAt: new Date()});
+            req.flash('success', `Xóa thành công ${ids.length} sản phẩm`);
+
+            break;
         case "change-position":
             // console.log(ids); // -> in ra hẳn cả mảng bao gồm cả []
             // for(const item of ids) { // -> chỉ in ra giá trị nếu dùng for of , for in là in ra index của nó , forEach là in ra giá trị giống for of
@@ -198,14 +201,16 @@ module.exports.changeMulti = async (req,res) => {
             // hoặc 
             ids.forEach(async item => {
                 // console.log(item.split("-")); // sử dụng split("-") ->>>Khi bạn truyền vào dấu gạch ngang "-" làm đối số, phương thức sẽ phân chia chuỗi ở mỗi vị trí xuất hiện của dấu "-".
-                let [id, position] = item.split("-"); // -> sử dụng destructuring truyền tham số trực tiếp [id, position] 
+                let [id_p, position_p] = item.split("-"); // -> sử dụng destructuring truyền tham số trực tiếp [id, position] 
                 // console.log(position);
                 // position = parseInt(position); // không cần convert 
                 // console.log(position);
 
 
-                await Product.updateOne({_id: id}, {position: position}); // bởi vì mỗi một sản phẩm là một position riêng nên cần dùng loop để mỗi lần update sản phẩm riêng chứ ko dùng updateMany là để update nhiều sản phẩm giống nhau
-              });              
+                await Product.updateOne({_id: id_p}, {position: position_p}); // bởi vì mỗi một sản phẩm là một position riêng nên cần dùng loop để mỗi lần update sản phẩm riêng chứ ko dùng updateMany là để update nhiều sản phẩm giống nhau
+              });    
+            req.flash('success', `Cập nhập vị trí thành công của ${ids.length} sản phẩm`);
+
         default:
             break;
     }
@@ -265,6 +270,18 @@ module.exports.changeDeleteMulti = async (req,res) => {
 //     res.send("haha");
 // }
 
+
+
+// [GET] /admin/products/create
+module.exports.create = async (req,res) =>{
+    res.render("admin/pages/products/create", {
+        pageTitle: "Thêm mới sản phẩm",
+    });
+}
+// [POST] /admin/products/create
+module.exports.createPost = async (req,res) => {
+    res.send(`${req.body.title}`);
+} 
 
 
 
