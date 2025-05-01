@@ -96,7 +96,8 @@ module.exports.products = async (req,res) => {
 
 
 
-    const productsInADMIN = await Product.find(find).limit(objectPagination.limitItem).skip(objectPagination.skip); // câu lệnh .skip ở đây là hàm có sẵn ví dụ skip(4) -> thì sẽ bỏ qua 4 giá trị -> dòng này đằng bên phải dấu = là các hàm và câu lệnh trong mongoosemongoose
+    const productsInADMIN = await Product.find(find).sort({position: "desc"}).limit(objectPagination.limitItem).skip(objectPagination.skip); // câu lệnh .skip ở đây là hàm có sẵn ví dụ skip(4) -> thì sẽ bỏ qua 4 giá trị -> dòng này đằng bên phải dấu = là các hàm và câu lệnh trong mongoosemongoose
+    // thêm hàm sắp xếp và truyền key là position vào nếu desc thì là sắp xếp theo giảm dần, asc thì là sắp xếp theo tăng dần 
     // câu lệnh .limit dùng để giới hạn những phần được hiển thị trong trang ví dụ ở đây là 7
     // console.log(productsInADMIN);
 
@@ -188,6 +189,9 @@ module.exports.changeMulti = async (req,res) => {
             // console.log(ids); // -> in ra hẳn cả mảng bao gồm cả []
             // for(const item of ids) { // -> chỉ in ra giá trị nếu dùng for of , for in là in ra index của nó , forEach là in ra giá trị giống for of
             //     console.log(item);
+                    // let [id, position] = item.split("-");
+                    // position = parseInt(position);
+                    // await Product.updateOne({_id: id}, {position: position});
             // } 
             // hoặc 
             ids.forEach(async item => {
