@@ -166,6 +166,21 @@ if(formChangeMulti) {
     
 
 
+        const typeChangeDelte = e.target.elements.type_statuss.value;
+        // hoặc 
+        // const typeChangeDelte = e.target.querySelector("[name='type_statuss']").value;
+        // console.log(typeChangeDelte);
+        if(typeChangeDelte == "delete-all") {
+            const isConfirm = confirm("Bạn có muốn xóa không?");
+            if(!isConfirm) {
+                return; // tương tự break; 
+            };
+        };
+
+
+
+
+
         if(inputsChecked.length > 0) {
             let id_array = [];
 
@@ -246,6 +261,7 @@ if(formDeleteMulti) {
         const checkboxMulti = document.querySelector("[checkbox-multi]");
         const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
         // console.log(inputsChecked);
+
 
         if(inputsChecked.length > 0) {
             const inputData = document.querySelector("input[name='id_delete_products']");
