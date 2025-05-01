@@ -1,5 +1,7 @@
 // cài đặt express flash để hiển thị thông báo sau khi xóa, cạpa nhập, thay dổi sản phẩm
 const flash = require('express-flash');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const express = require('express');
 
@@ -30,8 +32,8 @@ app.use(methodOverride('_method')); // -> 56:00 28tech bai 22
 
 
 // sử dụng flash 
-app.use(express.cookieParser('iiisdnakkksh')); // -> muón sử dụng phải cài thêm thư viện cookie-parser
-app.use(express.session({ cookie: { maxAge: 60000 }})); // -> muón sử dụng phải cài thêm thư viện cookie-session
+app.use(cookieParser('iiisdnakkksh')); // -> muón sử dụng phải cài thêm thư viện cookie-parser
+app.use(session({ cookie: { maxAge: 60000 }})); // -> muón sử dụng phải cài thêm thư viện cookie-session
 app.use(flash());
 
 

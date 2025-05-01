@@ -1,0 +1,8 @@
+mixin alert-success(times)
+    - if (messages.success)
+        .message.info
+            div(
+                class="alert alert-success"
+                show-alert
+                data-time= times
+            ) #{messages.success}

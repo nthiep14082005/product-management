@@ -298,3 +298,19 @@ if(formDeleteMulti) {
 // end delete multi 
 
 
+
+
+
+// show-alert
+
+const showAlert = document.querySelector("[show-alert]");
+if(showAlert) {
+    // console.log(showAlert);
+    const time = showAlert.getAttribute("data-time");
+    setTimeout(() => {
+        showAlert.classList.add("alert-hidden");
+    }, time);
+    // console.log(time);
+}
+
+// end show-alert

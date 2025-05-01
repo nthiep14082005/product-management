@@ -139,7 +139,7 @@ module.exports.changeStatus = async (req,res) => {
     // -> để update hay làm gì đó với bên database thì ta dùng async await để xử lý trực tiếp vào database 
 
     
-
+    req.flash('success', 'Cập nhập trạng thái sản phẩm thành công');
 
     // ta có hàm có sẵn khi ta lên api reference trên expressjs có res.redirect("router"); sẽ tự động về lại 1 trang khi ta truyền router vào cho nó 
     // ngoài ra thì có một router đó là "back" -> ví dụ ta đang ở trang a mà ta click vào trang b thì nó sẽ quay về trang a , và nếu ta đang ở trang 2 mà khi click vào status thì nó sẽ thay đổi status và quay trở về lại trang 2 
@@ -179,9 +179,11 @@ module.exports.changeMulti = async (req,res) => {
             // for(const item of ids) {
             //     console.log(item);
             // }
+            req.flash('success', `Cập nhập trạng thái thành công của ${ids.length} sản phẩm`);
             break;
         case "inactive":
             await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+            req.flash('success', `Cập nhập trạng thái thành công của ${ids.length} sản phẩm`);
             break;
         case "delete-all":
             await Product.updateMany({_id: { $in: ids}}, {deleted: true, deletedAt: new Date()});
@@ -235,6 +237,7 @@ module.exports.deleteProduct_PATCH = async (req,res) => {
     const id = req.params.id;
 
     await Product.updateOne({_id: id}, {deleted: true, deletedAt: new Date()}); // thêm trường deletedAt cùng với object của deleted luôn 
+    req.flash('success', `Xóa thành công sản phẩm`);
 
     res.redirect("back");
 }
@@ -246,6 +249,8 @@ module.exports.changeDeleteMulti = async (req,res) => {
     // res.send(`${ids}`)
 
     await Product.updateMany({_id: {$in: ids}}, {deleted: true, deletedAt: new Date()});
+    req.flash('success', `Xóa thành công ${ids.length} sản phẩm`);
+
 
     res.redirect("back");
 }

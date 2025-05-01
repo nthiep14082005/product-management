@@ -5,9 +5,20 @@ include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/form-delete-multi.pug
+include ../../mixins/form-alert.pug
 
 
-block bien 
+block bien
+    
+    //- - if (messages.success)
+    //-     .message.info
+    //-         div(
+    //-             class="alert alert-success"
+    //-             show-alert
+    //-             date-time="5000"
+    //-         ) #{messages.success}
+    +alert-success(5000)
+
     h1 Danh sach san pham 
 
 
