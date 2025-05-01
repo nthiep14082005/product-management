@@ -191,8 +191,8 @@ module.exports.changeMulti = async (req,res) => {
             // } 
             // hoặc 
             ids.forEach(item => {
-                console.log(item.split("-")); // sử dụng split("-") ->>>Khi bạn truyền vào dấu gạch ngang "-" làm đối số, phương thức sẽ phân chia chuỗi ở mỗi vị trí xuất hiện của dấu "-".
-
+                // console.log(item.split("-")); // sử dụng split("-") ->>>Khi bạn truyền vào dấu gạch ngang "-" làm đối số, phương thức sẽ phân chia chuỗi ở mỗi vị trí xuất hiện của dấu "-".
+                let [id, position] = item.split("-"); // -> sử dụng destructuring truyền tham số trực tiếp [id, position] 
               });              
         default:
             break;
