@@ -184,7 +184,16 @@ module.exports.changeMulti = async (req,res) => {
             break;
         case "delete-all":
             await Product.updateMany({_id: { $in: ids}}, {deleted: true, deletedAt: new Date()});
-        
+        case "change-position":
+            // console.log(ids); // -> in ra hẳn cả mảng bao gồm cả []
+            // for(const item of ids) { // -> chỉ in ra giá trị nếu dùng for of , for in là in ra index của nó , forEach là in ra giá trị giống for of
+            //     console.log(item);
+            // } 
+            // hoặc 
+            ids.forEach(item => {
+                console.log(item.split("-")); // sử dụng split("-") ->>>Khi bạn truyền vào dấu gạch ngang "-" làm đối số, phương thức sẽ phân chia chuỗi ở mỗi vị trí xuất hiện của dấu "-".
+
+              });              
         default:
             break;
     }
