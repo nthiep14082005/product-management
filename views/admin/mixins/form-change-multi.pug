@@ -19,3 +19,29 @@ mixin form-change-multi(path)
     //- Quá trình này xảy ra tự động theo cách hoạt động tiêu chuẩn của HTML Form. Khi form được submit, dữ liệu của các phần tử trong form (các input, select có attribute name) sẽ được đóng gói thành dữ liệu gửi đi,
     //- Đúng vậy, nếu các thẻ <button>, <input>, <select> không nằm trong cùng một thẻ <form> thì khi submit, trình duyệt sẽ không đóng gói dữ liệu của chúng lại với nhau để gửi đi.
     //- một cách nữa thêm option có disabled và selected -- Chọn hành động -- và option xóa tất cả ở bài 23 28tech nodejs -> 45:00
+
+
+
+    //- ví dụ tôi có đoạn code như trên thì khi tôi submit mà chọn vào bất kì option nào cũng đều được gửi lên trên form data cùng name là type_statuss: 1 trong các value của các option hả còn ở ô input kia thì nếu nhập vào là 123 thùi cũng sẽ gửi lên form data là id_pproducts: 123 hả
+    //- Đúng vậy, khi submit form, trình duyệt sẽ tự động thu thập giá trị của mỗi phần tử có thuộc tính `name` và gửi theo cặp key/value. Cụ thể:
+
+        - Đối với phần tử `<select name="type_statuss">`  
+        - Nếu người dùng chọn một trong các option có giá trị như `"active"`, `"inactive"`, `"delete-all"`, hoặc `"change-position"`, thì dữ liệu gửi đi sẽ có dạng:  
+            ```
+            type_statuss: "active"  // nếu chọn option có value="active"
+            ```  
+        - Lưu ý rằng option đầu tiên là `-- Chọn hành động --` có thuộc tính `disabled` và `selected`, nghĩa là nó được sử dụng chỉ để hiển thị gợi ý. Vì option bị `disabled` sẽ không được gửi lên khi form submit, nên nếu người dùng không thay đổi lựa chọn, trường `type_statuss` có thể không có giá trị trong dữ liệu gửi đi.
+
+        - Đối với phần tử `<input type="text" name="id_pproducts">`  
+        - Nếu giá trị nhập vào là `"123"`, thì khi form được submit, dữ liệu sẽ có cặp key/value:  
+            ```
+            id_pproducts: "123"
+            ```  
+
+        Điều này tuân theo hành vi mặc định của các form HTML, không phải là “biến toàn cục” trong Node.js hay JavaScript, mà chỉ là cách các dữ liệu được đóng gói và gửi đi qua HTTP request khi form submit.
+
+        Vậy,  
+        - Nếu bạn chọn option có value `"active"` thì POST data sẽ chứa `type_statuss: "active"`.  
+        - Nếu bạn nhập `123` vào ô input thì POST data sẽ chứa `id_pproducts: "123"`.
+
+        Nếu bạn có thêm thắc mắc về cách hoạt động của form hoặc muốn khám phá thêm về việc xử lý sự kiện thay đổi (ví dụ: khi người dùng chọn option thì cập nhật giao diện ngay), mình sẵn sàng cùng bạn đào sâu vấn đề này.

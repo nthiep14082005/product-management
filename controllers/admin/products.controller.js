@@ -171,7 +171,7 @@ module.exports.changeMulti = async (req,res) => {
     
     const type = req.body.type_statuss;
     const ids = req.body.id_pproducts.split(", "); // khi bên backend này thì cần convert về dạng array thì dùng .split(", ");
-    
+    console.log(req.body);
     switch (type) {
         case "active":
             await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
@@ -293,9 +293,13 @@ module.exports.createPost = async (req,res) => {
     }else {
         req.body.position = parseInt(req.body.position);
     }
-    console.log(req.body);
+    // console.log(req.body);
+
+    // Đưa vào database 
+    const product = new Product(req.body); // -> Tạo mới 1 sản phẩm rồi lưu req.body vào nhưng chưa đưa vào database mà chỉ lưu trữ trong code model
+    await product.save(); // -> dùng .save(); để lưu vào database
     
-    res.send(`${req.body.title}`);
+    res.redirect(`${prefixAdmin}/products`);
     // res.redirect("back");
 } 
 
