@@ -157,7 +157,7 @@ module.exports.changeStatus = async (req,res) => {
 
 // [PATCH] /admin/products/change-multi
 module.exports.changeMulti = async (req,res) => {
-    // console.log(req.body);             // -> ở form data đã được gửi được tệp đóng gói lên network có status-type là inactive hoặc active và products-id là nhập vào 
+    // console.log(req.body);  28tech bai 22 , 1:52:30           // -> ở form data đã được gửi được tệp đóng gói lên network có status-type là inactive hoặc active và products-id là nhập vào 
     // -> nhưng khi console.log(req.body) thì lại trả về undefined 
     // req.body là một thuộc tính của đối tượng request trong Express dùng để chứa dữ liệu mà client gửi lên thông qua phần thân của HTTP request. Để dễ hiểu hơn, hãy nghĩ đến một form trên website
     //     Khi bạn điền thông tin vào form (như tên, email, số điện thoại,…) và nhấn nút submit, các thông tin bạn nhập vào đó sẽ được gói lại trong "phần thân" của HTTP request gửi đến server.
@@ -178,6 +178,8 @@ module.exports.changeMulti = async (req,res) => {
         case "inactive":
             await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
             break;
+        case "delete-all":
+            await Product.deleteMany({_id: { $in: ids}}, {deleted: true, deletedAt: new Date()});
         default:
             break;
     }

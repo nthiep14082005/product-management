@@ -158,11 +158,11 @@ if(formChangeMulti) {
     // console.log(formChangeMulti);
     formChangeMulti.addEventListener("submit", (e) => {
         e.preventDefault();
-        // console.log(events);
+        // console.log(e); -> 28tech bai 22 , 1:45:00
 
         const checkboxMulti = document.querySelector("[checkbox-multi]");
         const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
-        // console.log(inputsChecked);
+        // console.log(inputsChecked); 28tech bai 22 1:47:30
     
 
 
@@ -177,6 +177,8 @@ if(formChangeMulti) {
                 const ids = input.getAttribute("value"); // hoac const id = input.value;
                 id_array.push(ids);
             });
+
+            // bai28tech bai22 1:50:00
             // console.log(id_array.join(", ")); // nếu chỉ để id_array thì nó sẽ chỉ hiển thị ra dạng mảng và bên trong ô input nó ko lưu được dạng mảng mà chỉ lưu được ở dạng string nên ta cần convert từ mảng sang string dùng .join(" ");
         
             inputId_products.value = id_array.join(", ");
