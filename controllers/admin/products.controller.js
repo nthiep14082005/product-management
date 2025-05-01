@@ -280,7 +280,23 @@ module.exports.create = async (req,res) =>{
 }
 // [POST] /admin/products/create
 module.exports.createPost = async (req,res) => {
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    // req.body.position = parseInt(req.body.position);
+
+    // Tự động tăng position -> 28tech bài 24 - 0:35:00
+    if(req.body.position == "") {
+        const countProducts = await Product.countDocuments(); // -> Tự động tăng nếu người dùng ko nhập vị trí, dựa trên hàm countDocuments() của mongoose
+        // console.log(countProducts);
+        req.body.position = countProducts + 1;
+    }else {
+        req.body.position = parseInt(req.body.position);
+    }
+    console.log(req.body);
+    
     res.send(`${req.body.title}`);
+    // res.redirect("back");
 } 
 
 
