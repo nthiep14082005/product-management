@@ -152,8 +152,7 @@ if(checkboxMulti) {
 
 
 
-// form data change-multi 
-
+// form data change-multi -> 28tech bài 22 1:42:00
 const formChangeMulti = document.querySelector("[data-form-change-multi]");
 if(formChangeMulti) {
     // console.log(formChangeMulti);
@@ -192,5 +191,79 @@ if(formChangeMulti) {
 
 // end form data change-multi
 
+
+
+
+// delete multi
+// const formDeleteMulti = document.querySelector("[data-form-delete-multi]");
+// if(formDeleteMulti) {
+//     // console.log(formDeleteMulti);
+//     formDeleteMulti.addEventListener("submit", (e) => {
+//         e.preventDefault();
+//         // console.log(events);
+
+//         const checkboxMulti = document.querySelector("[checkbox-multi]");
+//         const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
+//         // console.log(inputsChecked);
+    
+
+
+//         if(inputsChecked.length > 0) {
+//             let id_array = [];
+
+//             // lấy ra ô input và insert id vào 
+//             const inputId_products = formDeleteMulti.querySelector("input[name='id_delete_products']");
+
+
+//             inputsChecked.forEach(input => {
+//                 const ids = input.getAttribute("value"); // hoac const id = input.value;
+//                 id_array.push(ids);
+//             });
+//             // console.log(id_array.join(", ")); // nếu chỉ để id_array thì nó sẽ chỉ hiển thị ra dạng mảng và bên trong ô input nó ko lưu được dạng mảng mà chỉ lưu được ở dạng string nên ta cần convert từ mảng sang string dùng .join(" ");
+        
+//             inputId_products.value = id_array.join(", ");
+//             // console.log(inputId_products.value);
+
+//             formDeleteMulti.submit();
+//         }else {
+//             alert("Vui lòng chọn ít nhất một bản ghi!!!");
+//         }
+//     });
+// }
+// end delete multi 
+
+
+
+// delete multi
+
+const formDeleteMulti = document.querySelector("[data-form-delete-multi]");
+if(formDeleteMulti) {
+    formDeleteMulti.addEventListener("submit", (e)=> {
+        e.preventDefault();
+        // console.log(e);
+        const checkboxMulti = document.querySelector("[checkbox-multi]");
+        const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
+        // console.log(inputsChecked);
+
+        if(inputsChecked.length > 0) {
+            const inputData = document.querySelector("input[name='id_delete_products']");
+            // console.log(inputData);
+            let id_array = [];
+
+            inputsChecked.forEach(input => {
+                const idsC = input.getAttribute("value");
+                id_array.push(idsC);
+            });
+            // console.log(id_array.join(", "));
+            inputData.value = id_array.join(", ");
+
+            formDeleteMulti.submit();
+        }else {
+            alert("Vui lòng chọn ít nhất một bản ghi!!!");
+        }
+    });
+}
+
+// end delete multi 
 
 

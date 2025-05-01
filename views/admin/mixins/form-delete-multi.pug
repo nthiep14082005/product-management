@@ -1,0 +1,15 @@
+mixin form-change-multi(path)
+    form(
+        action= path
+        method="POST"
+        data-form-delete-multi
+    )
+        .d-flex.align-items-start
+            .mb-3.me-3
+                select(name="type_statuss" class="form-control")
+                    option(value="active") Hoạt động
+                    option(value="inactive") Dừng hoạt động
+            .mb-3.me-3
+                input( class="d-none" type="text", name="id_pproducts", value="", placeholder="Nhập ID products" class="form-control")
+            .mb-3
+                button.btn.btn-primary(type="submit") Áp dụng

@@ -18,7 +18,8 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.10.0",
     "product-management": "file:",
-    "pug": "^3.0.3"
+    "pug": "^3.0.3",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

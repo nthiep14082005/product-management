@@ -213,6 +213,18 @@ module.exports.deleteProduct_PATCH = async (req,res) => {
     res.redirect("back");
 }
 
+module.exports.changeDeleteMulti = async (req,res) => {
+    const ids = req.body.id_delete_products.split(", ");    
+
+    // console.log(ids);
+    // res.send(`${ids}`)
+
+    await Product.updateMany({_id: {$in: ids}}, {deleted: true, deletedAt: new Date()});
+
+    res.redirect("back");
+}
+
+
 
 
 

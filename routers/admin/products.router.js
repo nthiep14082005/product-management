@@ -16,6 +16,8 @@ router.patch("/change-multi", controller.changeMulti);
 // router.delete("/delete-product/:id", controller.deleteProduct);
 // router.delele sử dụng updateOne
 router.delete("/delete-product/:id", controller.deleteProduct_PATCH);
+// router.delete multi
+router.delete("/delete-multi", controller.changeDeleteMulti);
 
 
 
