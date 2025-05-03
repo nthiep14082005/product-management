@@ -28,4 +28,8 @@ bai 20 -> 7ph giải thích về tại sao sử dụng method use hoặc get
 
 // thay đổi thứ tự sản phẩm 28tech bài 23 -> 54:40
 // dang học đến bài 24 - 0:43:00 - hiển thị thông báo sau khi ...
-update Không được trùng slug nếu title giống nhau -> slug duy nhất 
+
+
+
+làm upload ảnh từ dưới máy tính lên -> cần cài thêm thư viện npm i multer, 
+khi cài thư viện npm i multer để upload dạng ảnh lên từ local mà không phải dạng link thì ở trong thẻ form cần thêm 1 thuộc tính là enctype='multipart/form-data' và ở ô input có type='file' chuyển định dạng file để upload file ảnh còn thuộc tính accept='image/*' -> dùng để upload và lọc ra các loại ảnh để không được up định dạng khác ảnh
