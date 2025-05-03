@@ -16,7 +16,8 @@ const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 
     position: Number, // ví dụ ở đây nó tự hiểu là truyền vào kiểu type: Number
     slug: { 
         type: String, 
-        slug: "title" // tự động chuyển đổi thành //        /san-pham-11 
+        slug: "title", // tự động chuyển đổi thành //        /san-pham-11 
+        unique: true //  để slug là duy nhất, Không được trùng slug nếu title giống nhau -> slug duy nhất 
     },
     deleted: { // Ta nên truyền vào dạng object co 2 dạng là type: Boolean tức là kiểu là Boolean nếu người dùng truyền vào, còn nếu ko truyền vào thì có kiểu mặc định được set sẵn là false
         type: Boolean,
