@@ -4,7 +4,8 @@ const router = express.Router();
 
 // multer
 const multer  = require('multer'); // nhúng multer để upload định dạng file 
-const upload = multer({ dest: './public/uploads/' }) // đường dẫn để lưu ảnh vào đâu thư mục uploads trong public 
+const storageMulter = require('../../helpers/storageMulter.js');
+const upload = multer({ storage: storageMulter() }); // đường dẫn để lưu ảnh vào đâu thư mục uploads trong public 
 
 
 const controller = require("../../controllers/admin/products.controller");
