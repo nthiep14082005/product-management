@@ -1,5 +1,8 @@
 const Product = require("../../model/product.model");
 
+
+const systemConfig = require("../../config/system")
+
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
@@ -253,7 +256,7 @@ module.exports.changeDeleteMulti = async (req,res) => {
     // console.log(ids);
     // res.send(`${ids}`)
 
-    await Product.updateMany({_id: {$in: ids}}, {deleted: true, deletedAt: new Date()});
+    await Product.deleteMany({_id: {$in: ids}}, {deleted: true, deletedAt: new Date()});
     req.flash('success', `Xóa thành công ${ids.length} sản phẩm`);
 
 
@@ -280,6 +283,7 @@ module.exports.create = async (req,res) =>{
 }
 // [POST] /admin/products/create
 module.exports.createPost = async (req,res) => {
+    // console.log(req.body);
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
@@ -297,9 +301,10 @@ module.exports.createPost = async (req,res) => {
 
     // Đưa vào database 
     const product = new Product(req.body); // -> Tạo mới 1 sản phẩm rồi lưu req.body vào nhưng chưa đưa vào database mà chỉ lưu trữ trong code model
-    await product.save({delete: false}); // -> dùng .save(); để lưu vào database
+    await product.save(); // -> dùng .save(); để lưu vào database
+    req.flash('success', `Thêm thành công sản phẩm`);
     
-    res.redirect(`/admin/products`);
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
     // res.redirect("back");
 } 
 

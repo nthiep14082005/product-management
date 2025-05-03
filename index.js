@@ -6,6 +6,9 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 
 
+// cài đặt slug nhúng bên model
+
+
 // nhúng file method-override
 const methodOverride = require('method-override');
 

@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 
+// cài đặt và nhúng slug
+const slug = require('mongoose-slug-updater');
+mongoose.plugin(slug);
+
+
 const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 bộ khung có tên là productSchema
-    title: String,
+    title: String, //-> ví dụ title là sản phẩm 11
     description: String,
     price: Number,
     discountPercentage: Number,
@@ -9,6 +14,10 @@ const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 
     thumbnail: String,
     status: String,
     position: Number, // ví dụ ở đây nó tự hiểu là truyền vào kiểu type: Number
+    slug: { 
+        type: String, 
+        slug: "title" // tự động chuyển đổi thành //        /san-pham-11 
+    },
     deleted: { // Ta nên truyền vào dạng object co 2 dạng là type: Boolean tức là kiểu là Boolean nếu người dùng truyền vào, còn nếu ko truyền vào thì có kiểu mặc định được set sẵn là false
         type: Boolean,
         default: false
