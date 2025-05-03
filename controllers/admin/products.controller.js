@@ -257,7 +257,7 @@ module.exports.changeDeleteMulti = async (req,res) => {
     // res.send(`${ids}`)
 
     await Product.deleteMany({_id: {$in: ids}}, {deleted: true, deletedAt: new Date()});
-    req.flash('success', `Xóa thành công ${ids.length} sản phẩm`);
+    req.flash('success', `Xóa vĩnh viễn thành công ${ids.length} sản phẩm`);
 
 
     res.redirect("back");
@@ -284,6 +284,7 @@ module.exports.create = async (req,res) =>{
 // [POST] /admin/products/create
 module.exports.createPost = async (req,res) => {
     // console.log(req.body);
+    // console.log(req.file); // -> req.file là để xem trên form-data đã up lên file nào không, ví dụ ở bên fe kia đã up lên file ảnh nên nó sẽ hiển thị file ảnh và các thông tin của nó 
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
@@ -298,6 +299,22 @@ module.exports.createPost = async (req,res) => {
         req.body.position = parseInt(req.body.position);
     }
     // console.log(req.body);
+
+
+
+
+
+
+
+    // để hiển thị ảnh thì ta sẽ phải sử dụng đường dẫn như sau /upload/${req.file.filename} còn về tại sao mà không đi vào thư mục /public/upload/${req.file.filename} thì là do ta cài static: app.use(express.static("public")); nên nó sẽ bắt buộc phải đi trực tiếp từ /upload/${req.file.filename} bỏ qua public
+    // hoặc ta có thể biết bằng cách khi console.log(req.file) thì để hiển thị ảnh lưu vào database thì ta sử dụng đường dẫn path và bỏ qua đường dẫn file đầu tiên -> lấy từ đường dẫn file từ thứ 2 trở đi 
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+
+    // http://localhost:3000/uploads/32618f5910de9b3d36405a3cc4a1fa67
+
+
+
+
 
     // Đưa vào database 
     const product = new Product(req.body); // -> Tạo mới 1 sản phẩm rồi lưu req.body vào nhưng chưa đưa vào database mà chỉ lưu trữ trong code model
