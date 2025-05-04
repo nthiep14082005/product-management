@@ -101,7 +101,7 @@ module.exports.products = async (req,res) => {
 
 
     const productsInADMIN = await Product.find(find).sort({position: "desc"}).limit(objectPagination.limitItem).skip(objectPagination.skip); // câu lệnh .skip ở đây là hàm có sẵn ví dụ skip(4) -> thì sẽ bỏ qua 4 giá trị -> dòng này đằng bên phải dấu = là các hàm và câu lệnh trong mongoosemongoose
-    // thêm hàm sắp xếp và truyền key là position vào nếu desc thì là sắp xếp theo giảm dần, asc thì là sắp xếp theo tăng dần 
+    // thêm hàm sắp xếp và truyền key là position là một key được định nghĩa ở model-schema và này là sắp xếp theo vị trí, nếu muốn sắp xếp theo tên thì ta chỉ cần truyền vào key có sẵn trong model-schema là title vào nếu desc thì là sắp xếp theo giảm dần, asc thì là sắp xếp theo tăng dần 
     // câu lệnh .limit dùng để giới hạn những phần được hiển thị trong trang ví dụ ở đây là 7
     // console.log(productsInADMIN);
 

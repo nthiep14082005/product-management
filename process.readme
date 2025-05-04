@@ -27,8 +27,7 @@ bai 20 -> 7ph giải thích về tại sao sử dụng method use hoặc get
 
 
 // thay đổi thứ tự sản phẩm 28tech bài 23 -> 54:40
-// dang học đến bài 24 - 0:43:00 - hiển thị thông báo sau khi ...
+// dang học đến bài 24 - 1:59:00 - hiển thị thông báo sau khi ...
 
 
 
-update -> xử lý tiếp bên backend làm upload ảnh từ dưới máy tính lên -> cần cài thêm thư viện npm i multer, 
