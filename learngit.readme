@@ -201,6 +201,24 @@ Ví dụ:      git add .
 
 
 
+
+
+------ Khi bạn clone một repo từ GitHub về, mặc định chỉ branch mặc định (thường là main hoặc master) được checkout về local. Các branch khác vẫn tồn tại trên remote, nhưng chưa xuất hiện ở local cho đến khi bạn lấy về.
+
+Lý do:
+
+Git chỉ tạo branch local cho branch bạn đang checkout khi clone.
+Các branch khác chỉ là remote branch (bạn có thể xem bằng git branch -r).
+Cách xem và lấy các branch khác về local:
+Xem các branch trên remote:         git branch -r
+
+Lấy branch bất kỳ về local:         git checkout ten-branch
+
+hoặc:                               git fetch origin ten-branch:ten-branch
+                                    git checkout ten-branch
+
+
+
 ---------------------------------------------------------------------------
 
 
