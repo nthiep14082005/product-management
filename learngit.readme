@@ -133,3 +133,80 @@ B1 : git pull origin ten_nhanh
             B2 : sau khi tạo nếu muốn ko đẩy những file nào thì như sau : ten_file/
             B3 : git rm -r --cached node_modules/
             B4 : git commit -m "Loại bỏ node_modules/ khỏi tracking và cập nhật .gitignore"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+hãy đặt ở đây
+------------------ CLONE VÀ LÀM VIỆC VỚI BRANCH TRONG GIT ------------------
+
+1. Chỉ clone 1 branch về thư mục hiện tại
+Giải thích:
+Bạn chỉ muốn lấy code của 1 branch (ví dụ: feature-abc) về máy, không cần tải toàn bộ lịch sử các branch khác.
+
+Lệnh:       git clone --single-branch --branch feature-abc <link-repo-github> .
+
+--single-branch: Chỉ lấy 1 branch.
+--branch feature-abc: Chỉ định tên branch muốn lấy.
+<link-repo-github>: Link repo trên GitHub.
+.: Clone vào thư mục hiện tại (đảm bảo thư mục trống).
+Ví dụ:      git clone --single-branch --branch develop https://github.com/nthiep14082005/web-co-ban.git .
+
+Lệnh này sẽ lấy branch develop về thư mục 123.
+
+2. Clone toàn bộ repo (lấy tất cả branch)
+Giải thích:
+Bạn muốn lấy toàn bộ code và lịch sử của tất cả branch về máy.
+
+Lệnh:       git clone <link-repo-github> .
+
+Không cần thêm gì, mặc định sẽ lấy tất cả branch.
+Ví dụ:      git clone https://github.com/nthiep14082005/web-co-ban.git .
+
+Lệnh này sẽ lấy toàn bộ repo về thư mục 123.
+
+3. Nếu đã clone rồi, chỉ muốn lấy thêm 1 branch về local
+Giải thích:
+Bạn đã clone repo, muốn lấy thêm branch khác về để làm việc.
+
+Lệnh:       git fetch origin ten-branch:ten-branch
+            git checkout ten-branch
+
+ten-branch: Tên branch bạn muốn lấy.
+Ví dụ:      git fetch origin develop:develop
+            git checkout develop
+
+4. Đẩy code lên GitHub
+Giải thích:
+Sau khi chỉnh sửa code, bạn muốn đẩy code lên GitHub.
+
+Các bước:   git add .
+            git commit -m "Nội dung commit"
+            git push origin ten-branch
+
+ten-branch: Tên branch bạn đang làm việc (ví dụ: main, develop, ...).
+Ví dụ:      git add .
+            git commit -m "Cập nhật giao diện mobile"
+            git push origin develop
+
+
+
+---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
