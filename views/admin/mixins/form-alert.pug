@@ -5,4 +5,18 @@ mixin alert-success(times)
                 class="alert alert-success"
                 show-alert
                 data-time= times
-            ) #{messages.success}
+            ) #{messages.success} <span close-alert>x</span>
+
+
+
+//- phần alert này để dùng cho flash và khi sử dụng flash nó sẽ truy cập vào message, cú pháp flash bên controller là req.flash('Error', `nội dung`); , thì ở đây message.Error tức là flash truy cập được vào message và trả về Error
+//- alert Error cho bên controller check validate dữ liệu title
+//- vì nó quay trở lại trang create nên cần nhúng ở trang create chứ ko phải trang index
+mixin alert-error(times)
+    - if (messages.Error)
+        .message.info
+            div(
+                class="alert alert-danger"
+                show-alert
+                data-time= times
+            ) #{messages.Error} <span close-alert>x</span>
