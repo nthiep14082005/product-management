@@ -317,3 +317,98 @@ if(showAlert) {
 }
 
 // end show-alert
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// upload image để preview ảnh trước khi submit
+const uploadImage = document.querySelector("[upload-image]");
+if(uploadImage) {
+    const uploadImageInput = document.querySelector("[upload-image-input]");
+    const uploadImgagePreview = document.querySelector("[upload-image-preview]");
+
+
+    uploadImageInput.addEventListener("change", (e)=> {
+        console.log(e);
+        // khi sử dụng e để hiển thị tất cả các thuộc tính của sự kiện thì nó sẽ hiển thị ra rất nhiều thuộc tính, trong đó có thuộc tính target là thẻ input mà ta đã click vào
+        // Đúng, .target thường được sử dụng khi làm việc với các sự kiện (event) trong JavaScript.
+
+        const file_check = e.target.files[0]; // lấy ra file đầu tiên trong mảng files sử dụng destructuring
+        if(file_check) {
+            uploadImgagePreview.src = URL.createObjectURL(file_check); // tạo một URL tạm thời cho file để hiển thị ảnh
+            // bài 25 - 28tech - 17ph
+        }
+
+        // tiếp theo ta tạo 1 nút x và khi click vào nút x thì nó sẽ xóa ảnh đã upload đi,
+        // thì sử dụng bắt sự kiện và khi click vào thì set .value của nó thành string rỗng tức là .value = "" cả phần ô input lẫn phần preview ảnh
+
+    });
+
+    // event close button khi preview ảnh 
+    const closeButton = document.querySelector(".close-button");
+    console.log(closeButton);
+    if(closeButton) {
+        closeButton.addEventListener("click", (eventButtonclose) => {
+            eventButtonclose.preventDefault();
+            uploadImageInput.value = "";
+            uploadImgagePreview.src = "";
+        });
+    }
+
+}
+// end upload image để preview ảnh trước khi submit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Đúng, khi bạn dùng forEach để lặp qua danh sách phần tử và gán addEventListener cho từng phần tử, thì mỗi phần tử sẽ có một sự kiện độc lập. Nghĩa là:
+
+// Mỗi phần tử trong danh sách sẽ tự lắng nghe sự kiện riêng của nó.
+// Khi bạn thao tác (click, change, ...) trên một phần tử, chỉ sự kiện của phần tử đó được kích hoạt, không ảnh hưởng đến các phần tử khác.
+// Bạn có thể xử lý logic riêng cho từng phần tử trong callback của addEventListener (ví dụ: lấy thuộc tính, thay đổi giao diện, ...).

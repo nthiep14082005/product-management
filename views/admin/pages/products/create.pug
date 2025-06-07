@@ -51,7 +51,11 @@ block bien
                 value="0"
                 min="0"
             ) 
-        div.form-group
+        div(
+            class="form-group"
+            upload-image
+        )
+            //- tạo ra một thuộc tính tự định nghĩa là upload-image để có thể tái sử dụng ở nhiều nơi khác nhau -> bai 25 28tech 7:00
             label(for="thumbnail") Ảnh
                 //- chuyển định dạng file để upload file ảnh
                 //- còn thuộc tính accept="image/*" -> dùng để upload và lọc ra các loại ảnh để không được up định dạng khác ảnh
@@ -61,7 +65,16 @@ block bien
                 id="thumbnail"
                 name="thumbnail"
                 accept="image/*"
+                upload-image-input 
             ) 
+            //- tạo ra thẻ img để chèn src vào preview ảnh đã upload
+            img(
+                src=""
+                upload-image-preview 
+                class="image-preview"
+            )
+            //- tạo ra một thuộc tính tự định nghĩa là upload-image-input để có thể tái sử dụng ở nhiều nơi khác nhau cùng với thuộc tính upload-image
+            button.btn-close(type='button', aria-label='Close' class="close-button") Close 
         div.form-group
             label(for="position") Vị trí 
             input(
