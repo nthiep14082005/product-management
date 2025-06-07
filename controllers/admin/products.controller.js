@@ -173,7 +173,7 @@ module.exports.changeMulti = async (req,res) => {
             // ---------------> khi này cần cài thêm một thư viện nữa là body-parser
     
     
-    const type = req.body.type_statuss;
+    const type = req.body.type_statuss; // -> ví dụ type_statuss khi gửi form lên là inactive hoặc delete-all thì nó sẽ nhảy vào switch case
     const ids = req.body.id_pproducts.split(", "); // khi bên backend này thì cần convert về dạng array thì dùng .split(", ");
     console.log(req.body);
     switch (type) {
@@ -276,16 +276,17 @@ module.exports.changeDeleteMulti = async (req,res) => {
 
 
 
-// [GET] /admin/products/create
+// [GET] /admin/products/create -> sử dụng để vẽ ra giao diện tạo sản phẩm mới
+// -> khi ta truy cập vào đường dẫn /admin/products/create thì sẽ hiển thị ra giao diện tạo sản phẩm mới
 module.exports.create = async (req,res) =>{
     res.render("admin/pages/products/create", {
         pageTitle: "Thêm mới sản phẩm",
     });
 }
-// [POST] /admin/products/create
+// [POST] /admin/products/create -> sử dụng để thêm sản phẩm mới vào database
+// -> khi ta submit form thì sẽ gửi dữ liệu lên server và server sẽ xử lý dữ liệu đó và lưu vào database
 module.exports.createPost = async (req,res) => {
     // console.log(req.body);
-    // console.log(req.file); // -> req.file là để xem trên form-data đã up lên file nào không, ví dụ ở bên fe kia đã up lên file ảnh nên nó sẽ hiển thị file ảnh và các thông tin của nó 
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
@@ -306,10 +307,10 @@ module.exports.createPost = async (req,res) => {
 
 
 
-
+    console.log(req.file); // -> bai 24 28tech 1:43:00 -> req.file là để xem trên form-data đã up lên file nào không, ví dụ ở bên fe kia đã up lên file ảnh nên nó sẽ hiển thị file ảnh và các thông tin của nó 
     // để hiển thị ảnh thì ta sẽ phải sử dụng đường dẫn như sau /upload/${req.file.filename} còn về tại sao mà không đi vào thư mục /public/upload/${req.file.filename} thì là do ta cài static: app.use(express.static("public")); nên nó sẽ bắt buộc phải đi trực tiếp từ /upload/${req.file.filename} bỏ qua public
     // hoặc ta có thể biết bằng cách khi console.log(req.file) thì để hiển thị ảnh lưu vào database thì ta sử dụng đường dẫn path và bỏ qua đường dẫn file đầu tiên -> lấy từ đường dẫn file từ thứ 2 trở đi 
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
+    req.body.thumbnail = `/uploads/${req.file.filename}`; // -> convert thumbnail sang req.file.filename chứ ko phải là req.file.originalname
 
     // http://localhost:3000/uploads/32618f5910de9b3d36405a3cc4a1fa67
 
@@ -317,7 +318,7 @@ module.exports.createPost = async (req,res) => {
 
 
 
-    // Đưa vào database 
+    // Đưa vào database -> nodejs bài 24- 28tech -> 38ph 
     const product = new Product(req.body); // -> Tạo mới 1 sản phẩm rồi lưu req.body vào nhưng chưa đưa vào database mà chỉ lưu trữ trong code model
     await product.save(); // -> dùng .save(); để lưu vào database
     req.flash('success', `Thêm thành công sản phẩm`);

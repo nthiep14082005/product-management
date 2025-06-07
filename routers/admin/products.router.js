@@ -29,8 +29,6 @@ router.delete("/delete-multi", controller.changeDeleteMulti);
 // router.get create
 router.get("/create", controller.create); // render ra trang tạo sản phẩm 
 router.post("/create",upload.single("thumbnail") , controller.createPost); // up sản phẩm lên giao diện, Thêm hàm upload.singer("thumbnail") để upload ảnh 
-
-
 // thêm multer -> bởi vì khi đọc docx của nó thì nó xử lý ở phần router nên phần require('multer) cũng phải require trong router
 
 

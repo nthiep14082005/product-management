@@ -191,6 +191,9 @@ if(formChangeMulti) {
             inputsChecked.forEach(input => {
                 const ids = input.getAttribute("value"); // hoac const id = input.value;
 
+
+
+                // nếu mà typeChangeDelte là change-position thì ta sẽ lấy thêm vị trí của sản phẩm để lưu vào mảng id_array
                 if(typeChangeDelte == "change-position"){
                     const position = input.closest("tr").querySelector("input[name='position']"); //cái input.closet() này sẽ lấy được thẻ cha có tên là tr gần nhất của input đang được trỏ vào ví dụ đang lặp qua phần thử của thẻ checkbox thứ 1 rồi gọi vào hàm input.closet("tr") là nó sẽ lấy ra được thẻ cha gần nhất của ô input checkbox đó và lưu vào biến position và khi này gọi vào query thì nó sẽ lấy được thẻ input nhập position bởi vì mỗi một hàng sản phẩm hay còn gọi là tr thì trong pug định nghĩa dùng vòng lặp 
                     // console.log(position.value); // -> 28tech bai 23 phut thu 1:04:00 
