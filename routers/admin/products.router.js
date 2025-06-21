@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+// nhúng validates
+const validates = require("../../validates/admin/product.validate.js"); // nhúng validates để kiểm tra dữ liệu trước khi gửi lên database
 
 // multer
 const multer  = require('multer'); // nhúng multer để upload định dạng file 
@@ -28,7 +30,11 @@ router.delete("/delete-multi", controller.changeDeleteMulti);
 
 // router.get create
 router.get("/create", controller.create); // render ra trang tạo sản phẩm 
-router.post("/create",upload.single("thumbnail") , controller.createPost); // up sản phẩm lên giao diện, Thêm hàm upload.singer("thumbnail") để upload ảnh 
+// 1:03:00 sử dụng middleware để kiểm tra require khi validates title ở validates.js trước sau đó mới đi vào controller createPost
+router.post("/create",
+            upload.single("thumbnail"),
+            validates.createPost, // kiểm tra dữ liệu trước khi gửi lên database
+            controller.createPost); // up sản phẩm lên giao diện, Thêm hàm upload.singer("thumbnail") để upload ảnh 
 // thêm multer -> bởi vì khi đọc docx của nó thì nó xử lý ở phần router nên phần require('multer) cũng phải require trong router
 
 

@@ -287,12 +287,12 @@ module.exports.create = async (req,res) =>{
 // -> khi ta submit form thì sẽ gửi dữ liệu lên server và server sẽ xử lý dữ liệu đó và lưu vào database
 module.exports.createPost = async (req,res) => {
 
-    // bai 25 - 28tech - 48ph -> validate dữ liệu , validate title
-    if(!req.body.title) {
-        req.flash('Error', `Vui lòng nhập tiêu đề`);
-        res.redirect("back");
-        return; // khi return để nó dừng hết các đoạn code dưới để tránh trường hợp value rác vào database
-    }
+    // // bai 25 - 28tech - 48ph -> validate dữ liệu , validate title
+    // if(!req.body.title) {
+    //     req.flash('Error', `Vui lòng nhập tiêu đề`);
+    //     res.redirect("back");
+    //     return; // khi return để nó dừng hết các đoạn code dưới để tránh trường hợp value rác vào database
+    // }
 
 
 

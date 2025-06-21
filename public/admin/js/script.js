@@ -309,11 +309,12 @@ if(formDeleteMulti) {
 const showAlert = document.querySelector("[show-alert]");
 if(showAlert) {
     // console.log(showAlert);
-    const time = showAlert.getAttribute("data-time");
+    const time = parseInt(showAlert.getAttribute("data-time")); // tại sao lại phải parseInt() vì khi lấy ra từ thuộc tính data-time thì nó sẽ trả về dạng string nên ta cần chuyển đổi sang dạng số nguyên để sử dụng trong hàm setTimeout()
+    
     setTimeout(() => {
         showAlert.classList.add("alert-hidden");
     }, time);
-    // console.log(time);
+    
 }
 
 // end show-alert
