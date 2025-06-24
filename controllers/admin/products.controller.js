@@ -229,6 +229,61 @@ module.exports.changeMulti = async (req,res) => {
     // res.send(`${ids} - ${type}`) // -> hiển thị status và id ra giao diện 
 }
 
+module.exports.renderEditItems = async (req, res) => { // bài 25 - 28tech nodejs
+
+    // dùng try catch bởi vì khi mà đang ở trong này mà người dùng nhập linh tinh id lên url thì server sẽ bị die luôn, bởi vậy nên phải dùng try catch để check xem    -> 1:38:00 -> 28tech bài 25
+    // có thể dịch là thử truy cập vào trang, nếu lỗi có error thì bắt lỗi và redirect về trang sản phẩm 
+    try {
+        const id_items = req.params.id;
+        const find = {
+            // deleted: false,
+            _id: id_items
+        };
+        // const products = await Product.find(find); // trong mongo thì hàm find sẽ trả về 1 mảng sản phẩm, còn fineOne là trả về 1 sản phẩm tức là chỉ 1 object sản phẩm đó
+        // console.log(products[0]);
+        const products = await Product.findOne(find);
+        // console.log(products);
+        // Nếu bạn định nghĩa một key khác (ví dụ: product: products) trong một hàm controller khác và truyền vào hàm res.render, thì chỉ view (pug) nào được render bởi chính hàm đó mới sử dụng được biến product.
+        res.render("admin/pages/products/edit-items", {
+            pageTitle_1: "Chỉnh sửa sản phẩm",
+            product: products
+        
+        })
+        // res.send(`${id_items}`);
+        // res.send(`OK`);
+    } catch(error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+}
+module.exports.editItems = async (req, res) => {
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    // req.body.position = parseInt(req.body.position);
+
+    // Tự động tăng position -> 28tech bài 24 - 0:35:00
+    // if(req.body.position == "") {
+    //     const countProducts = await Product.countDocuments(); // -> Tự động tăng nếu người dùng ko nhập vị trí, dựa trên hàm countDocuments() của mongoose
+    //     req.body.position = countProducts + 1;
+    // }else {
+    req.body.position = parseInt(req.body.position);
+    // }
+
+    // console.log(req.file); 
+    if(req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`;  // -> convert thumbnail sang req.file.filename chứ ko phải là req.file.originalname
+    };
+
+    try {
+        await Product.updateOne({ _id: req.params.id}, req.body);
+        req.flash('success', `Cập nhập sản phẩm thành công`);
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+        req.flash('error', `Cập nhập sản phẩm không thành công`);
+    }
+    
+    res.redirect("back");
+}
 
 // [DELETE] /admin/products/delete-product/:id  -> sử dụng DELETE
 // module.exports.deleteProduct = async (req,res) => {
@@ -280,14 +335,14 @@ module.exports.changeDeleteMulti = async (req,res) => {
 // -> khi ta truy cập vào đường dẫn /admin/products/create thì sẽ hiển thị ra giao diện tạo sản phẩm mới
 module.exports.create = async (req,res) =>{
     res.render("admin/pages/products/create", {
-        pageTitle: "Thêm mới sản phẩm",
+        pageTitle_1: "Thêm mới sản phẩm",
     });
 }
 // [POST] /admin/products/create -> sử dụng để thêm sản phẩm mới vào database
 // -> khi ta submit form thì sẽ gửi dữ liệu lên server và server sẽ xử lý dữ liệu đó và lưu vào database
 module.exports.createPost = async (req,res) => {
 
-    // // bai 25 - 28tech - 48ph -> validate dữ liệu , validate title
+    // // bai 25 - 28tech - 48ph -> validate dữ liệu , validate title -> đã chuyển sang file riêng
     // if(!req.body.title) {
     //     req.flash('Error', `Vui lòng nhập tiêu đề`);
     //     res.redirect("back");

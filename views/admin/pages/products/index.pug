@@ -129,7 +129,11 @@ block bien
                                 //-Thuộc tính min="1" trong thẻ <input type="number"> được sử dụng để giới hạn giá trị số tối thiểu mà người dùng có thể nhập vào
 
                             td
-                                button(class="btn btn-warning btn-sm") Sửa
+                                button(
+                                    class="btn btn-warning btn-sm"
+                                    data-id=item.id
+                                    button-edit
+                                    ) Sửa
                                 button(
                                     class="btn btn-danger btn-sm ml-1"
                                     data-id=item.id
@@ -200,8 +204,13 @@ block bien
 
 
 
-
-
+    //- --------------- có thể sử dụng thẻ a như trong 1:15:00 để xử lý edit nhưng ở đây dùng thử thẻ form
+    form(
+        action=""
+        method="GET"
+        id="form-edit-item"
+        data-path=`${prefixAdmin}/products/edit-item`
+    )
 
     //- --------------- form xử lý delete
     form(
@@ -216,3 +225,10 @@ block bien
 
     script(src="/admin/js/products.js") 
     //- tại sao lại truy cập được vào trong file public 20ph bai 22 nodejs , do tham chiếu từ static public nên nó bắt đầu từ file public luôn
+
+
+    //- nếu không sử dụng form thì ở button sửa ta có thể dùng tương tự thẻ a như button tạo mới là 
+    //- a(
+    //-                     href=`${prefixAdmin}/products/edit-item/${item.id}`
+    //-                     class="btn btn-warning btn-sm"
+    //-                 ) Sửa

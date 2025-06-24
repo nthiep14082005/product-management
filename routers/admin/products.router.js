@@ -20,6 +20,13 @@ router.patch("/change-multi", controller.changeMulti);
 // router.patch("/changeMulti/products", controller.change_multi); // test thay vì sử dụng form + input thì dùng form + js
 
 
+// router.get edit-item
+router.get("/edit-item/:id", controller.renderEditItems);
+// router.patch edit-item
+router.patch("/edit-item/:id", 
+               upload.single("thumbnail"), 
+               validates.createPost,
+               controller.editItems);
 
 // router.delele delete
 // router.delete("/delete-product/:id", controller.deleteProduct);
@@ -31,10 +38,11 @@ router.delete("/delete-multi", controller.changeDeleteMulti);
 // router.get create
 router.get("/create", controller.create); // render ra trang tạo sản phẩm 
 // 1:03:00 sử dụng middleware để kiểm tra require khi validates title ở validates.js trước sau đó mới đi vào controller createPost
+// sau khi render trang giao diện thì dùng get nhưng khi muốn upload các thứ lên thì dùng post và đều chung đường dẫn nhưng khác controller
 router.post("/create",
-            upload.single("thumbnail"),
-            validates.createPost, // kiểm tra dữ liệu trước khi gửi lên database
-            controller.createPost); // up sản phẩm lên giao diện, Thêm hàm upload.singer("thumbnail") để upload ảnh 
+              upload.single("thumbnail"),
+              validates.createPost, // kiểm tra dữ liệu trước khi gửi lên database
+              controller.createPost); // up sản phẩm lên giao diện, Thêm hàm upload.singer("thumbnail") để upload ảnh 
 // thêm multer -> bởi vì khi đọc docx của nó thì nó xử lý ở phần router nên phần require('multer) cũng phải require trong router
 
 

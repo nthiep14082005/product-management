@@ -78,6 +78,32 @@ if(buttonsCHangeStatus.length > 0) {
 
 
 
+// button-edit ->   //- --------------- có thể sử dụng thẻ a như trong 1:15:00 để xử lý edit nhưng ở đây dùng thử thẻ form
+const buttonsEdit = document.querySelectorAll("[button-edit]");
+// console.log(buttonsEdit);
+if(buttonsEdit.length > 0) {
+    const formEditItem = document.querySelector("#form-edit-item");
+    const path = formEditItem.getAttribute("data-path");
+    buttonsEdit.forEach(button => {
+        // console.log(button);
+        button.addEventListener('click', () => {
+            // console.log(button);
+            const id = button.getAttribute("data-id");
+
+            const action_id = `${path}/${id}`;
+            // const action_id = `${path}/${id}?_method=PATCH`;
+            console.log(action_id);
+            formEditItem.action = action_id;
+            formEditItem.submit();
+        })
+    })
+}
+
+
+
+
+
+
 
 
 
@@ -98,7 +124,7 @@ if (buttonsDelete.length > 0) {
 
                 // console.log(id);
                 const action_s =`${path}/${id}?_method=DELETE`;
-                console.log(action_s);
+                // console.log(action_s);
                 
                 formDeleteItem.action = action_s;
                 formDeleteItem.submit();
