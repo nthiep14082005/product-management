@@ -285,6 +285,27 @@ module.exports.editItems = async (req, res) => {
     res.redirect("back");
 }
 
+
+// [GET /admin/products/detail-item/:id -> Sử dụng get để lấy ra giao diện chi tiết sản phẩm 
+module.exports.detailsItem = async (req,res) => {
+    try {
+        const find = {
+            _id: req.params.id
+        };
+        const products = await Product.findOne(find);
+
+        res.render("admin/pages/products/detail-items", {
+            pageTitle_1: products.title,
+            product: products
+        });
+        // console.log(product);
+
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+};
+
+
 // [DELETE] /admin/products/delete-product/:id  -> sử dụng DELETE
 // module.exports.deleteProduct = async (req,res) => {
 //     const id = req.params.id;

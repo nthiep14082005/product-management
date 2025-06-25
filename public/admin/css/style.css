@@ -2,7 +2,7 @@
     background: #202020;
     padding: 10px 0;
     position: sticky;
-    top: 0;
+    top: -1px;
     z-index: 999;
     border-bottom: 0px;
 }
@@ -13,21 +13,28 @@
     color: #fff;
 }
 
+.body {
+    display: flex;
+    min-height: 100vh; /* 100vh = 100% chiều cao viewport */
+    position: relative;
+}
+
 .body .sider {
     width: 150px;
     background: #323232;
     color: #fff;
-    height: calc(100%);
-    position: fixed;
-    top: 56px;
-    left: 0;
+    height: auto;
+    /* bỏ position: fixed, top, left */
+    position: relative;
 }
 
 .body .main {
+    flex: 1; /* flex: 1 là thuộc tính CSS dùng trong flexbox để chỉ định phần tử đó sẽ chiếm toàn bộ không gian còn lại của container (sau khi các phần tử khác đã chiếm diện tích của mình).*/
     margin: 15px;
     position: relative;
-    left: 150px;
-    width: 87.5%;
+    width: auto;
+    left: 0;
+    box-sizing: border-box;
 }
 
 
@@ -47,7 +54,9 @@
     border-bottom: 1px solid #515151;
 }
 
-
+[checkbox-multi] .td-button button {
+    margin-left: .25rem !important;
+}
 
 /* show-alert */
 [show-alert] {

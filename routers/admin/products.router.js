@@ -22,11 +22,15 @@ router.patch("/change-multi", controller.changeMulti);
 
 // router.get edit-item
 router.get("/edit-item/:id", controller.renderEditItems);
-// router.patch edit-item
+// router.patch edit-item -> ?_method=PATCH ở router.patch này được dùng ở trong file E:\New folder\product-management\views\admin\pages\products\edit-items.pug
 router.patch("/edit-item/:id", 
                upload.single("thumbnail"), 
                validates.createPost,
                controller.editItems);
+
+
+// router.get detail-item
+router.get("/detail-item/:id", controller.detailsItem)
 
 // router.delele delete
 // router.delete("/delete-product/:id", controller.deleteProduct);
@@ -47,8 +51,7 @@ router.post("/create",
 
 
 module.exports = router;
-
-
+// Khi bạn viết const router = express.Router();, bạn tạo ra một router riêng để định nghĩa các đường dẫn (route) cho module này -> module.exports = router; sẽ xuất router này ra ngoài.
 // file này dùng để chuyển hướng nếu có request đến thì chạy sang controller để xử lý
 
 // làm phần tìm kiếm bài 21 - 28tech nodejs 5ph

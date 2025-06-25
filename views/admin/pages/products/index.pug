@@ -128,7 +128,12 @@ block bien
                                 )
                                 //-Thuộc tính min="1" trong thẻ <input type="number"> được sử dụng để giới hạn giá trị số tối thiểu mà người dùng có thể nhập vào
 
-                            td
+                            td(class="td-button")
+                                a(
+                                    href=`${prefixAdmin}/products/detail-item/${item.id}`
+                                    class="btn btn-secondary btn-sm"
+                                ) Chi tiết 
+                                    //- ở đây có thể dùng thẻ a thay cho thẻ form như ở nút sửa và xóa
                                 button(
                                     class="btn btn-warning btn-sm"
                                     data-id=item.id
@@ -219,6 +224,8 @@ block bien
         id="form-delete-item"
         data-path=`${prefixAdmin}/products/delete-product`
     ) 
+
+    //- Để dùng được PATCH/PUT/DELETE qua form, bạn phải để method="POST" và thêm ?_method=PATCH vào action, đồng thời phải có method-override ở server. Nếu để method="GET", method-override sẽ không chuyển thành PATCH, request vẫn là GET.
 
 
 
