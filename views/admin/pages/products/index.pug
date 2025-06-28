@@ -224,7 +224,7 @@ block bien
         id="form-delete-item"
         data-path=`${prefixAdmin}/products/delete-product`
     ) 
-
+    //- CHÚ Ý CÁCH DÙNG METHOD-OVERRIDE Ở NGAY DƯỚI
     //- Để dùng được PATCH/PUT/DELETE qua form, bạn phải để method="POST" và thêm ?_method=PATCH vào action, đồng thời phải có method-override ở server. Nếu để method="GET", method-override sẽ không chuyển thành PATCH, request vẫn là GET.
 
 

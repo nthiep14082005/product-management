@@ -61,7 +61,7 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 // mongoose.connect(process.env.MONGO_URL)
 // cách nhúng database
 const database = require("./config/database");
-database.connect(); // hàm connect có sẵn 
+database.connect(); // hàm connect có sẵn được định nghĩa trong config 
 
 
 
