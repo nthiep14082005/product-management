@@ -71,14 +71,16 @@ database.connect(); // hàm connect có sẵn được định nghĩa trong conf
 
 
 
-app.set('views','./views')
+app.set('views',`${__dirname}/views`)
 app.set('view engine', 'pug')
 
 
 
 
+// khi up lên online thì express nó sẽ ko hiểu public là file gì nên ta phải dùng __dirname -> tức là cấu trúc thư mục của file đang làm việc -> lên gg search
+app.use(express.static(`${__dirname}/public`));
+// app.use(express.static("public"));
 
-app.use(express.static("public"));
 
 
 
