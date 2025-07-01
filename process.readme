@@ -11,6 +11,54 @@ dang hoc den bai 19 - 1:50:00 day file len git /////////////////
 
 
 
+
+
+
+Sự khác biệt giữa req.query và req.body khi dùng form là do thuộc tính method của thẻ form:
+
+Nếu form dùng method="GET":
+ → Dữ liệu sẽ được gửi lên URL dưới dạng query string (sau dấu ?), bạn lấy bằng req.query.
+ Ví dụ:
+ html  <form method="GET" action="/search">    <input name="keyword">  </form>    Khi submit: /search?keyword=abc
+ → Server lấy bằng req.query.keyword
+
+Nếu form dùng method="POST":
+ → Dữ liệu sẽ được gửi trong phần thân (body) của request, bạn lấy bằng req.body.
+ Ví dụ:
+ html  <form method="POST" action="/add">    <input name="title">  </form>    Khi submit: dữ liệu nằm trong body
+ → Server lấy bằng req.body.title
+
+Tóm lại:
+
+method="GET" → dùng req.query
+method="POST" (hoặc PATCH/PUT/DELETE với method-override) → dùng req.body
+Lý do: Chuẩn HTTP quy định GET gửi dữ liệu qua URL, còn POST gửi qua body.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 bat dau bai 20
 
 
@@ -40,4 +88,4 @@ bai 20 -> 7ph giải thích về tại sao sử dụng method use hoặc get
 bai 26- nodejs 28tech 1:04:00 -> cách connect vào database mongodb online
 
 
-// bat dau bai 26 - nodejs - 28tech 1:15:00ph
+// bat dau bai 26 - nodejs - 28tech 1:18:00ph
