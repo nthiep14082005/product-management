@@ -1,4 +1,4 @@
-const multer  = require('multer');
+const multer  = require('multer'); 
 module.exports = () => {
     const storage = multer.diskStorage({
         destination: function (req, file, cb) { // destination là // đường dẫn để lưu ảnh vào đâu thư mục uploads trong public 
@@ -10,4 +10,4 @@ module.exports = () => {
         }
       })
     return storage;
-}
+}  // -> như ở code trên là để lưu vào file upload ở local 

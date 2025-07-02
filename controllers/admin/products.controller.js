@@ -270,9 +270,9 @@ module.exports.editItems = async (req, res) => {
     // }
 
     // console.log(req.file); 
-    if(req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`;  // -> convert thumbnail sang req.file.filename chứ ko phải là req.file.originalname
-    };
+    // if(req.file) { // -> ở đây là lưu ảnh vào file dưới local , còn nếu online thì xem ở bên router hoặc bài 27 - 28tech nodejs 42:00ph 
+    //     req.body[req.file.fieldname] = `/uploads/${req.file.filename}`;  // -> convert thumbnail sang req.file.filename chứ ko phải là req.file.originalname
+    // };
 
     try {
         await Product.updateOne({ _id: req.params.id}, req.body);
@@ -396,9 +396,9 @@ module.exports.createPost = async (req,res) => {
     console.log(req.file); // -> bai 24 28tech 1:43:00 -> req.file là để xem trên form-data đã up lên file nào không, ví dụ ở bên fe kia đã up lên file ảnh nên nó sẽ hiển thị file ảnh và các thông tin của nó 
     // để hiển thị ảnh thì ta sẽ phải sử dụng đường dẫn như sau /upload/${req.file.filename} còn về tại sao mà không đi vào thư mục /public/upload/${req.file.filename} thì là do ta cài static: app.use(express.static("public")); nên nó sẽ bắt buộc phải đi trực tiếp từ /upload/${req.file.filename} bỏ qua public
     // hoặc ta có thể biết bằng cách khi console.log(req.file) thì để hiển thị ảnh lưu vào database thì ta sử dụng đường dẫn path và bỏ qua đường dẫn file đầu tiên -> lấy từ đường dẫn file từ thứ 2 trở đi 
-    if(req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`;  // -> convert thumbnail sang req.file.filename chứ ko phải là req.file.originalname
-    };
+    // if(req.file) {
+    //     req.body.thumbnail = `/uploads/${req.file.filename}`;  // -> convert thumbnail sang req.file.filename chứ ko phải là req.file.originalname
+    // };
 
     // http://localhost:3000/uploads/32618f5910de9b3d36405a3cc4a1fa67
 
