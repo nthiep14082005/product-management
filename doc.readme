@@ -1,0 +1,155 @@
+- các bước để bắt đầu 1 project 
+
+-- cấu trúc thư mục theo mạng mvc -> model, view, controller
+-- thêm các folder như config để lưu trữ cấu hình ví dụ như check đã connect thành công hay lưu trữ biến toàn cục
+-- thêm các file .env và .gitignore , package.json để lưu trữ biến môi trường, ...
+-- ngoài ra thêm folder router để chuyển hướng đường dẫn, public để code js và css
+
+-> đối với model dùng để lưu trữ cấu hình database, 
+
+
+
+-> B1 khởi tạo project sau khi cài npm và nodejs, -> khởi tạo npm init
+->      npm i express -> tiếp theo sử dụng đoạn code như sau để chạy thử 
+const express = require("express");
+const app = express();
+const port = 3000;
+
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.listen(port, () => {
+    console.log(`http://localhost:${port}`);
+});
+
+-> tiếp theo npm install --save-dev nodemon
+
+->      tiếp theo thêm câu lệnh "start": "nodemon --inspect index.js" vào package.json để chạy npm start
+
+-> npm i pug
+-> tiếp theo code phần giao diện 
+đầu tiên tạo 3 file router dashboard, index, product , trong đó index là file gốc và nó sẽ chuyển hướng sang 2 file dashboard và product
+    trong các file router nếu không phải là index thì phải thêm 2 câu lệnh là const express = require("express"); và const router1 = express.Router(); để ....
+và cuối file đó phải có module.exports = router1
+
+tiếp theo khi cấu hình xong router và truy cập vào controller thì phải cài npm i view-engine và thêm biến static cho folder public
+cuối cùng vào file index.js chính và require router bên admin và client sau đó gọi vào router(app); và routerAdmin(app); như này khi truyền app -> lưu trữ toàn bộ project vào router thì mới chạy
+
+
+sau khi mà đã code được trang dashboard bên client và admin và css xong các thứ thì tiếp theo sẽ là xử lý bên product client 
+với product client thì ta sẽ xử lý code fe trước sau đó sẽ đi vào xử lý model database và lấy dữ liệu database để vẽ lên giao diện 
+sau khi xử lý giao diện product client xong thì xử lý sang product admin và vẽ giao diện chỉnh sửa các thứ ở admin và làm các chức năng 
+
+
+import thư viện dotenv để sử dụng biến trong file .env 
+
+
+tiếp theo tạo file model và vào trang model mongoose để tạo mô hình -> sau đó lấy connection string+tên project để tạo trong .env -> sau đó tạo try catch trong config để kết nối và kiểm tra xem có kết nối được không-> cuối cùng vào index.js để require file trong config và kết tên.cconnect();
+sau khi mà connect được thì vào chỉnh sửa model đầu tiên luôn thêm các cái như sau 
+const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 bộ khung có tên là productSchema
+    title: String, //-> ví dụ title là sản phẩm 11
+    description: String,
+    price: Number,
+    discountPercentage: Number,
+    stock: Number,
+    thumbnail: String,
+    status: String,
+    position: Number, // ví dụ ở đây nó tự hiểu là truyền vào kiểu type: Number
+    slug: { 
+        type: String, 
+        slug: "title", // tự động chuyển đổi thành //        /san-pham-11 
+        unique: true   //  để slug là duy nhất, Không được trùng slug nếu title giống nhau -> slug duy nhất 
+    },
+    deleted: { // Ta nên truyền vào dạng object co 2 dạng là type: Boolean tức là kiểu là Boolean nếu người dùng truyền vào, còn nếu ko truyền vào thì có kiểu mặc định được set sẵn là false
+        type: Boolean,
+        default: false
+    },
+    deletedAt: Date // thêm trường deletedAt để kiểm tra thời gian xóa -> 23 nodejs 28tech -> 33:57
+}, {timestamps: true});
+
+
+
+
+
+
+tiếp theo xử lý phần pagination 
+1 xử lý về phần helper pagination trước sau đó xử lý bên phía controller và cuối cùng là xử lý mixins pagination
+
+
+
+
+
+đối với phần xử lý filterStatus thì dựa theo hiểu sau đây 
+nếu như trên req.query có status ví dụ bằng inactive thì khi này nó sẽ truy cập vào file filterStatusHelper sau đó nó gán cái class active vào 1 trong 3object của mảng filterStatus, sau khi gán xong class active thì nó sẽ ra ngoài và chạy đến câu lệnh nếu như có req.query.status tức là trường hợp ko phải là tất cả mà là active hoặc inactive thì nó sẽ định nghĩa 1 key là status của object find và nó sẽ có giá trị là req.query.status hiện tại đúng không
+Đúng, bạn hiểu hoàn toàn chính xác!
+
+Quy trình sẽ như sau:
+
+Khi URL có query ?status=inactive (hoặc active):
+
+req.query.status sẽ có giá trị "inactive" (hoặc "active").
+Hàm filterStatusHelper(req.query) được gọi:
+
+Hàm này sẽ duyệt qua mảng 3 object (Tất cả, Hoạt động, Dừng hoạt động).
+Tìm object nào có status trùng với req.query.status và gán thêm class: "active" cho object đó.
+Kết quả trả về là mảng filterStatus đã được đánh dấu class active đúng vị trí.
+Sau đó, đến đoạn:
+if(req.query.status) {
+    find.status = req.query.status;
+}
+
+Nếu có req.query.status, sẽ thêm key status vào object find với giá trị là "inactive" (hoặc "active").
+Object find này sẽ được dùng để truy vấn sản phẩm theo đúng trạng thái đang chọn.
+Tóm lại:
+
+filterStatusHelper xử lý đổi màu nút.
+Object find xử lý lọc dữ liệu theo trạng thái.
+Hai phần này hoạt động độc lập nhưng đều dựa vào giá trị req.query.status trên URL.
+
+
+
+=>>>>>>>>>Vấn đề của bạn là khi lọc sang trạng thái sản phẩm dừng hoạt động (chỉ còn 8 sản phẩm), nhưng số lượng trang vẫn hiển thị là 6 (không đúng, lẽ ra chỉ 2 trang nếu limitPage = 4).
+
+Nguyên nhân:
+Bạn đang đếm tổng số sản phẩm (countProduct) trước khi áp dụng filter status (find.status).
+
+
+
+
+
+
+
+
+
+
+
+
+để giải thích từng bước thì như sau 
+            thứ 1: khi thanh url được truyền vào ?status=... thì khi này mới xử lý đổi màu button và xử lý thêm key value find.status để lọc sản phẩm
+            thứ 2: khi đã xử lý được 2 cái kia thì khi này ta mới xử lý khi bấm vào button thì nó sẽ khiến cho thanh url thay đổi thành ?stauts=...
+
+---------=> đối với các cái như xử lý phần search tìm sản phẩm cũng có cấu trúc và cách làm tương tự filterStatus và pagination 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================
+            sẽ có 2 cách để submit cho button nếu sử dụng thẻ form
+                = + TH1 : sử dụng type="submit" cho nút button thì khi này không cần bắt sự kiện cho nút button -> nó sẽ tự động submit khi ta bắt sự kiện submit cho thẻ form
+                = + TH2 : nếu không sử dụng type hoặc sử dụng type khác submit thì khi này cần bắt sự kiện click vào button
+            Tóm lại:
+
+                > Trường hợp nhiều nút nhưng mỗi nút đều có chung 1 chức năng nhưng mỗi nút là 1 sản phẩm riêng → nên bắt sự kiện cho từng nút.
+                > Trường hợp một form, một nút submit chính → nên bắt sự kiện submit trên form cho nút
