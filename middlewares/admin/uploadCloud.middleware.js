@@ -37,11 +37,11 @@ module.exports.uploads = async (req, res, next) => { // -> câu lệnh trong hư
                             // console.log(result);
                             // req.body.thumbnail = result.secure_url;
                             // tương tự
-                            req.body[req.file.fieldname] = result.secure_url; // -> ở đây thay vì sử dụng thumbnail thì ta dùng như kia để nhỡ có thay đổi thì ko sao 
+                            req.body[req.file.fieldname] = result.secure_url; // -> ở đây thay vì sử dụng thumbnail thì ta dùng như kia để nhỡ có thay đổi thì ko sao, bởi vì khi console thử req thì sẽ có 1 thuộc tính là file.fieldname khi bên pug ở phần image có name là gì thì fieldname = name đó xem ở 28tech video bài 27 43ph 
                             next(); // chỉ gọi next ở đây nếu có file -> bản chất async await có tính chất chờ đợi nên nếu ko có next thì nó ko chạy tiếp được middleware sau 
                         }
                         
-                        upload(req);
+                        upload(req);// đây chỉ là hàm gọi nên để sau khi chạy hết thì gọi lại hàm
                     } else {
                         // chỉ gọi next ở đây nếu không có file
                         next();  // ->> bài 27 nodejs 28tech 52:00 -> giải thích về tính chất next và async await và tại sao lại chạy vào controller trước khi upload ảnh 
