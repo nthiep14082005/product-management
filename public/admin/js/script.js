@@ -384,6 +384,67 @@ if(uploadImage) {
 
 
 
+// sort 
+const sort = document.querySelector("[sort-option]");
+if(sort) {
+
+    let newURL = new URL(window.location.href);
+
+    const sortSelect = sort.querySelector("[sort-select]");
+    const sortClear = sort.querySelector("[sort-clear]");
+    
+    sortSelect.addEventListener("change", (events) => {
+        const valueSelect = events.target.value;
+        console.log(valueSelect.split("-")); // -> đùng để tách chuỗi 
+
+        const [sortKey, sortValue] = valueSelect.split("-"); // -> sử dụng destructuring để tách và gán biến 
+
+
+        newURL.searchParams.set("sortKey", sortKey);
+        newURL.searchParams.set("sortValue", sortValue);
+
+        window.location.href = newURL.href;
+        
+    })
+
+    sortClear.addEventListener("click", (events) => {
+        // const valueSelect = events.target.value;
+        // console.log(valueSelect.split("-")); // -> đùng để tách chuỗi 
+
+        // const [sortKey, sortValue] = valueSelect.split("-"); // -> sử dụng destructuring để tách và gán biến 
+
+
+        newURL.searchParams.delete("sortKey");
+        newURL.searchParams.delete("sortValue");
+
+        window.location.href = newURL.href;
+    })
+
+
+    // set selected tức là giữ tiêu đề của select cho option
+    const sortKeystring = newURL.searchParams.get("sortKey");
+    const sortValuestring = newURL.searchParams.get("sortValue");
+    // console.log(sortKeystring);
+    // console.log(sortValuestring);
+
+    if(sortKeystring && sortValuestring) {
+        const sortAllString = `${sortKeystring}-${sortValuestring}`;
+        // console.log(sortAllString);
+        const optionSelected = sortSelect.querySelector(`option[value="${sortAllString}"]`);
+
+        optionSelected.selected = true;
+    }
+
+}
+// end sort 
+
+
+
+
+
+
+
+
 
 
 

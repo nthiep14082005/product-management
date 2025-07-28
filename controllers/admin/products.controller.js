@@ -69,7 +69,7 @@ module.exports.products = async (req,res) => {
     // pagination -> phan trang
     const countProducts = await Product.countDocuments(find); // -> trong moongoos có hàm countDocument để đếm ra tất cả các bản ghi 
     let objectPagination = paginationHelper({
-        limitItem: 4,
+        limitItem: 7,
         currentPage: 1
     }, req.query, countProducts
     );
@@ -100,7 +100,17 @@ module.exports.products = async (req,res) => {
 
 
 
-    const productsInADMIN = await Product.find(find).sort({position: "desc"}).limit(objectPagination.limitItem).skip(objectPagination.skip); // câu lệnh .skip ở đây là hàm có sẵn ví dụ skip(4) -> thì sẽ bỏ qua 4 giá trị -> dòng này đằng bên phải dấu = là các hàm và câu lệnh trong mongoosemongoose
+    // sort
+    let sort1 = {};
+    if(req.query.sortKey && req.query.sortValue) { // -> ở đây sortKey và sortValue và 2 biến tự đặt tên trên thanh url 
+        sort1[req.query.sortKey] = req.query.sortValue; // -> truyền 1 key value trong object
+        // sort1.price = "desc";
+    } else {
+        sort1.position = "desc";
+    }
+    // end sort
+
+    const productsInADMIN = await Product.find(find).sort(sort1).limit(objectPagination.limitItem).skip(objectPagination.skip); // câu lệnh .skip ở đây là hàm có sẵn ví dụ skip(4) -> thì sẽ bỏ qua 4 giá trị -> dòng này đằng bên phải dấu = là các hàm và câu lệnh trong mongoosemongoose
     // thêm hàm sắp xếp và truyền key là position là một key được định nghĩa ở model-schema và này là sắp xếp theo vị trí, nếu muốn sắp xếp theo tên thì ta chỉ cần truyền vào key có sẵn trong model-schema là title vào nếu desc thì là sắp xếp theo giảm dần, asc thì là sắp xếp theo tăng dần 
     // câu lệnh .limit dùng để giới hạn những phần được hiển thị trong trang ví dụ ở đây là 7
     // console.log(productsInADMIN);

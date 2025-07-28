@@ -6,6 +6,7 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/form-delete-multi.pug
 include ../../mixins/form-alert.pug
+include ../../mixins/sortSelectOption.pug
 
 
 block bien
@@ -20,6 +21,13 @@ block bien
     +alert-success(5000)
 
     h1 Danh sach san pham 
+
+    .card.mb-3 
+        .card-header Sắp xếp 
+        .card-body 
+            .row 
+                .col-4 
+                    +sort()
 
 
 
