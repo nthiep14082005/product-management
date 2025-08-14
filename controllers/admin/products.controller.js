@@ -438,3 +438,16 @@ module.exports.createPost = async (req,res) => {
 
 
 // -> những chỗ truy vấn vào database thì phải thêm await hay còn là truoc model thi them await
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -31,10 +31,15 @@ block bien
     if(product.position)
         div(class="mb-4") Vị trí: <b>#{product.position}</b>
     
+    //- if(product.description)
+    //-     div(class="mb-4")
+    //-         span Giới thiệu sản phẩm: 
+    //-             <b>#{product.description}</b>
+    //- ------------------> tại sao không sử dụng # mà lại sử dụng ! bởi vì -> trong pug thì #{} dùng để hiển thị string nên nó sẽ hiển thị dạng string, còn ! thì sẽ chuyển đổi string thành cú pháp HTML nếu có, !!!!!!!!!!! LƯU Ý: Khi lưu vào database thì bắt buộc 100% phải dùng #{} để lưu string.
     if(product.description)
         div(class="mb-4")
             span Giới thiệu sản phẩm: 
-                <b>#{product.description}</b>
+                <b>!{product.description}</b>
 
 
     a(

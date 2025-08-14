@@ -1,0 +1,33 @@
+extends ../../layouts/default.pug
+
+
+block bien
+    
+   
+    h1 Danh sach san pham 
+
+    .card.mb-3  
+        .card-header Danh sách 
+            .card-body 
+                .row
+                    .col-8
+
+                    .col-4
+                        a(
+                            href=`${prefixAdmin}/products-category/create`
+                            class="btn btn-outline-success"
+                        ) + Thêm mới
+
+//- thêm model như sau 
+//- _id
+//- title
+//- parent_id
+//- description
+//- thumbnail
+//- status
+//- position
+//- deleted
+//- deletedAt
+//- createdAt
+//- updatedAt
+//- slug

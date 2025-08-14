@@ -97,4 +97,10 @@ bai 26- nodejs 28tech 1:04:00 -> cách connect vào database mongodb online
 
 
 
-// bat dau bai 27 - nodejs - 28tech 1:31:00ph
+// bat dau bai 28 - nodejs - 28tech 0:00:00ph -> TinyMCE 
+
+
+
+// bat dau bai 28 - nodejs - 28tech 1:15:00ph  -> để lưu được sản phẩm vào database thì đầu tiên phải tạo model vào sau khi tạo xong thì exports ra và trong controller thì sử dụng bằng cách gọi const Product = require(... đường dẫn của model cần lưu vào database ...)
+
+

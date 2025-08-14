@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 
 
 const express = require('express');
+// TinyMCE 
+const path = require('path');
 
 
 // cài đặt slug nhúng bên model
@@ -45,7 +47,9 @@ app.use(session({ cookie: { maxAge: 60000 }})); // -> muón sử dụng phải c
 app.use(flash());
 
 
-
+// Start TinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// End TinyMCE
 
 
 const systemConfig = require("./config/system");
