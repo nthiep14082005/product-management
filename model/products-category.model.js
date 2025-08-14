@@ -26,10 +26,10 @@ const productCategorySchema = new mongoose.Schema({ // ở đay tức là tạo 
     deletedAt: Date // thêm trường deletedAt để kiểm tra thời gian xóa -> 23 nodejs 28tech -> 33:57
 }, {timestamps: true}); // bai24 - 28tech - 46ph trong mongoose có sẵn 1 tham số còn lại là timestamps, trong timestamps sẽ 2 thuộc tính là createAt: và updateAt -> nó sẽ tự động update thời gian khi mà nó phát hiện có bản ghi mới được tạo hoặc bản ghi được chỉnh sửa, thay vì khởi tạo thủ công 2 thuộc tính thì ta dùng true nó sẽ tự động khởi tạo
 
-const Product = mongoose.model('Product', productCategorySchema, "products"); // tham số thứ 3 là tên collection trong database 
+const ProductCategory = mongoose.model('ProductCategory', productCategorySchema, "products-category"); // tham số thứ 3 là tên collection trong database 
 // tức là nó sẽ đi vào database và tìm collection có tên là prodcuts và đặt tên là Product... và gán cho database một model cố định là productCategorySchema
 // muốn dùng productSchema ta sử dụng lệnh như trên dòng 3
 
 
 
-module.exports = Product;
+module.exports = ProductCategory;
