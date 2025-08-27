@@ -1,125 +1,106 @@
 extends ../../layouts/default.pug
 include ../../mixins/form-alert.pug
-block bien 
-    h1(class="mb-4") Thêm mới danh mục sản phẩm
+include ../../mixins/selectTree.pug
 
+block bien 
     +alert-error(5000)
 
-    form(action=`${prefixAdmin}/products-category/create`, method="post", enctype="multipart/form-data")
-    div(class="form-group")
-        label(for="title") Tiêu đề
-        input(
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            required
-        )  
-    div(class="form-group")
-        label(for="parent_id") Danh mục cha 
-        input(
-            type="text"
-            class="form-control"
-            id="parent_id"
-            name="parent_id"
-            required
+    h1(class="mb-4") Thêm mới sản phẩm
+        //- khi cài thư viện npm i multer để upload dạng ảnh lên từ local mà không phải dạng link thì ở trong thẻ form cần thêm 1 thuộc tính là enctype="multipart/form-data" và ở ô input có type="file" chuyển định dạng file để upload file ảnh còn thuộc tính accept="image/*" -> dùng để upload và lọc ra các loại ảnh để không được up định dạng khác ảnh
+    form(action=`${prefixAdmin}/products-category/create`, method="POST" , id="form-create-product", enctype="multipart/form-data")
+        div.form-group 
+            label(for="title") Tiêu đề - Description
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+            )  
+        div(class="form-group")
+            label(for="parent_id") Danh mục cha 
+            //- input(
+            //-     type="text"
+            //-     class="form-control"
+            //-     id="parent_id"
+            //-     name="parent_id"
+            //- )
+            select(
+                name="parent_id"
+                id="parent_id"
+                class="form-control"
+            ) 
+                option(value="" disabled selected) -- Chọn danh mục cha --
+                option(value="") -- Tạo danh mục cha mới --
+                if(record)
+                    +selectTree(record)
+            //- đầu tiên tạo một thẻ select và sau đó trong thẻ select sẽ có những option, đàu tiên là option với value rỗng và dể disabled selectedl là để tiêu đề không chọn, tiếp theo là sử dụng if để kiểm tra nếu có bản ghi thì dùng vòng lặp each để lặp qua từng phần tử và mỗi phần tử sẽ có value bằng giá trị id của từng item, ở ngoài option sẽ điền tên là #{item.title}
+        .form-group 
+            label(for="desc") Mô tả
+            textarea(
+                class="form-control textarea-tinyMCE"
+                id="desc"
+                name="description"
+                rows="5"
+            ) 
+        div(
+            class="form-group"
+            upload-image
         )
-    .form-group 
-        label(for="desc") Mô tả
-        textarea(
-            class="form-control textarea-tinyMCE"
-            id="desc"
-            name="description"
-            rows="5"
-        ) 
-    div(class="form-group")
-        label(for="price") Giá
-        input(
-            type="number"
-            class="form-control"
-            id="price"
-            name="price"
-            value="0"
-            min="0"
-        )     
-    div(class="form-group")
-        label(for="discount") % Giảm giá
-        input(
-            type="number"
-            class="form-control"
-            id="discount"
-            name="discountPercentage"
-            value="0"
-            min="0"
-        ) 
-    .form-group
-        label(for="stock") Số lượng
-        input(
-            type="number"
-            class="form-control"
-            id="stock"
-            name="stock"
-            value="0"
-            min="0"
-        ) 
-    div(
-        class="form-group"
-        upload-image
-    )
-        //- tạo ra một thuộc tính tự định nghĩa là upload-image để có thể tái sử dụng ở nhiều nơi khác nhau -> bai 25 28tech 7:00
-        label(for="thumbnail") Ảnh
-            //- chuyển định dạng file để upload file ảnh
-            //- còn thuộc tính accept="image/*" -> dùng để upload và lọc ra các loại ảnh để không được up định dạng khác ảnh
-        input(
-            type="file" 
-            class="form-control-file"
-            id="thumbnail"
-            name="thumbnail"
-            accept="image/*"
-            upload-image-input 
-        ) 
-        //- tạo ra thẻ img để chèn src vào preview ảnh đã upload
-        img(
-            src=""
-            upload-image-preview 
-            class="image-preview"
-        )
-        //- tạo ra một thuộc tính tự định nghĩa là upload-image-input để có thể tái sử dụng ở nhiều nơi khác nhau cùng với thuộc tính upload-image
-        button.btn-close(type='button', aria-label='Close' class="close-button") Close 
-    div.form-group
-        label(for="position") Vị trí 
-        input(
-            type="number"
-            class="form-control"
-            id="position"
-            name="position"
-            placeholder="Tự động tăng"
-            min="1"
-        )
-    div(class="form-group form-check form-check-inline")
-        input(
-            type="radio"
-            class="form-check-input"
-            id="statusActive"
-            name="status"
-            value="active"
-            checked
-        ) 
-        label(for="statusActive" class="form-check-label") Hoạt động
-    div(class="form-group form-check form-check-inline")
-        input(
-            type="radio"
-            class="form-check-input"
-            id="statusInActive"
-            name="status"
-            value="inactive"
-        ) 
-        label(for="statusInActive" class="form-check-label")  Dừng hoạt động
-    div(class="form-group")
-        button(
-            type="submit"
-            class="btn btn-primary"
-        ) Tạo mới
+            //- tạo ra một thuộc tính tự định nghĩa là upload-image để có thể tái sử dụng ở nhiều nơi khác nhau -> bai 25 28tech 7:00
+            label(for="thumbnail") Ảnh
+                //- chuyển định dạng file để upload file ảnh
+                //- còn thuộc tính accept="image/*" -> dùng để upload và lọc ra các loại ảnh để không được up định dạng khác ảnh
+            input(
+                type="file" 
+                class="form-control-file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                upload-image-input 
+            ) 
+            //- tạo ra thẻ img để chèn src vào preview ảnh đã upload
+            img(
+                src=""
+                upload-image-preview 
+                class="image-preview"
+            )
+            //- tạo ra một thuộc tính tự định nghĩa là upload-image-input để có thể tái sử dụng ở nhiều nơi khác nhau cùng với thuộc tính upload-image
+            button.btn-close(type='button', aria-label='Close' class="close-button") Close 
+        div.form-group
+            label(for="position") Vị trí 
+            input(
+                type="number"
+                class="form-control"
+                id="position"
+                name="position"
+                placeholder="Tự động tăng"
+                min="1"
+            )
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusActive"
+                name="status"
+                value="active"
+                checked
+            ) 
+            label(for="statusActive" class="form-check-label") Hoạt động
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusInActive"
+                name="status"
+                value="inactive"
+            ) 
+            label(for="statusInActive" class="form-check-label")  Dừng hoạt động
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Tạo mới
 
 
 

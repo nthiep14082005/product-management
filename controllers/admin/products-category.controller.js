@@ -8,62 +8,141 @@
 
 
 
+const ProductCategory = require("../../model/products-category.model");
+const systemConfig = require("../../config/system");
+const createTREE = require("../../helpers/createTree");
 
-const Product = require("../../model/product.model");
+
 // [GET] /admin/products-category
 module.exports.productsCategory = async (req, res) => {
+    let find = {
+        deleted: false,
+    }
+
+    // function createTree(array, ParentId="") {
+    //     const tree = [];
+    //     array.forEach((itemArray) => {
+    //         if(itemArray.parent_id === ParentId) {
+    //             const newItem = itemArray;
+    //             const childrenItem = createTree(array, itemArray.id);
+    //             if(childrenItem.length > 0) {
+    //                 newItem.newChildrenItem = childrenItem; // -> newChildrenItem thực chất là một thuộc tính tự định nghĩa của newItem 
+    //             }
+    //             tree.push(newItem);
+    //         }
+    //     })
+    //     return tree;
+    // }
+    
+    const records1 = await ProductCategory.find(find);
+    const newRecords1 = createTREE.tree(records1);
+    
+
     res.render("admin/pages/products-category/index", {
-        pageTitle_1: "Danh sách quản lý sản phẩm"
+        pageTitle_1: "Danh sách quản lý sản phẩm",
+        record1: newRecords1
     });
 }
 
 // [GET] /admin/products-category/create
 
 module.exports.create = async (req, res) => {
+
+    let find = {
+        deleted: false,
+    };
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // sử dụng đệ quy để lấy ra sản phẩm sử dụng tree
+
+//     Hàm đi sâu đến node cuối cùng trước (đệ quy), xử lý xong node con rồi mới quay lại node cha để gán children. 
+//     Quá trình này lặp lại cho đến khi hoàn thành cây phân cấp.
+//     Bạn hiểu đúng về cách hoạt động của hàm này!
+    function createTree (array, parentId = "") {
+        const tree = [];
+        array.forEach((item) => {
+            if(item.parent_id === parentId) {
+                const newItem = item;
+                const children = createTree(array, item.id);
+                // console.log(newItem, "------------", children);
+                if(children.length > 0) {
+                    newItem.newChildren = children;
+                }
+                tree.push(newItem);
+            }
+        })
+        return tree;
+    }
+
+
+
+    const records = await ProductCategory.find(find);
+    // console.log(records);
+
+    const newRecords = createTree(records);
+    // console.log(newRecords);
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
     res.render("admin/pages/products-category/create", {
-        pageTitle_1: "Tạo danh sách quản lý sản phẩm"
+        pageTitle_1: "Tạo danh sách quản lý sản phẩm",
+        record: newRecords
     });
 }
 
 // [POST] /admin/products-category/create
 module.exports.createPost = async (req, res) => {
-    req.body.price = parseInt(req.body.price);
-    req.body.discountPercentage = parseInt(req.body.discountPercentage);
-    req.body.stock = parseInt(req.body.stock);
-    // req.body.position = parseInt(req.body.position);
+        // console.log(req.body);
 
-    // Tự động tăng position -> 28tech bài 24 - 0:35:00
-    if(req.body.position == "") {
-        const countProducts = await Product.countDocuments(); // -> Tự động tăng nếu người dùng ko nhập vị trí, dựa trên hàm countDocuments() của mongoose
-        // console.log(countProducts);
-        req.body.position = countProducts + 1;
-    }else {
-        req.body.position = parseInt(req.body.position);
-    }
-    // console.log(req.body);
+        try {
+            // Tự động tăng position -> 28tech bài 24 - 0:35:00
+            if(req.body.position == "") {
+                const countProducts = await ProductCategory.countDocuments(); // -> Tự động tăng nếu người dùng ko nhập vị trí, dựa trên hàm countDocuments() của mongoose
+                // console.log(countProducts);
+                req.body.position = countProducts + 1;
+            }else {
+                req.body.position = parseInt(req.body.position);
+            }
 
 
 
-
-
-
-    console.log(req.file); // -> bai 24 28tech 1:43:00 -> req.file là để xem trên form-data đã up lên file nào không, ví dụ ở bên fe kia đã up lên file ảnh nên nó sẽ hiển thị file ảnh và các thông tin của nó 
-    // để hiển thị ảnh thì ta sẽ phải sử dụng đường dẫn như sau /upload/${req.file.filename} còn về tại sao mà không đi vào thư mục /public/upload/${req.file.filename} thì là do ta cài static: app.use(express.static("public")); nên nó sẽ bắt buộc phải đi trực tiếp từ /upload/${req.file.filename} bỏ qua public
-    // hoặc ta có thể biết bằng cách khi console.log(req.file) thì để hiển thị ảnh lưu vào database thì ta sử dụng đường dẫn path và bỏ qua đường dẫn file đầu tiên -> lấy từ đường dẫn file từ thứ 2 trở đi 
-    // if(req.file) {
-    //     req.body.thumbnail = `/uploads/${req.file.filename}`;  // -> convert thumbnail sang req.file.filename chứ ko phải là req.file.originalname
-    // };
-
-    // http://localhost:3000/uploads/32618f5910de9b3d36405a3cc4a1fa67
-
-
-
-
-
-    // Đưa vào database -> nodejs bài 24- 28tech -> 38ph 
-    const product = new Product(req.body); // -> Tạo mới 1 sản phẩm rồi lưu req.body vào nhưng chưa đưa vào database mà chỉ lưu trữ trong code model
-    await product.save(); // -> dùng .save(); để lưu vào database
-    req.flash('success', `Thêm thành công sản phẩm`);
-    
-    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+            // Đưa vào database -> nodejs bài 24- 28tech -> 38ph 
+            const record = new ProductCategory(req.body); // -> Tạo mới 1 sản phẩm rồi lưu req.body vào nhưng chưa đưa vào database mà chỉ lưu trữ trong code model
+            await record.save(); // -> dùng .save(); để lưu vào database
+            
+            res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+        } catch (error) {
+            res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+        }
 }

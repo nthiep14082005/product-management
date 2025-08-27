@@ -104,3 +104,106 @@ bai 26- nodejs 28tech 1:04:00 -> cách connect vào database mongodb online
 // bat dau bai 28 - nodejs - 28tech 1:15:00ph  -> để lưu được sản phẩm vào database thì đầu tiên phải tạo model vào sau khi tạo xong thì exports ra và trong controller thì sử dụng bằng cách gọi const Product = require(... đường dẫn của model cần lưu vào database ...)
 
 
+// bat dau bai 29 - nodejs - 28tech 0:06:00ph -> làm drop down để lấy ra được đệ quy danh sách danh mục cha bên fe
+
+
+
+// bat dau bai 29 - nodejs - 28tech 0:29:00ph --> sử dụng tree bên backend để phân cấp danh mục cha con 
+//     Hàm đi sâu đến node cuối cùng trước (đệ quy), xử lý xong node con rồi mới quay lại node cha để gán children. 
+//     Quá trình này lặp lại cho đến khi hoàn thành cây phân cấp.
+//     Bạn hiểu đúng về cách hoạt động của hàm này!
+    function createTree (array, parentId = "") {
+        const tree = [];
+        array.forEach((item) => {
+            if(item.parent_id === parentId) {
+                const newItem = item;
+                const children = createTree(array, item.id);
+                if(children.length > 0) {
+                    newItem.newChildren = children;
+                }
+                tree.push(newItem);
+            }
+        })
+        return tree;
+    }
+
+    Tóm tắt giải thích về newChildren:
+
+Mục đích sử dụng:
+newChildren là thuộc tính được tạo ra để lưu trữ mảng các danh mục con trực tiếp của một danh mục cha trong cây phân cấp.
+Nhờ đó, bạn có thể dễ dàng truy xuất và hiển thị các nhánh con của từng danh mục khi render ra giao diện.
+
+Cách lưu trữ giá trị:
+Khi hàm đệ quy createTree tìm thấy một danh mục con, nó sẽ gán mảng các con này vào thuộc tính newChildren của object cha (newItem).
+Ví dụ:
+
+Mỗi object danh mục trong cây sẽ có thuộc tính newChildren nếu nó có con.
+
+Phạm vi tồn tại:
+
+newChildren chỉ tồn tại trong từng object danh mục được tạo ra trong quá trình duyệt mảng và xây cây.
+Khi object này được push vào mảng kết quả (tree), nó sẽ giữ lại toàn bộ dữ liệu, bao gồm cả thuộc tính newChildren.
+Sau khi hàm chạy xong, toàn bộ cây (bao gồm các object và thuộc tính newChildren) sẽ được lưu trong biến kết quả (ví dụ: newRecords), và bạn có thể sử dụng để render ra view hoặc xử lý tiếp.
+Tóm lại:
+
+newChildren giúp xây dựng cấu trúc cây phân cấp, lưu trữ các nhánh con của từng danh mục.
+Mỗi object danh mục sẽ có thuộc tính này nếu nó có con, và dữ liệu được lưu trong chính object đó, tồn tại trong cây kết quả cuối cùng.
+
+
+
+    const newRecords = createTree(records);
+    console.log(newRecords);
+
+
+
+
+
+
+
+
+
+khi sử dụng join vào mảng 
+                //- Không phải như vậy!
+                //- Kết quả của Array(4).join("abc") là chuỗi "abcabcabc", nhưng không có khoảng trắng đầu tiên.
+
+                //- Giải thích chi tiết:
+
+                //- Array(4) tạo ra mảng có 4 phần tử rỗng: [ , , , ]
+                //- Khi .join("abc"), nó sẽ nối giữa các phần tử rỗng bằng chuỗi "abc".
+                //- Vì mảng có 4 phần tử, sẽ có 3 vị trí để nối, nên kết quả là "abcabcabc".
+                //- Không có phần tử nào ở đầu hoặc cuối, chỉ có chuỗi nối giữa các phần tử.
+
+
+
+
+
+
+
+
+
+TƯƠNG TỰ THÌ 
+// join
+["a", "b", "c"].join("-") // Kết quả: "a-b-c" -> join sẽ chèn dấu - vào giữa các phần tử trong mảng được cách nhau bởi dấu phẩy
+
+// split
+"a-b-c".split("-") // Kết quả: ["a", "b", "c"] -> split sẽ tách chuyển đổi dấu mình muốn truyền vào split và trở thành dấu phẩy
+
+
+
+
+còn ví dụ ta có parentIdLevel = 1 mà sau đó gọi là Array(parentIdLevel + 1) tức là ban đầu Array(1) tức là có 1 phần tử là -> []
+và Array(parentIdLevel + 1) là Array(2) tức là tạo ra -> [ , ]; 2 phần tử khoảng trắng và khi này có join("--") tức là ta sẽ được [khoảng trắng thứ 1--khoảng trắng thứ 2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+// bat dau bai 30 - nodejs - 28tech 0:00:00ph

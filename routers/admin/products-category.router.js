@@ -12,6 +12,7 @@ const controller = require("../../controllers/admin/products-category.controller
 
 router.get("/", controller.productsCategory);
 router.get("/create", controller.create);
-router.post("/create",upload.single("thumbnail"),uploadCloud.uploads, validates.createPost, controller.createPost);
+router.post("/create",upload.single("thumbnail"), uploadCloud.uploads, // validates.createPost,
+ controller.createPost);
 
 module.exports = router; // -> câu lệnh bắt buộc phải có trong file router độc lập 

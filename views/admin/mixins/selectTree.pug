@@ -1,0 +1,15 @@
+mixin selectTree(arrayRecord , parentIdLevel = 1)
+    each item in arrayRecord 
+        - const prefix = Array(parentIdLevel + 1).join("-- ")
+        option(value=item.id) #{prefix}#{item.title}
+            if item.newChildren && item.newChildren.length > 0
+                +selectTree(item.newChildren, parentIdLevel + 1)
+                //- Không phải như vậy!
+                //- Kết quả của Array(4).join("abc") là chuỗi "abcabcabc", nhưng không có khoảng trắng đầu tiên.
+
+                //- Giải thích chi tiết:
+
+                //- Array(4) tạo ra mảng có 4 phần tử rỗng: [ , , , ]
+                //- Khi .join("abc"), nó sẽ nối giữa các phần tử rỗng bằng chuỗi "abc".
+                //- Vì mảng có 4 phần tử, sẽ có 3 vị trí để nối, nên kết quả là "abcabcabc".
+                //- Không có phần tử nào ở đầu hoặc cuối, chỉ có chuỗi nối giữa các phần tử.

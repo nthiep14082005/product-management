@@ -102,7 +102,8 @@ block bien
                                     name="id"
                                     value=item.id
                                 )
-                            td #{index + 1}
+                            td #{pagination_1.limitItem * (pagination_1.currentPage - 1) + (index + 1)}
+                                                //- như sau cứ suy nghĩ là ví dụ trang 1 thì bắt đầu từ 1 cho nên 7 nhân 0 bằng 0 và chỉ số từ 0 + 1, tương tự ví dụ trang 3 thì là 7 nhân 2 bằng 14 và cộng chỉ số từ 14 + 1
                             td 
                                 img(
                                     src=item.thumbnail

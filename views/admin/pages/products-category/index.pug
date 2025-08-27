@@ -1,9 +1,18 @@
 extends ../../layouts/default.pug
 
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/form-delete-multi.pug
+include ../../mixins/form-alert.pug
+include ../../mixins/index.categoryTree.pug
+
+
 
 block bien
     
-   
+    +alert-success(5000)
     h1 Danh sach san pham 
 
     .card.mb-3  
@@ -11,23 +20,26 @@ block bien
             .card-body 
                 .row
                     .col-8
+                        +form-delete-multi(`${prefixAdmin}/products/delete-multi?_method=DELETE`)
 
                     .col-4
                         a(
                             href=`${prefixAdmin}/products-category/create`
                             class="btn btn-outline-success"
                         ) + Thêm mới
-
-//- thêm model như sau 
-//- _id
-//- title
-//- parent_id
-//- description
-//- thumbnail
-//- status
-//- position
-//- deleted
-//- deletedAt
-//- createdAt
-//- updatedAt
-//- slug
+                table(
+                            class="table table-hover table-sm"
+                            checkbox-multi 
+                        )
+                            thead
+                                tr
+                                    th 
+                                        input(type="checkbox" name="checkall")
+                                    th STT
+                                    th Hình ảnh
+                                    th Tiêu đề
+                                    th Trạng thái
+                                    th Vị trí trong kho
+                                    th Hành động
+                            tbody
+                                +table-tree(record1)
