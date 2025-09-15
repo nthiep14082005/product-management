@@ -9,7 +9,7 @@ if(buttonsCHangeStatus.length > 0) {
     // console.log(path);
 
 
-    // console.log(buttonsCHangeStatus);
+    console.log(buttonsCHangeStatus);
     buttonsCHangeStatus.forEach(button => {
         button.addEventListener("click", () => {
             const statusCurrent = button.getAttribute("data-status");
@@ -80,7 +80,7 @@ if(buttonsCHangeStatus.length > 0) {
 
 // button-edit ->   //- --------------- có thể sử dụng thẻ a như trong 1:15:00 để xử lý edit nhưng ở đây dùng thử thẻ form
 const buttonsEdit = document.querySelectorAll("[button-edit]");
-// console.log(buttonsEdit);
+console.log(buttonsEdit);
 if(buttonsEdit.length > 0) {
     const formEditItem = document.querySelector("#form-edit-item");
     const path = formEditItem.getAttribute("data-path");

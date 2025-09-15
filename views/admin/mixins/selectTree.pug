@@ -1,9 +1,31 @@
-mixin selectTree(arrayRecord , parentIdLevel = 1)
-    each item in arrayRecord 
+//- Sử dụng đúng thuộc tính newChildren để đệ quy
+mixin selectTree(arrayRecord, parentIdLevel = 1, parent_iddd = "")
+    each item in arrayRecord
         - const prefix = Array(parentIdLevel + 1).join("-- ")
-        option(value=item.id) #{prefix}#{item.title}
-            if item.newChildren && item.newChildren.length > 0
-                +selectTree(item.newChildren, parentIdLevel + 1)
+        option(
+            value=item.id
+            selected=(String(item.id) == String(parent_iddd) ? true : false)
+        ) #{prefix}#{item.title}
+        if item.newChildren && item.newChildren.length > 0
+            +selectTree(item.newChildren, parentIdLevel + 1, parent_iddd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 //- Không phải như vậy!
                 //- Kết quả của Array(4).join("abc") là chuỗi "abcabcabc", nhưng không có khoảng trắng đầu tiên.
 

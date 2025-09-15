@@ -43,19 +43,27 @@ mixin table-tree(items, level = 1)
 
             td(class="td-button")
                 a(
-                    href=`${prefixAdmin}/products/detail-item/${item.id}`
+                    href=`${prefixAdmin}/products-category/detail-item/${item.id}`
                     class="btn btn-secondary btn-sm"
                 ) Chi tiết 
                     //- ở đây có thể dùng thẻ a thay cho thẻ form như ở nút sửa và xóa
-                button(
+                //- button(
+                //-     class="btn btn-warning btn-sm"
+                //-     data-id=item.id
+                //-     button-edit
+                //-     ) Sửa
+                a(
+                    href=`${prefixAdmin}/products-category/edit/${item.id}`
                     class="btn btn-warning btn-sm"
-                    data-id=item.id
-                    button-edit
-                    ) Sửa
-                button(
+                ) Sửa 
+                //- button(
+                //-     class="btn btn-danger btn-sm ml-1"
+                //-     data-id=item.id
+                //-     button-delete
+                //- ) Xóa
+                a(
+                    href=`${prefixAdmin}/products-category/delete/${item.id}`
                     class="btn btn-danger btn-sm ml-1"
-                    data-id=item.id
-                    button-delete
                 ) Xóa
-        if item.newChildrenItem && item.newChildrenItem.length > 0
-            +table-tree(item.newChildrenItem, level + 1)
+        if item.newChildren && item.newChildren.length > 0
+            +table-tree(item.newChildren, level + 1)

@@ -41,9 +41,9 @@
                 count++;
                 const newItem = itemArray;
                 newItem.index = count;
-                const childrenItem = createTree(array, itemArray.id);
-                if(childrenItem.length > 0) {
-                    newItem.newChildrenItem = childrenItem; // -> newChildrenItem thực chất là một thuộc tính tự định nghĩa của newItem 
+                const children = createTree(array, itemArray.id);
+                if(children.length > 0) {
+                    newItem.newChildren = children; // -> newChildrenItem thực chất là một thuộc tính tự định nghĩa của newItem 
                 }
                 tree.push(newItem);
             }
