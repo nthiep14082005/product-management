@@ -1,4 +1,5 @@
 const Product = require("../../model/product.model");
+const ProductCategory = require("../../model/products-category.model");
 
 
 const systemConfig = require("../../config/system")
@@ -6,6 +7,7 @@ const systemConfig = require("../../config/system")
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
+const createTREE = require("../../helpers/createTree");
 
 
 // controller dùng để hiển thị danh sách sản phẩm 
@@ -365,8 +367,18 @@ module.exports.changeDeleteMulti = async (req,res) => {
 // [GET] /admin/products/create -> sử dụng để vẽ ra giao diện tạo sản phẩm mới
 // -> khi ta truy cập vào đường dẫn /admin/products/create thì sẽ hiển thị ra giao diện tạo sản phẩm mới
 module.exports.create = async (req,res) =>{
+
+    let find = {
+        deleted: false,
+
+    }
+
+    const record1 = await ProductCategory.find(find);
+    const newRecord1 = createTREE.tree(record1);
+
     res.render("admin/pages/products/create", {
         pageTitle_1: "Thêm mới sản phẩm",
+        category: newRecord1
     });
 }
 // [POST] /admin/products/create -> sử dụng để thêm sản phẩm mới vào database

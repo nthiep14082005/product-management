@@ -7,6 +7,10 @@ mongoose.plugin(slug);
 
 const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 bộ khung có tên là productSchema
     title: String, //-> ví dụ title là sản phẩm 11
+    product_category_id: {
+        type: String,
+        default: ""
+    },
     description: String,
     price: Number,
     discountPercentage: Number,

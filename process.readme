@@ -206,4 +206,7 @@ và Array(parentIdLevel + 1) là Array(2) tức là tạo ra -> [ , ]; 2 phần 
 
 
 
-// bat dau bai 30 - nodejs - 28tech 0:49:00ph
+// bat dau bai 30 - nodejs - 28tech 01:01:00ph
+
+
+Thêm mới, chỉnh sửa sản phẩm có danh mục của category
