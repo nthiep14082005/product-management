@@ -207,8 +207,9 @@ và Array(parentIdLevel + 1) là Array(2) tức là tạo ra -> [ , ]; 2 phần 
 
 
 // bat dau bai 30 - nodejs - 28tech 01:09:00ph ->>>> bắt đầu xây dựng phân quyền, nhóm quyền 
-B1: tạo nhóm quyền -> đầu tiên tạo 1 collections tên là roles 
-
+B1: tạo nhóm quyền -> đầu tiên tạo 1 collections tên là roles 1:10:00
+B2: Xây dựng danh sách nhóm quyền -> 1:26:00
+B3: 
 
 Thêm mới, chỉnh sửa sản phẩm có danh mục của category
 

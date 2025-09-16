@@ -1,6 +1,7 @@
 const dashboardRoutes = require("./dashboard.router");
 const productsRoutes = require("./products.router");
-const productsCategory = require("./products-category.router");
+const productsCategoryRoutes = require("./products-category.router");
+const rolesRoutes = require("./roles.router");
 
 const systemConfig = require("../../config/system");
 
@@ -9,7 +10,9 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + "/dashboard",dashboardRoutes); // nên để /admin đăngf trước phòng trường hợp bên client có tên trùng với bên admin
     app.use(PATH_ADMIN + "/products",productsRoutes);
     // app.use(PATH_ADMIN + "/products/products-category", productsCategory); // hoặc 
-    app.use(PATH_ADMIN + "/products-category", productsCategory);  
+    app.use(PATH_ADMIN + "/products-category", productsCategoryRoutes);  
+
+    app.use(PATH_ADMIN + "/roles", rolesRoutes);
 
 }
 
