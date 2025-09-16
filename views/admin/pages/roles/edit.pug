@@ -1,0 +1,38 @@
+extends ../../layouts/default.pug
+include ../../mixins/form-alert.pug
+include ../../mixins/selectTree.pug
+
+block bien 
+    +alert-error(5000)
+    +alert-success(5000)
+
+    h1(class="mb-4") Chỉnh sửa danh mục sản phẩm
+        //- khi cài thư viện npm i multer để upload dạng ảnh lên từ local mà không phải dạng link thì ở trong thẻ form cần thêm 1 thuộc tính là enctype="multipart/form-data" và ở ô input có type="file" chuyển định dạng file để upload file ảnh còn thuộc tính accept="image/*" -> dùng để upload và lọc ra các loại ảnh để không được up định dạng khác ảnh
+    form(action=`${prefixAdmin}/roles/edit/${datas.id}?_method=PATCH`, method="POST" , id="form-create-product")
+        div.form-group 
+            label(for="title") Tiêu đề - Description
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+                value=datas.title
+            )
+        .form-group 
+            label(for="desc") Mô tả
+            input(
+                class="form-control"
+                id="desc"
+                name="description"
+                value=datas.description
+            )
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Cập nhập
+
+
+
+    script(src="/admin/js/products.js")
