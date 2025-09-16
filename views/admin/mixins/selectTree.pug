@@ -4,7 +4,7 @@ mixin selectTree(arrayRecord, parentIdLevel = 1, parent_iddd = "")
         - const prefix = Array(parentIdLevel + 1).join("-- ")
         option(
             value=item.id
-            selected=(String(item.id) == String(parent_iddd) ? true : false)
+            selected= item.id == parent_iddd ? true : false
         ) #{prefix}#{item.title}
         if item.newChildren && item.newChildren.length > 0
             +selectTree(item.newChildren, parentIdLevel + 1, parent_iddd)

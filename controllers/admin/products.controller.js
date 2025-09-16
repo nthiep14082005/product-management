@@ -256,10 +256,14 @@ module.exports.renderEditItems = async (req, res) => { // bài 25 - 28tech nodej
         const products = await Product.findOne(find);
         // console.log(products);
         // Nếu bạn định nghĩa một key khác (ví dụ: product: products) trong một hàm controller khác và truyền vào hàm res.render, thì chỉ view (pug) nào được render bởi chính hàm đó mới sử dụng được biến product.
+        
+        const record1 = await ProductCategory.find({deleted: false});
+        const newRecord1 = createTREE.tree(record1);
+        
         res.render("admin/pages/products/edit-items", {
             pageTitle_1: "Chỉnh sửa sản phẩm",
-            product: products
-        
+            product: products,
+            category: newRecord1
         })
         // res.send(`${id_items}`);
         // res.send(`OK`);
