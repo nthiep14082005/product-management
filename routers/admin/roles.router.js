@@ -8,6 +8,8 @@ router.get("/create", controller.renderCreate);
 router.post("/create", controller.postCreate);
 
 router.get("/edit/:id", controller.renderRoles);
-router.patch("/edit/:id", controller.editRoles)
+router.patch("/edit/:id", controller.editRoles);
+router.get("/permissions", controller.renderPermissions);
+router.patch("/permissions", controller.permissionsPatch);
 
 module.exports = router;

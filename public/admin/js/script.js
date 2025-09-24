@@ -267,7 +267,7 @@ if(formChangeMulti) {
 
 
 
-// delete multi
+// delete multi -> sử dụng thẻ form và thẻ input ẩn để lưu id sản phẩm cần xóa
 
 const formDeleteMulti = document.querySelector("[data-form-delete-multi]");
 if(formDeleteMulti) {

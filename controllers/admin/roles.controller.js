@@ -67,3 +67,34 @@ module.exports.editRoles = async (req, res) => {
         res.redirect(`${systemConfig.prefixAdmin}/roles`);
     }
 };
+
+
+module.exports.renderPermissions = async (req, res) => {
+  let find = {
+    deleted: false
+  };
+
+  const records = await Role.find(find);
+  res.render("admin/pages/roles/permissions", {
+    pageTitle_1: "Phân quyền",
+    record: records
+  });
+}
+
+
+module.exports.permissionsPatch = async (req, res) => {
+  try {
+    const permissionsConver = JSON.parse(req.body.permissions);
+    // console.log(permissionsConver);
+  
+    for(const item of permissionsConver) {
+      await Role.updateOne({ _id: item.id }, { permissions: item.permissions })
+    }
+  
+    req.flash("success", "Cập nhập phân quyền thành công!");
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", "Cập nhập phân quyền không thành công!");
+    res.redirect("back");
+  }
+}
