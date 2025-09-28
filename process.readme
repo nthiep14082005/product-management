@@ -224,4 +224,51 @@ Thêm mới, chỉnh sửa sản phẩm có danh mục của category
 
 
 
-// bat dau bai 32 - nodejs - 28tech 00:20:00ph 
+// bat dau bai 32 - nodejs - 28tech 00:33:00ph -> để mã hóa mật khẩu ta có thể dùng tay, hoặc sử dụng thư viện npm md5
+
+
+// cách sử dụng $or: [{...},{...}]  //   -> Nếu muốn kiểm tra chỉ cần 1 trong 2 (email hoặc phone) đã tồn tại, hãy dùng $or như sau.
+                $or: [
+                    { email: req.body.email },
+                    { phone: req.body.phone }
+                ]
+
+// cách sử dụng .select() // -> 
+    const records = await Account.find(find).select("fullName email phone "); // -> sử dụng .select("giátrị1 giátrị2") để từ trong backend chỉ trả về giao diện đúng các giá trị được chọn  
+                                            .select("-password"); // -> ở trên là cách để lấy những giá trị điền vào ra giao diện, còn nếu điền dấu - đằng trước ví dụ -password thì tức là tất cả đều được trả về giao diện ngoại trừ password không được trả về giao diện 
+
+//-  dùng href="javascript:; để ngăn chặn hành vi chuyển trang , và dùng để gắn các trình xử lý sự kiện javascript ví dụ trong thẻ a hoặc các thẻ có href
+
+//- // // const products = await Product.find(find); // trong mongo thì hàm find sẽ trả về 1 mảng sản phẩm, còn fineOne là trả về 1 sản phẩm tức là chỉ 1 object sản phẩm đó
+       //     ---> muốn sử dụng find mà chỉ lấy 1 bản ghi thì như sau -> console.log(products[0]);
+
+
+
+const records = await Account.find(find).select("-password -token"); // -> sử dụng .select("giátrị1 giátrị2") để từ trong backend chỉ trả về giao diện đúng các giá trị được chọn   
+
+    for (const item of records) {
+        const role = await Role.findOne({
+            _id: item.role_id,
+            deleted: false
+        });
+        item.roles = role;
+    }
+    
+    res.render("admin/pages/accounts/index", {
+        pageTitle_1: "Danh sách tài khoản",
+        record: records,
+    });
+---------------- > về đoạn code trên tức là lặp qua từng bản ghi records, sau đó tạo 1 biển để gán giá trị sau khi (tìm chỉ đúng 1 giá trị vì role_id cũng chỉ có 1,) mà findOne() giá trị đó theo id và deleted, sau khi tìm được thì gán ảo 1 key có tên là roles = role tức là khi này ta gán ảo thêm 1 trường thông tin là roles có giá trị là role có _id vừa được findOne trong database Role và truyền ra giao diện để xử lý chứ trong database không có trường roles
+
+
+
+
+-----------------====================> nên chú ý xem lại bài 32-nodejs-28tech từ đầu đến cuối để hiểu thêm mấy phần ở trên!!!!!!!!
+
+
+
+
+
+
+
+// bat dau bai 32 - nodejs - 28tech 00:51:00ph 

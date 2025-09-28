@@ -1,7 +1,7 @@
 // xử lý phần này + roles bên controller bắt đầu từ bài 31 - 28tech nodejs
 
 
-// Permissions
+// Permissions button submit form
 //
 //
 const tablePermissions = document.querySelector("[table-permissions]");

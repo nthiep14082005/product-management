@@ -5,6 +5,7 @@ const accountsSchema = new mongoose.Schema({
     fullName: String,
     email: String,
     password: String,
+    phone: String,
     token: {    // -> chuỗi random
        type: String,
        default: generate.generateRandomString(30)

@@ -13,10 +13,10 @@ mixin alert-success(times)
 //- alert Error cho bên controller check validate dữ liệu title
 //- vì nó quay trở lại trang create nên cần nhúng ở trang create chứ ko phải trang index
 mixin alert-error(times)
-    - if (messages.Error)
+    - if (messages.error)
         .message.info
             div(
                 class="alert alert-danger"
                 show-alert
                 data-time= times
-            ) #{messages.Error} <span close-alert>x</span>
+            ) #{messages.error} <span close-alert>x</span>

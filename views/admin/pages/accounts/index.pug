@@ -1,0 +1,75 @@
+extends ../../layouts/default.pug
+
+block bien 
+    h1(class="mb-4") Danh sách tài khoản
+
+    //- div() #{record}
+    .card.mb-3
+        .card-header Danh sách
+        .card-body 
+            .row 
+                .col-8 
+                .col-4.text-right 
+                    a(
+                        href=`${prefixAdmin}/accounts/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
+            table(
+                class="table table-hover table-sm"
+            )
+                thead 
+                    tr  
+                        th STT 
+                        td Avatar 
+                        th Tên đầy đủ
+                        th Email
+                        th Số điện thoại 
+                        th Quyền
+                        th Trạng thái
+                        th Hành động
+                tbody
+                    if(record.length > 0)
+                        each item, index in record
+                            tr 
+                                td #{index + 1}
+                                td 
+                                    img(
+                                        src=item.avatar 
+                                        alt=item.fullName
+                                        width="100px"
+                                        height="auto"
+                                    )
+                                td #{item.fullName}
+                                td #{item.email}
+                                td #{item.phone}
+                                td #{item.roles.title}
+                                td 
+                                    if (item.status === "active")
+                                        //-  dùng href="javascript:; để ngăn chặn hành vi chuyển trang , và dùng để gắn các trình xử lý sự kiện javascript
+                                        a(href="javascript:;" 
+                                        data-status = item.status
+                                        data-id = item.id
+                                        button-change-status 
+                                        class="badge badge-success") Hoạt động
+                                    else
+                                        a(href="javascript:;"
+                                        data-status = item.status
+                                        data-id = item.id
+                                        button-change-status 
+                                        class="badge badge-danger") Dừng hoạt động
+                                td 
+                                    a(
+                                        class="btn btn-secondary btn-sm"
+                                        href=`${prefixAdmin}/accounts/details/${item.id}`
+                                    ) Chi tiết
+                                    a(
+                                        class="btn btn-warning btn-sm ml-1"
+                                        href=`${prefixAdmin}/accounts/edit/${item.id}`
+                                    ) Sửa
+                                    a(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        href=`${prefixAdmin}/accounts/delete/${item.id}`
+                                    ) Xóa
+                    else 
+                        tr 
+                            td(colspan="4" class="text-center") Chưa có nhóm quyền nào được chọn
