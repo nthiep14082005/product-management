@@ -271,4 +271,4 @@ const records = await Account.find(find).select("-password -token"); // -> sử 
 
 
 
-// bat dau bai 32 - nodejs - 28tech 00:51:00ph 
+// bat dau bai 32 - nodejs - 28tech 01:09:00ph 

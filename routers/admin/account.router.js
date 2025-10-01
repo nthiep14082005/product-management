@@ -11,4 +11,8 @@ router.get("/", controller.index);
 router.get("/create", controller.renderCreate);
 router.post("/create",upload.single("avatar"), uploadCloud.uploads, validates.createPost, controller.createPost);
 
+
+router.get("/edit/:id", controller.renderEditAccount);
+router.patch("/edit/:id",upload.single("avatar"), uploadCloud.uploads, validates.editPatch, controller.editAccount);
+
 module.exports = router;

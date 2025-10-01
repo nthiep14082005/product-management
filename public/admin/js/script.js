@@ -384,7 +384,7 @@ if(uploadImage) {
 
 
 
-// sort 
+// sort ----> hiện tại là đang sử dụng cái này ở trong danh sách sản phẩm phần sắp xếp theo tiêu chí
 const sort = document.querySelector("[sort-option]");
 if(sort) {
 

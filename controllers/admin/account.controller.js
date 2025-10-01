@@ -5,6 +5,7 @@ const flash = require("express-flash");
 
 const md5 = require("md5");
 const bcrypt = require("bcrypt");
+const system = require("../../config/system");
 
 
 // [GET] /admin/accounts
@@ -70,3 +71,46 @@ module.exports.createPost = async (req, res) => {
         res.redirect("back");
    }
 };
+
+
+// [GET] /admin/accounts/edit/:id -> render trang sửa 1 tài khoản
+module.exports.renderEditAccount = async (req, res) => {
+    let find = {
+        _id: req.params.id,
+        deleted: false
+    }
+    try {
+        const data = await Account.findOne(find);
+
+        const roles = await Role.find({
+            deleted: false
+        });
+
+        res.render("admin/pages/accounts/edit", {
+            pageTitle_1: "Chỉnh sửa tài khoản",
+            datas: data,
+            role: roles
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+    }
+};
+
+// [PATCH] /admin/accounts/edit/:id -> update sửa tài khoản
+module.exports.editAccount = async (req, res) => {
+    try {
+        if(req.body.password) { //-> chec password bởi vì bt để trong page là rỗng nếu cập nhập thì nó sẽ gửi password vào database là rỗng nên phải check nếu cập nhập thì update còn để rỗng thì giữ nguyên password trong database
+            req.body.password = bcrypt.hashSync(req.body.password, 10);
+        } else {
+            delete req.body.password; // -> tức là khi này nếu không gì ở password thì sử dụng delete req.body.password tức là xóa key tên là password trong req.body để khi này trong body không còn thì sẽ không bị update lên database
+        }
+        console.log(req.body)
+        const idC = req.params.id;
+        await Account.updateOne({ _id: idC }, req.body);
+        req.flash("success", "Cập nhập tài khoản thành công!");
+        res.redirect("back");
+    } catch (error) {   
+        req.flash("error", "Cập nhập tài khoản không thành công!");
+        res.redirect("back");
+    }
+}
