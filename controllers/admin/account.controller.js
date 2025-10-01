@@ -112,18 +112,22 @@ module.exports.editAccount = async (req, res) => {
     if(checkEmailExit) {
         req.flash("error", "Cập nhập tài khoản không thành công!");
     } else {
-        if(req.body.oldpassword == req.body.checkoldpassword && bcrypt.compareSync(req.body.checkoldpassword, account.password)) { //-> check password bởi vì bt để trong page là rỗng nếu cập nhập thì nó sẽ gửi password vào database là rỗng nên phải check nếu cập nhập thì update còn để rỗng thì giữ nguyên password trong database
-                                                            //- ở đây là câu lệnh if kiểm tra thứ nhất là mật khẩu cũ nhập 2 lần có giống nhau không, -> nếu giống thì check mật khẩu cũ có sau khi được mã hóa có giống trong database hiện tại không
+        // if(req.body.oldpassword == req.body.checkoldpassword && bcrypt.compareSync(req.body.checkoldpassword, account.password)) { //-> check password bởi vì bt để trong page là rỗng nếu cập nhập thì nó sẽ gửi password vào database là rỗng nên phải check nếu cập nhập thì update còn để rỗng thì giữ nguyên password trong database
+        //                                                     //- ở đây là câu lệnh if kiểm tra thứ nhất là mật khẩu cũ nhập 2 lần có giống nhau không, -> nếu giống thì check mật khẩu cũ có sau khi được mã hóa có giống trong database hiện tại không
+        //     req.body.password = bcrypt.hashSync(req.body.password, 10);
+        //     delete req.body.oldpassword;
+        //     delete req.body.checkoldpassword;
+        // } else {
+        //     delete req.body.password; // -> tức là khi này nếu không gì ở password thì sử dụng delete req.body.password tức là xóa key tên là password trong req.body để khi này trong body không còn thì sẽ không bị update lên database
+        //     delete req.body.oldpassword;
+        //     delete req.body.checkoldpassword;
+        // }
+        // console.log(req.body)
+        if(req.body.password) {
             req.body.password = bcrypt.hashSync(req.body.password, 10);
-            delete req.body.oldpassword;
-            delete req.body.checkoldpassword;
-        } else {
-            delete req.body.password; // -> tức là khi này nếu không gì ở password thì sử dụng delete req.body.password tức là xóa key tên là password trong req.body để khi này trong body không còn thì sẽ không bị update lên database
-            delete req.body.oldpassword;
-            delete req.body.checkoldpassword;
+        }else {
+            delete req.body.password;
         }
-        console.log(req.body)
-        
         await Account.updateOne({ _id: idC }, req.body);
         req.flash('success', `Cập nhập tài khoản thành công!`);
     }
