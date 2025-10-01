@@ -3,6 +3,7 @@ include ../../mixins/form-alert.pug
 
 block bien 
     +alert-error(5000)
+    +alert-success(5000)
 
     h1(class="mb-4") Chỉnh sửa tài khoản
         //- khi cài thư viện npm i multer để upload dạng ảnh lên từ local mà không phải dạng link thì ở trong thẻ form cần thêm 1 thuộc tính là enctype="multipart/form-data" và ở ô input có type="file" chuyển định dạng file để upload file ảnh còn thuộc tính accept="image/*" -> dùng để upload và lọc ra các loại ảnh để không được up định dạng khác ảnh
@@ -25,6 +26,22 @@ block bien
                 name="email"
                 value=datas.email
             )
+        div.form-group 
+            label(for="password") Mật khẩu cũ*
+            input(
+                type="password"
+                class="form-control"
+                id="oldpassword"
+                name="oldpassword"
+            ) 
+        div.form-group 
+            label(for="password") Nhập lại mật khẩu cũ*
+            input(
+                type="password"
+                class="form-control"
+                id="checkoldpassword"
+                name="checkoldpassword"
+            ) 
         div.form-group 
             label(for="password") Mật khẩu
             input(
