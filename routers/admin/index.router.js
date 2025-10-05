@@ -3,6 +3,7 @@ const productsRoutes = require("./products.router");
 const productsCategoryRoutes = require("./products-category.router");
 const rolesRoutes = require("./roles.router");
 const accountsRoutes = require("./account.router");
+const authsRouters = require("./auths.router");
 
 const systemConfig = require("../../config/system");
 
@@ -15,7 +16,7 @@ module.exports = (app) => {
 
     app.use(PATH_ADMIN + "/roles", rolesRoutes);
     app.use(PATH_ADMIN + "/accounts", accountsRoutes);
-
+    app.use(PATH_ADMIN + "/auths", authsRouters);
 }
 
 
