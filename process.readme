@@ -289,3 +289,33 @@ const records = await Account.find(find).select("-password -token"); // -> sử 
 
 
 // bat dau bai 32 - nodejs - 28tech 01:30:00ph； -> tính năng đăng nhập, tính năng đăng xuất, hàm lưu trữ cookie và đổi tên cookie thông qua express để giữ đăng nhập khi vào trang khác 
+
+
+
+
+
+
+
+
+
+// bat dau bai 33 - nodejs - 28tech 00:00:00ph；-------------------------> bài quan trọng làm về router private
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// bat dau bai 33 - nodejs - 28tech 00:00:00ph；

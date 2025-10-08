@@ -7,15 +7,20 @@ const authsRouters = require("./auths.router");
 
 const systemConfig = require("../../config/system");
 
+
+// middleware router private
+const authMiddleware = require("../../middlewares/admin/auth.middleware");
+
+
 module.exports = (app) => {
     const PATH_ADMIN = systemConfig.prefixAdmin;
-    app.use(PATH_ADMIN + "/dashboard",dashboardRoutes); // nên để /admin đăngf trước phòng trường hợp bên client có tên trùng với bên admin
-    app.use(PATH_ADMIN + "/products",productsRoutes);
+    app.use(PATH_ADMIN + "/dashboard", authMiddleware.requireAuth, dashboardRoutes); // nên để /admin đăngf trước phòng trường hợp bên client có tên trùng với bên admin
+    app.use(PATH_ADMIN + "/products", authMiddleware.requireAuth, productsRoutes);
     // app.use(PATH_ADMIN + "/products/products-category", productsCategory); // hoặc 
-    app.use(PATH_ADMIN + "/products-category", productsCategoryRoutes);  
+    app.use(PATH_ADMIN + "/products-category", authMiddleware.requireAuth, productsCategoryRoutes);  
 
-    app.use(PATH_ADMIN + "/roles", rolesRoutes);
-    app.use(PATH_ADMIN + "/accounts", accountsRoutes);
+    app.use(PATH_ADMIN + "/roles", authMiddleware.requireAuth, rolesRoutes);
+    app.use(PATH_ADMIN + "/accounts", authMiddleware.requireAuth, accountsRoutes);
     app.use(PATH_ADMIN + "/auths", authsRouters);
 }
 
