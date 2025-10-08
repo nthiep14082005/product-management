@@ -9,19 +9,19 @@ module.exports.requireAuth = async (req, res, next) => {
     // console.log("Chay qua day ");
 
     // console.log(req.cookies); hoặc console.log(req.cookies.token123);
-    console.log(req.cookies.token123);
+    // console.log(req.cookies.token123);
 
     if(!req.cookies.token123) {
         res.redirect(`${systemConfig.prefixAdmin}/auths/login`);
     } else {
-        console.log(req.cookies.token123);
+        // console.log(req.cookies.token123);
         const user = await Account.findOne({
             token: req.cookies.token123
         });
         if(!user) {
             res.redirect(`${systemConfig.prefixAdmin}/auths/login`);
         } else {     
-            console.log(user);
+            // console.log(user);
             next();
         }
     }

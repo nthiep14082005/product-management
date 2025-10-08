@@ -318,4 +318,19 @@ const records = await Account.find(find).select("-password -token"); // -> sử 
 
 
 
-// bat dau bai 33 - nodejs - 28tech 00:00:00ph；
+// bat dau bai 33 - nodejs - 28tech 00:00:00ph； -> làm về authenticator -> là check đăng nhập tài khoản middleware các thứ
+// bat dau bai 33 - nodejs - 28tech 00:22:00ph； -> làm về authorization -> là check tài khoản gì được sử dụng những chức năng gì
+
+
+
+
+
+
+
+
+
+
+
+
+
+// bat dau bai 33 - nodejs - 28tech 00:22:00ph；
