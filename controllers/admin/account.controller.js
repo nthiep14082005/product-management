@@ -14,8 +14,8 @@ module.exports.index = async (req, res) => {
         deleted: false
     }
 
-    const records = await Account.find(find).select("-password -token"); // -> sử dụng .select("giátrị1 giátrị2") để từ trong backend chỉ trả về giao diện đúng các giá trị được chọn   
-
+    const records = await Account.find(find).select("-password -token"); // -> sử dụng .select("giátrị1 giátrị2") để từ trong backend chỉ trả về giao diện đúng các giá trị được chọn là giátrị1 và giátrị2
+                                                                         // -> sử dụng select("-giátrị3 -giátrị4") thêm dấu trừ đằng trước để trả hết các giá trị ngoại trừ 2 giá trị là giátrị3 và giátrị4 không được trả về
     for (const item of records) {
         const role = await Role.findOne({
             deleted: false,
@@ -100,8 +100,8 @@ module.exports.renderEditAccount = async (req, res) => {
 module.exports.editAccount = async (req, res) => {
     const checkEmailExit = await Account.findOne({
         deleted: false,
-        _id: { $ne: req.params.id }, // loại trừ chính tài khoản đang sửa
-        $or: [
+        _id: { $ne: req.params.id }, // loại trừ chính tài khoản đang sửa // -> loại trừ chính tài khoản hiện tại ở đây để ko bị chọn 
+        $or: [                                                            // -> chọn nhiều trường hợp ở đây
             {email: req.body.email},
             {phone: req.body.phone}
         ]
