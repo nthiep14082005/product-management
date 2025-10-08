@@ -11,46 +11,48 @@ include ../../mixins/index.categoryTree.pug
 
 
 block bien
-    
-    +alert-success(5000)
-    h1 Danh mục sản phẩm  
+    if(roleAdmin.permissions.includes("products-category_view"))
+        +alert-success(5000)
+        h1 Danh mục sản phẩm  
 
-    .card.mb-3  
-        .card-header Danh sách 
-            .card-body 
-                .row
-                    .col-8
-                        +form-delete-multi(`${prefixAdmin}/products/delete-multi?_method=DELETE`)
+        .card.mb-3  
+            .card-header Danh sách 
+                .card-body 
+                    .row
+                        .col-8
+                            if(roleAdmin.permissions.includes("products-category_edit")) 
+                                +form-delete-multi(`${prefixAdmin}/products/delete-multi?_method=DELETE`)
 
-                    .col-4
-                        a(
-                            href=`${prefixAdmin}/products-category/create`
-                            class="btn btn-outline-success"
-                        ) + Thêm mới
-                table(
-                            class="table table-hover table-sm"
-                            checkbox-multi 
-                        )
-                            thead
-                                tr
-                                    th 
-                                        input(type="checkbox" name="checkall")
-                                    th STT
-                                    th Hình ảnh
-                                    th Tiêu đề
-                                    th Trạng thái
-                                    th Vị trí trong kho
-                                    th Hành động
-                            tbody
-                                +table-tree(record1)
+                        .col-4
+                            if(roleAdmin.permissions.includes("products-category_create"))
+                                a(
+                                    href=`${prefixAdmin}/products-category/create`
+                                    class="btn btn-outline-success"
+                                ) + Thêm mới
+                    table(
+                                class="table table-hover table-sm"
+                                checkbox-multi 
+                            )
+                                thead
+                                    tr
+                                        th 
+                                            input(type="checkbox" name="checkall")
+                                        th STT
+                                        th Hình ảnh
+                                        th Tiêu đề
+                                        th Trạng thái
+                                        th Vị trí trong kho
+                                        th Hành động
+                                tbody
+                                    +table-tree(record1)
 
 
 
 
-    form(
-        action=""
-        method="POST"
-        id="form-change-status"
-        data-path=`${prefixAdmin}/products-category/change-status`
-    ) 
-    script(src="/admin/js/products.js") 
+        form(
+            action=""
+            method="POST"
+            id="form-change-status"
+            data-path=`${prefixAdmin}/products-category/change-status`
+        ) 
+        script(src="/admin/js/products.js") 

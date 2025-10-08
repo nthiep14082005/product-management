@@ -18,27 +18,54 @@ mixin table-tree(items, level = 1)
                 )
             td #{prefix}#{item.title}
             td 
-                if (item.status === "active")
-                    //-  dùng để ngăn chặn hành vi chuyển trang , và dùng để gắn các trình xử lý sự kiện javascript
-                    a(href="javascript:;" 
-                    data-status = item.status
-                    data-id = item.id
-                    button-change-status 
-                    class="badge badge-success") Hoạt động
-                else
-                    a(href="javascript:;"
-                    data-status = item.status
-                    data-id = item.id
-                    button-change-status 
-                    class="badge badge-danger") Dừng hoạt động
+                if(roleAdmin.permissions.includes("products-category_edit"))
+                    if (item.status === "active")
+                        //-  dùng để ngăn chặn hành vi chuyển trang , và dùng để gắn các trình xử lý sự kiện javascript
+                        a(href="javascript:;" 
+                        data-status = item.status
+                        data-id = item.id
+                        button-change-status 
+                        class="badge badge-success") Hoạt động
+                    else
+                        a(href="javascript:;"
+                        data-status = item.status
+                        data-id = item.id
+                        button-change-status 
+                        class="badge badge-danger") Dừng hoạt động
+                else 
+                    if (item.status === "active")
+                        //-  dùng để ngăn chặn hành vi chuyển trang , và dùng để gắn các trình xử lý sự kiện javascript
+                        a(href="javascript:;" 
+                        data-status = item.status
+                        data-id = item.id
+                        class="badge badge-success"
+                        disabled 
+                        ) Hoạt động
+                    else
+                        a(href="javascript:;"
+                        data-status = item.status
+                        data-id = item.id
+                        class="badge badge-danger"
+                        disabled
+                        ) Dừng hoạt động
             td
-                input(
-                    type="number"
-                    value= item.position
-                    style="width: 60px"
-                    min="1"
-                    name="position"
-                )
+                if(roleAdmin.permissions.includes("products-category_edit"))
+                    input(
+                        type="number"
+                        value= item.position
+                        style="width: 60px"
+                        min="1"
+                        name="position"
+                    )
+                else 
+                    input(
+                        type="number"
+                        value= item.position
+                        style="width: 60px"
+                        min="1"
+                        name="position"
+                        disabled
+                    ) 
                 //-Thuộc tính min="1" trong thẻ <input type="number"> được sử dụng để giới hạn giá trị số tối thiểu mà người dùng có thể nhập vào
 
             td(class="td-button")
@@ -52,18 +79,30 @@ mixin table-tree(items, level = 1)
                 //-     data-id=item.id
                 //-     button-edit
                 //-     ) Sửa
-                a(
-                    href=`${prefixAdmin}/products-category/edit/${item.id}`
-                    class="btn btn-warning btn-sm"
-                ) Sửa 
+                if(roleAdmin.permissions.includes("products-category_edit"))
+                    a(
+                        href=`${prefixAdmin}/products-category/edit/${item.id}`
+                        class="btn btn-warning btn-sm"
+                    ) Sửa 
+                else 
+                    span(
+                        class="btn btn-warning btn-sm"
+                        disabled
+                    ) Sửa 
                 //- button(
                 //-     class="btn btn-danger btn-sm ml-1"
                 //-     data-id=item.id
                 //-     button-delete
                 //- ) Xóa
-                a(
-                    href=`${prefixAdmin}/products-category/delete/${item.id}`
-                    class="btn btn-danger btn-sm ml-1"
-                ) Xóa
+                if(roleAdmin.permissions.includes("products-category_delete"))
+                    a(
+                        href=`${prefixAdmin}/products-category/delete/${item.id}`
+                        class="btn btn-danger btn-sm ml-1"
+                    ) Xóa
+                else 
+                    span(
+                        class="btn btn-danger btn-sm ml-1"
+                        disabled
+                    ) Xóa
         if item.newChildren && item.newChildren.length > 0
             +table-tree(item.newChildren, level + 1)

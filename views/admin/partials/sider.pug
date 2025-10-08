@@ -3,14 +3,20 @@
         ul 
             li 
                 a(href='/products') Products Client
-            li 
-                a(href=`${prefixAdmin}/products`) Danh sách sản phẩm 
-            li 
-                a(href=`${prefixAdmin}/products-category`) Danh mục sản phẩm 
-            li 
-                a(href=`${prefixAdmin}/roles`) Nhóm quyền
-            li 
-                a(href=`${prefixAdmin}/roles/permissions`) Phân quyền   
-            li 
-                a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản 
+            if(roleAdmin.permissions.includes("products_view")) 
+                li 
+                    a(href=`${prefixAdmin}/products`) Danh sách sản phẩm 
+            if(roleAdmin.permissions.includes("products-category_view"))       
+                //- -> sử dụng includes("key") sử dụng includes đúng như tên gọi là có bao gồm những key không
+                li 
+                    a(href=`${prefixAdmin}/products-category`) Danh mục sản phẩm 
+            if(roleAdmin.permissions.includes("roles_view"))         
+                li 
+                    a(href=`${prefixAdmin}/roles`) Nhóm quyền
+            if(roleAdmin.permissions.includes("roles_permissions")) 
+                li 
+                    a(href=`${prefixAdmin}/roles/permissions`) Phân quyền   
+            if(roleAdmin.permissions.includes("accounts_view")) 
+                li 
+                    a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản 
             

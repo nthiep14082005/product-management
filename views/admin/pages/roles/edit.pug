@@ -27,11 +27,13 @@ block bien
                 name="description"
                 value=datas.description
             )
-        div(class="form-group")
-            button(
-                type="submit"
-                class="btn btn-primary"
-            ) Cập nhập
+        if(roleAdmin.permissions.includes("roles_permissions"))
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Cập nhập
+            
 
 
 

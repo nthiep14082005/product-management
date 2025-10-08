@@ -42,9 +42,10 @@ block bien
                 <b>!{product.description}</b>
 
 
-    a(
-        href=`${prefixAdmin}/products/edit-item/${product.id}`
-        class="btn btn-warning btn-sm"
-    ) Sửa
-    
-    script(src="/admin/js/product.js")
+    if(roleAdmin.permissions.includes("products_edit"))    
+        a(
+            href=`${prefixAdmin}/products/edit-item/${product.id}`
+            class="btn btn-warning btn-sm"
+        ) Sửa
+        
+        script(src="/admin/js/product.js")

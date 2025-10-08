@@ -9,10 +9,11 @@ block bien
             .row
                 .col-8 
                 .col-4.text-right
-                    a(
-                        href=`${prefixAdmin}/roles/create`
-                        class="btn btn-outline-success"
-                    ) + Thêm mới
+                    if(roleAdmin.permissions.includes("roles_create"))
+                        a(
+                            href=`${prefixAdmin}/roles/create`
+                            class="btn btn-outline-success"
+                        ) + Thêm mới
             table(
                 class="table table-hover table-sm"
             )
@@ -30,18 +31,29 @@ block bien
                                 td #{item.title}
                                 td #{item.description}
                                 td 
+                                    
                                     a(
                                         class="btn btn-secondary btn-sm"
                                         href=`${prefixAdmin}/roles/details/${item.id}`
                                     ) Chi tiết
-                                    a(
-                                        class="btn btn-warning btn-sm ml-1"
-                                        href=`${prefixAdmin}/roles/edit/${item.id}`
-                                    ) Sửa
-                                    a(
-                                        class="btn btn-danger btn-sm ml-1"
-                                        href=`${prefixAdmin}/roles/delete/${item.id}`
-                                    ) Xóa
+                                    if(roleAdmin.permissions.includes("roles_edit"))
+                                        a(
+                                            class="btn btn-warning btn-sm ml-1"
+                                            href=`${prefixAdmin}/roles/edit/${item.id}`
+                                        ) Sửa
+                                    else 
+                                        span(
+                                            class="btn btn-warning btn-sm ml-1"
+                                        ) Sửa
+                                    if(roleAdmin.permissions.includes("roles_delete"))
+                                        a(
+                                            class="btn btn-danger btn-sm ml-1"
+                                            href=`${prefixAdmin}/roles/delete/${item.id}`
+                                        ) Xóa
+                                    else 
+                                        span(
+                                            class="btn btn-danger btn-sm ml-1"
+                                        ) Xóa
                     else 
                         tr 
                             td(colspan="4" class="text-center") Chưa có nhóm quyền nào được chọn

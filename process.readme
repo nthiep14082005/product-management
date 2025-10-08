@@ -333,4 +333,10 @@ const records = await Account.find(find).select("-password -token"); // -> sử 
 
 
 
-// bat dau bai 33 - nodejs - 28tech 00:22:00ph；
+// bat dau bai 33 - nodejs - 28tech 00:22:00ph； -> update tiếp về authorization và sử dụng includes("key") để hiển thị phân quyền truy cập quyền gì ra giao diện 
+
+
+
+
+
+// bat dau bai 33 - nodejs - 28tech 00:44:00ph； -> tiếp tục authorization nhưng mới chỉ phân quyền truy cập quyền ở phía giao diện tức là không hiển thị nhưng truy cập được router

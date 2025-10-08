@@ -9,27 +9,31 @@ html
         link(rel="stylesheet", href="/admin/css/style.css")
 
     body 
-        include ../partials/header.pug
-        .body 
-            include ../partials/sider.pug
-            div.main   
-                block bien 
 
-    script(src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js")
-    //- <!-- Script element sourcing TinyMCE -->
-    //- script(type="application/javascript", src="/tinymce/tinymce.min.js")
-    script(src="https://cdn.tiny.cloud/1/hrht8i0z5us2vuf3rx6s51dwb27ewcbiqz6o0zf3s9nhpr3g/tinymce/6/tinymce.min.js" referrerpolicy="origin")
+        if(roleAdmin.permissions.length > 0)
 
-    //- <!-- Script element sourcing the TinyMCE configuration -->
-    script(type="application/javascript", src="/admin/js/tinymce-config.js")
+            include ../partials/header.pug
+            .body 
+                include ../partials/sider.pug
+                div.main   
+                    block bien 
+
+            script(src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js")
+            script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js")
+            //- <!-- Script element sourcing TinyMCE -->
+            //- script(type="application/javascript", src="/tinymce/tinymce.min.js")
+            script(src="https://cdn.tiny.cloud/1/hrht8i0z5us2vuf3rx6s51dwb27ewcbiqz6o0zf3s9nhpr3g/tinymce/6/tinymce.min.js" referrerpolicy="origin")
+
+            //- <!-- Script element sourcing the TinyMCE configuration -->
+            script(type="application/javascript", src="/admin/js/tinymce-config.js")
 
 
 
-    script(src="/js/script.js") 
-    script(src="/admin/js/script.js")
-    //- .body và .main là các class trong html và nếu viết là .body thì nó sẽ mặc định là thẻ div 
-    //- ví dụ .body = div.body 
-    //- vd2:        <li class="li-1">Nội dung</li>          ->            i.li-1 Nội dung
-    //- vd3:        <img src="/images/p.jpg" alt="Logo" class="inner-logoi">           ->            img(src="/images/p.jpg", alt="Logo" class="inner-logoi")
-    
+            script(src="/js/script.js") 
+            script(src="/admin/js/script.js")
+            //- .body và .main là các class trong html và nếu viết là .body thì nó sẽ mặc định là thẻ div 
+            //- ví dụ .body = div.body 
+            //- vd2:        <li class="li-1">Nội dung</li>          ->            i.li-1 Nội dung
+            //- vd3:        <img src="/images/p.jpg" alt="Logo" class="inner-logoi">           ->            img(src="/images/p.jpg", alt="Logo" class="inner-logoi")
+        else 
+            h1 Bạn không có quyền truy cập     
