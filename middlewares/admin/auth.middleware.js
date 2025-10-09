@@ -34,3 +34,9 @@ module.exports.requireAuth = async (req, res, next) => { // Bạn có thể đ�
     }
 }
 
+
+
+
+// res.locals.userAdmin = user;
+// res.locals.roleAdmin = role;
+// -> 2 cái biến trên res.locals.userAdmin và res.locals.roleAdmin khi này nó đã là biến toàn cục rồi nên bất cứ trong file nào trong server có tham số res ta đều có thể gọi trực tiếp ra console.log(res.locals.userAdmin);

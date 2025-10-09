@@ -1,5 +1,6 @@
 const Product = require("../../model/product.model");
 const ProductCategory = require("../../model/products-category.model");
+const Account = require("../../model/accounts.model");
 
 
 const systemConfig = require("../../config/system")
@@ -8,6 +9,8 @@ const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const createTREE = require("../../helpers/createTree");
+
+
 
 
 // controller dùng để hiển thị danh sách sản phẩm 
@@ -117,7 +120,14 @@ module.exports.products = async (req,res) => {
     // câu lệnh .limit dùng để giới hạn những phần được hiển thị trong trang ví dụ ở đây là 7
     // console.log(productsInADMIN);
 
-
+    for(const product of productsInADMIN) { // Đoạn code này lặp qua từng sản phẩm trong productsInADMIN để:         ->      Tìm user có _id trùng với account_id của sản phẩm (người tạo sản phẩm).     ->       Nếu tìm thấy user, gán tên đầy đủ của user (user.fullName) vào thuộc tính mới product.userFullName của sản phẩm. -> Mục đích: -> ,Để mỗi sản phẩm hiển thị được tên người tạo ra sản phẩm trên giao diện.
+        const user = await Account.findOne({
+            _id: product.createdBy.account_id
+        });
+        if(user) {
+            product.userFullName = user.fullName;
+        }
+    }
 
     // const filter1 = console.log(filterStatus)
 
@@ -429,7 +439,9 @@ module.exports.createPost = async (req,res) => {
     // http://localhost:3000/uploads/32618f5910de9b3d36405a3cc4a1fa67
 
 
-
+    req.body.createdBy = { // -> ở đây là tạo 1 key tên là createdBy , thứ nhất trùng field model, thứ 2 là để tạo vào trong database 
+        account_id: res.locals.userAdmin.id, // -> khi này bởi vì res.locals.userAdmin đã được lưu vào biến local nên có thể lấy ra được và trỏ vào id để lưu trữ vào trường createdBy trong model là account_id và createdAt thì đã được sinh ra tự động
+    }
 
 
     // Đưa vào database -> nodejs bài 24- 28tech -> 38ph 

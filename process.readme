@@ -340,3 +340,18 @@ const records = await Account.find(find).select("-password -token"); // -> sử 
 
 
 // bat dau bai 33 - nodejs - 28tech 00:44:00ph； -> tiếp tục authorization nhưng mới chỉ phân quyền truy cập quyền ở phía giao diện tức là không hiển thị nhưng truy cập được router
+
+
+
+
+
+
+
+
+
+// bat dau bai 33 - nodejs - 28tech 01:06:00ph； -> Thêm logs lịch sử thay đổi sản phẩm 
+
+
+
+
+// bat dau bai 33 - nodejs - 28tech 01:35:00ph； 

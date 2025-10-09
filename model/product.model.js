@@ -23,6 +23,13 @@ const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 
         slug: "title", // tự động chuyển đổi thành //        /san-pham-11 
         unique: true   //  để slug là duy nhất, Không được trùng slug nếu title giống nhau -> slug duy nhất 
     },
+    createdBy: {
+        account_id: String,
+        createdAt: {
+            type: String,
+            default: Date.now
+        }
+    },
     deleted: { // Ta nên truyền vào dạng object co 2 dạng là type: Boolean tức là kiểu là Boolean nếu người dùng truyền vào, còn nếu ko truyền vào thì có kiểu mặc định được set sẵn là false
         type: Boolean,
         default: false

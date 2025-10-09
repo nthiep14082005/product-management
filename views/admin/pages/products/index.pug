@@ -7,7 +7,7 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/form-delete-multi.pug
 include ../../mixins/form-alert.pug
 include ../../mixins/sortSelectOption.pug
-
+include ../../mixins/moment.pug
 
 block bien
     
@@ -94,6 +94,7 @@ block bien
                         th Giá 
                         th Trạng thái
                         th Vị trí trong kho
+                        th Người tạo
                         th Hành động
                 tbody
                     each item, index in productttInADMIN_1 
@@ -167,6 +168,9 @@ block bien
                                         name="position"
                                         disabled
                                     )
+                            td 
+                                p #{item.userFullName}
+                                +formatDateTime(item.createdBy.createdAt)
                             td(class="td-button")
                                 a(
                                     href=`${prefixAdmin}/products/detail-item/${item.id}`

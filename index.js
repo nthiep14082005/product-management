@@ -8,7 +8,7 @@ const express = require('express');
 // TinyMCE 
 const path = require('path');
 
-
+const moment = require('moment');
 // cài đặt slug nhúng bên model
 
 
@@ -55,7 +55,7 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 const systemConfig = require("./config/system");
 // biến toàn cục
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
-
+app.locals.moment = moment;
 
 
 
