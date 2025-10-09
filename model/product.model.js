@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 
     createdBy: {
         account_id: String,
         createdAt: {
-            type: String,
+            type: Date,
             default: Date.now
         }
     },
@@ -34,7 +34,13 @@ const productSchema = new mongoose.Schema({ // ở đay tức là tạo mới 1 
         type: Boolean,
         default: false
     },
-    deletedAt: Date // thêm trường deletedAt để kiểm tra thời gian xóa -> 23 nodejs 28tech -> 33:57
+    deletedBy: {
+        account_id: String,
+        deletedAt: {
+            type: Date,
+            default: Date.now
+        }
+    },
 }, {timestamps: true}); // bai24 - 28tech - 46ph trong mongoose có sẵn 1 tham số còn lại là timestamps, trong timestamps sẽ 2 thuộc tính là createAt: và updateAt -> nó sẽ tự động update thời gian khi mà nó phát hiện có bản ghi mới được tạo hoặc bản ghi được chỉnh sửa, thay vì khởi tạo thủ công 2 thuộc tính thì ta dùng true nó sẽ tự động khởi tạo
 
 const Product = mongoose.model('Product', productSchema, "products"); // tham số thứ 3 là tên collection trong database 
