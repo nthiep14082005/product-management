@@ -120,6 +120,7 @@ module.exports.products = async (req,res) => {
     // câu lệnh .limit dùng để giới hạn những phần được hiển thị trong trang ví dụ ở đây là 7
     // console.log(productsInADMIN);
 
+    // lấy ra thông in người tạo
     for(const product of productsInADMIN) { // Đoạn code này lặp qua từng sản phẩm trong productsInADMIN để:         ->      Tìm user có _id trùng với account_id của sản phẩm (người tạo sản phẩm).     ->       Nếu tìm thấy user, gán tên đầy đủ của user (user.fullName) vào thuộc tính mới product.userFullName của sản phẩm. -> Mục đích: -> ,Để mỗi sản phẩm hiển thị được tên người tạo ra sản phẩm trên giao diện.
         const user = await Account.findOne({
             _id: product.createdBy.account_id
@@ -128,6 +129,8 @@ module.exports.products = async (req,res) => {
             product.userFullName = user.fullName;
         }
     }
+    // lấy ra thông tin người sửa gần nhất
+    // for()
 
     // const filter1 = console.log(filterStatus)
 
@@ -158,10 +161,16 @@ module.exports.changeStatus = async (req,res) => {
     // console.log(req.body);
 
 
+    const updated = {
+        account_id: res.locals.userAdmin.id,
+        updatedAt: new Date()
+    }
 
 
-
-    await Product.updateOne({_id: idC}, {status: statusC}); // -> 42:00 bai 22 28tech nodejs
+    await Product.updateOne({_id: idC}, {
+        status: statusC,
+        $push: { updatedBy: updated}
+    }); // -> 42:00 bai 22 28tech nodejs
     // -> để update hay làm gì đó với bên database thì ta dùng async await để xử lý trực tiếp vào database 
 
     
@@ -193,14 +202,20 @@ module.exports.changeMulti = async (req,res) => {
     //     Khi middleware xử lý xong, dữ liệu được chuyển thành một đối tượng và gán cho req.body. Khi đó, bạn có thể truy cập các trường dữ liệu mà người dùng đã nhập một cách dễ dàng thông qua req.body.<tên_trường>.
         // có thể hiểu đơn giản hơn là những cái form data khi được submit lên nó sẽ được lưu vào req.body vậy nên khi console.log(req.body) mà undefined thì cần cài thêm một thư viện body-parser
             // ---------------> khi này cần cài thêm một thư viện nữa là body-parser
-    
+    const updated = {
+        account_id: res.locals.userAdmin.id,
+        updatedAt: new Date()
+    }
     
     const type = req.body.type_statuss; // -> ví dụ type_statuss khi gửi form lên là inactive hoặc delete-all thì nó sẽ nhảy vào switch case
     const ids = req.body.id_pproducts.split(", "); // khi bên backend này thì cần convert về dạng array thì dùng .split(", ");
     console.log(req.body);
     switch (type) {
         case "active":
-            await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+            await Product.updateMany({ _id: { $in: ids } }, { 
+                status: "active",
+                $push: { updatedBy: updated}
+            });
             // console.log(ids);
             // for(const item of ids) {
             //     console.log(item);
@@ -208,7 +223,10 @@ module.exports.changeMulti = async (req,res) => {
             req.flash('success', `Cập nhập trạng thái thành công của ${ids.length} sản phẩm`);
             break;
         case "inactive":
-            await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+            await Product.updateMany({ _id: { $in: ids } }, { 
+                status: "inactive",
+                $push: { updatedBy: updated}
+            });
             req.flash('success', `Cập nhập trạng thái thành công của ${ids.length} sản phẩm`);
             break;
         case "delete-all":
@@ -241,8 +259,11 @@ module.exports.changeMulti = async (req,res) => {
                 // console.log(position);
 
 
-                await Product.updateOne({_id: id_p}, {position: position_p}); // bởi vì mỗi một sản phẩm là một position riêng nên cần dùng loop để mỗi lần update sản phẩm riêng chứ ko dùng updateMany là để update nhiều sản phẩm giống nhau
-              });    
+                await Product.updateOne({_id: id_p}, {
+                    position: position_p,
+                    $push: { updatedBy: updated}
+                }); // bởi vì mỗi một sản phẩm là một position riêng nên cần dùng loop để mỗi lần update sản phẩm riêng chứ ko dùng updateMany là để update nhiều sản phẩm giống nhau
+            });    
             req.flash('success', `Cập nhập vị trí thành công của ${ids.length} sản phẩm`);
 
         default:
@@ -309,7 +330,23 @@ module.exports.editItems = async (req, res) => {
     // };
 
     try {
-        await Product.updateOne({ _id: req.params.id}, req.body);
+
+        const updated = {
+            account_id: res.locals.userAdmin.id,
+            updatedAt: new Date()
+        }
+
+        // // nếu sử dụng như sau 
+        // req.body.updatedBy = updated; // -> bị ghi đè
+        
+        // -> cách sử dụng như sau 
+
+
+
+        await Product.updateOne({ _id: req.params.id}, { // -> 28tech bài 34 -> phút thứ 20
+            ...req.body,                                  // tức là ... nó cũng tương tự req.body nhưng mà khi này nó sẽ có thể cập nhập được từng trường riêng biệt như sử dụng $push để thêm logs lịch sử cập nhập mỗi lần
+            $push: { updatedBy: updated}
+        });
         req.flash('success', `Cập nhập sản phẩm thành công`);
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/products`);
@@ -328,9 +365,31 @@ module.exports.detailsItem = async (req,res) => {
         };
         const products = await Product.findOne(find);
 
+        // Khi bạn dùng findOne, kết quả trả về là một object (một sản phẩm duy nhất).
+        // → Bạn không thể lặp qua object này bằng vòng lặp như for...of.
+
+        // Khi bạn dùng find, kết quả trả về là một mảng các object (nhiều sản phẩm).
+        // → Bạn có thể lặp qua từng phần tử trong mảng này bằng for...of, forEach, v.v.
+        let updatedUsers = [];
+        if (products.updatedBy && products.updatedBy.length > 0) {
+            for (const update of products.updatedBy) {
+                const user = await Account.findOne({ _id: update.account_id });
+                if (user) {
+                    updatedUsers.push({
+                        userFullName: user.fullName,
+                        updatedAt: update.updatedAt,
+                        account_id: update.account_id,
+                        // account_id: user.account_id
+                    });
+                }
+            }
+        }
+        updatedUsers.sort((a, b) => b.updatedAt - a.updatedAt).slice(0,50); // -> hàm và cú pháp có sẵn sort trong js
+
         res.render("admin/pages/products/detail-items", {
             pageTitle_1: products.title,
-            product: products
+            product: products,
+            updatedUsers: updatedUsers
         });
         // console.log(product);
 

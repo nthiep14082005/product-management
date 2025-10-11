@@ -27,7 +27,7 @@ module.exports.requireAuth = async (req, res, next) => { // Bạn có thể đ�
                 _id: user.role_id
             }).select("title permissions");
             // app.locals.userAdmin = user; // -> không sử dụng được từ app bởi vì trong này ko có định nghĩa app mà trong index.js đầu thì dùng được bởi đã định nghĩa nhưng 
-            res.locals.userAdmin = user; // -> có thể sử dụng được res để tạo biến toàn cục sử dụng trực tiếp trong file pug bởi vì tham số thứ 2 là res -> tức là phản hồi, mà phản hồi thì sẽ trả về được 
+            res.locals.userAdmin = user; // -> có thể sử dụng được res để tạo biến toàn cục sử dụng trực tiếp trong file pug bởi vì tham số thứ 2 là res -> tức là phản hồi, mà phản hồi thì sẽ trả về được , và có thể sử dụng trong file controller hoặc bất cứ hàm nào có tham số res
             res.locals.roleAdmin = role;
             next();
         }

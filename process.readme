@@ -354,4 +354,181 @@ const records = await Account.find(find).select("-password -token"); // -> sử 
 
 
 
-// bat dau bai 33 - nodejs - 28tech 01:35:00ph； 
+// bat dau bai 33 - nodejs - 28tech 01:35:00ph； -> Thêm logs xóa sản phẩm
+
+
+
+
+
+
+
+
+
+
+// bat dau bai 34 - nodejs - 28tech 00:00:00ph； -> thêm logs sửa sản phẩm -> nhiều người sửa nên sẽ phải vào từng phần của controller ví dụ như edit, update các thứ để sửa từng cái 1 cho hiển thị người nào đã làm gì
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tóm tắt 2 cách lưu mảng trong Mongoose
+1. Lưu mảng các object
+updatedBy: [
+    {
+        account_id: String,
+        updatedAt: Date
+    }
+]
+Dùng để: Lưu nhiều thông tin cho mỗi phần tử (ví dụ: ai cập nhật, thời gian cập nhật).
+Chi tiết: Mỗi phần tử là một object, có thể chứa nhiều trường.
+Nên dùng khi: Cần lưu lịch sử, nhiều thuộc tính cho mỗi lần cập nhật, mỗi phần tử cần nhiều thông tin.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+2. Lưu mảng đơn giản (Array hoặc [String])
+permissions: {
+    type: Array,
+    default: []
+}
+// hoặc
+permissions: {
+    type: [String],
+    default: []
+}
+Dùng để: Lưu danh sách giá trị đơn giản (ví dụ: danh sách quyền).
+Chi tiết: Mỗi phần tử là một giá trị (chuỗi, số, v.v.). Nếu dùng [String] thì chỉ cho phép chuỗi.
+Nên dùng khi: Chỉ cần lưu danh sách các giá trị đơn giản, không cần nhiều thông tin cho mỗi phần tử.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+Khi nào nên dùng?
+Mảng object: Khi mỗi phần tử cần lưu nhiều thông tin (lịch sử, chi tiết).
+Mảng đơn giản: Khi chỉ cần lưu danh sách giá trị (quyền, tag, v.v.), nên dùng [String] để kiểm soát kiểu dữ liệu.
+Tóm lại:
+
+Mảng object: lưu nhiều thông tin cho mỗi phần tử.
+Mảng đơn giản: lưu danh sách giá trị, dùng khi chỉ cần giá trị đơn.Khi nào nên dùng?
+Mảng object: Khi mỗi phần tử cần lưu nhiều thông tin (lịch sử, chi tiết).
+Mảng đơn giản: Khi chỉ cần lưu danh sách giá trị (quyền, tag, v.v.), nên dùng [String] để kiểm soát kiểu dữ liệu.
+Tóm lại:
+
+Mảng object: lưu nhiều thông tin cho mỗi phần tử.
+Mảng đơn giản: lưu danh sách giá trị, dùng khi chỉ cần giá trị đơn.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// bat dau bai 34 - nodejs - 28tech 00:00:00ph； -> thêm logs sửa sản phẩm -> nhiều người sửa nên sẽ phải vào từng phần của controller ví dụ như edit, update các thứ để sửa từng cái 1 cho hiển thị người nào đã làm gì
+...req.body: Dùng để cập nhật các trường sản phẩm theo dữ liệu người dùng gửi lên (ví dụ: tên, giá, mô tả...).
+$push: { updatedBy: updated }: Thêm một object mới vào mảng updatedBy trong sản phẩm, giúp lưu lịch sử chỉnh sửa (ai sửa, lúc nào).
+Tạo biến updated với các trường account_id và updatedAt để lưu thông tin người sửa và thời gian sửa, đảm bảo mỗi lần chỉnh sửa đều được ghi lại mà không ghi đè các lần trước.
+const updated = {
+        account_id: res.locals.userAdmin.id, // Lưu id người sửa sản phẩm
+        updatedAt: new Date()                // Lưu thời gian sửa sản phẩm
+    }
+
+    await Product.updateOne(
+        { _id: req.params.id },
+        {
+            ...req.body,                     // Cập nhật các trường sản phẩm theo dữ liệu form gửi lên, nếu chỉ
+            $push: { updatedBy: updated }    // Thêm một lần chỉnh sửa mới vào mảng updatedBy (không ghi đè các lần trước)
+        }
+    );
+tức là ... nó cũng tương tự req.body nhưng mà khi này nó sẽ có thể cập nhập được từng trường riêng biệt như sử dụng $push để thêm logs lịch sử cập nhập mỗi lần
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Khi bạn dùng findOne, kết quả trả về là một object (một sản phẩm duy nhất).
+→ Bạn không thể lặp qua object này bằng vòng lặp như for...of.
+
+Khi bạn dùng find, kết quả trả về là một mảng các object (nhiều sản phẩm).
+→ Bạn có thể lặp qua từng phần tử trong mảng này bằng for...of, forEach, v.v.Khi bạn dùng findOne, kết quả trả về là một object (một sản phẩm duy nhất).
+→ Bạn không thể lặp qua object này bằng vòng lặp như for...of.
+
+Khi bạn dùng find, kết quả trả về là một mảng các object (nhiều sản phẩm).
+→ Bạn có thể lặp qua từng phần tử trong mảng này bằng for...of, forEach, v.v.
+tức là nếu nó là một mảng thì cách lặp qua giữ nguyên và khi này vẫn phải tạo 1 mảng để lưu trữ danh sách người sửa đổi
+const products = await Product.findOne(find);
+let updatedUsers = [];
+        if (products.updatedBy && products.updatedBy.length > 0) {
+            for (const update of products.updatedBy) { // --------------> bởi vì không thể lặp qua được products do products là 1 object chứu ko phải mảng nên lặp qua mảng createdBy bởi vì nó đã được lưu dạng array do sử dụng ...req.body, $push: { updatedAt: updated}
+            // khi này lặp qua các phần tử trong updatedBy vvaf lấy được thì từng vòng lặp ta sẽ tìm kiếm account có id giống với account_id trong updatedBy và push vào 1 mảng 
+            // khi này có mảng thì truy vấn bên giao diện được
+                const user = await Account.findOne({ _id: update.account_id });
+                if (user) {
+                    updatedUsers.push({
+                        userFullName: user.fullName,
+                        updatedAt: update.updatedAt
+                    });
+                }
+            }
+        }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+còn bởi vì người tạo thì chỉ có 1 người nên chỉ cần trả trực tiếp object là được chứ ko cần mảng đúng không
+const productsInADMIN = await Product.find(find)
+for(const product of productsInADMIN) { // Đoạn code này lặp qua từng sản phẩm trong productsInADMIN để:         ->      Tìm user có _id trùng với account_id của sản phẩm (người tạo sản phẩm).     ->       Nếu tìm thấy user, gán tên đầy đủ của user (user.fullName) vào thuộc tính mới product.userFullName của sản phẩm. -> Mục đích: -> ,Để mỗi sản phẩm hiển thị được tên người tạo ra sản phẩm trên giao diện.
+        const user = await Account.findOne({
+            _id: product.createdBy.account_id
+        });
+        if(user) {
+            product.userFullName = user.fullName;
+        }
+    }
+
+
+
+
+
+// bat dau bai 34 - nodejs - 28tech 00:42:00ph； 
+
+
+
+
+
+
+
+
+
+
+
+

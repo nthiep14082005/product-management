@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug
+include ../../mixins/moment.pug
 
 block bien
     if(product.title) 
@@ -40,6 +41,11 @@ block bien
         div(class="mb-4")
             span Giới thiệu sản phẩm: 
                 <b>!{product.description}</b>
+    each item in updatedUsers
+        ul Người sửa đổi và ngày sửa đổi
+            //- li #{item.account_id} 
+            li #{item.userFullName} 
+            +formatDateTime(item.updatedAt)
 
 
     if(roleAdmin.permissions.includes("products_edit"))    
